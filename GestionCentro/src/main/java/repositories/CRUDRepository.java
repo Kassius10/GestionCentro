@@ -1,6 +1,7 @@
 package repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interfaz CRUD para los repositorios.
@@ -21,7 +22,7 @@ public interface CRUDRepository<T,ID> {
      * @param id Id del elemento
      * @return Devuelve el elemento.
      */
-    T findById(ID id);
+    Optional<T> findById(ID id);
 
     /**
      * Función para salvar un elemento en el repositorio.

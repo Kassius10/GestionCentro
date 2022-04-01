@@ -26,6 +26,26 @@ public class Alumno {
     }
 
     /**
+     * Constructor de alumno con parámetros
+     * @param dni Dni que le daremos.
+     * @param name Nombre que tendrá el alumno
+     * @param serNames Apellidos que tendrá el alumno.
+     * @param email Email que tendrá el alumno.
+     * @param phone Teléfono que tendrá el alumno.
+     * @param hasLoseEvaluation Indicamos si ha perdido la evaluación o no.
+     */
+    public Alumno(String dni, String name, String serNames, String email, String phone, boolean hasLoseEvaluation){
+        this.id = contador++;
+        this.dni=dni;
+        this.name=name;
+        this.serNames=serNames;
+        this.email=email;
+        this.phone=phone;
+        this.hasLoseEvaluation=hasLoseEvaluation;
+        registrationDate= LocalDate.now(); //TODO cambiar el formato de la fecha a DD/MM/YYYY
+    }
+
+    /**
      * Función que devuelve el id del alumno.
      * @return Devuelve el id.
      */
