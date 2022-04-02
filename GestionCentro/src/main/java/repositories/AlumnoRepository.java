@@ -1,5 +1,6 @@
 package repositories;
 
+import exceptions.AlumnoException;
 import models.Alumno;
 
 import java.util.ArrayList;
@@ -28,8 +29,13 @@ public class AlumnoRepository implements IRepository {
      * @return Devuelve el alumno si se encuentra en el repositorio o null si no.
      */
     @Override
-    public Optional<Alumno> findById(Integer id) {
-        return Optional.of(alumnos.get(id));
+    public Optional<Alumno> findById(Integer id) throws AlumnoException {
+        var alumno = alumnos.get(id);
+        if (alumno == null) {
+            Optional.empty();
+            throw new AlumnoException("No existe el alumno con id "+ id);
+        }
+        return Optional.of(alumno);
     }
 
     /**
@@ -38,9 +44,9 @@ public class AlumnoRepository implements IRepository {
      * @return Devuelve el alumno que hemos añadido.
      */
     @Override
-    public Alumno save(Alumno alumno) {
+    public Optional<Alumno> save(Alumno alumno) {
         this.alumnos.put(alumno.getId(),alumno);
-        return alumno;
+        return Optional.of(alumno);
     }
 
     /**
@@ -50,9 +56,9 @@ public class AlumnoRepository implements IRepository {
      * @return Devuelve el alumno modificado.
      */
     @Override
-    public Alumno update(Integer id, Alumno alumno) {
+    public Optional<Alumno> update(Integer id, Alumno alumno) {
         this.alumnos.put(id,alumno);
-        return alumno;
+        return Optional.of(alumno);
     }
 
     /**
@@ -61,8 +67,8 @@ public class AlumnoRepository implements IRepository {
      * @return Devuelve el alumno que hemos eliminado.
      */
     @Override
-    public Alumno delete(Integer id) {
-        return this.alumnos.remove(id);
+    public Optional<Alumno> delete(Integer id) {
+        return Optional.of(this.alumnos.remove(id));
     }
 
     /**

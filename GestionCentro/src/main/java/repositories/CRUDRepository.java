@@ -1,5 +1,7 @@
 package repositories;
 
+import exceptions.AlumnoException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +24,7 @@ public interface CRUDRepository<T,ID> {
      * @param id Id del elemento
      * @return Devuelve el elemento.
      */
-    Optional<T> findById(ID id);
+    Optional<T> findById(ID id) throws AlumnoException;
 
     /**
      * Función para salvar un elemento en el repositorio.
@@ -30,7 +32,7 @@ public interface CRUDRepository<T,ID> {
      * @param entity Elemento que insertamos en el repositorio.
      * @return Devuelve el objeto que hemos salvado.
      */
-    T save(T entity);
+    Optional<T> save(T entity);
 
     /**
      *  Función que actualiza un elemento del repositorio.
@@ -39,7 +41,7 @@ public interface CRUDRepository<T,ID> {
      * @param entity Elemento ya actualizado.
      * @return Devuelve el elemento actualizado.
      */
-    T update(ID id,T entity);
+    Optional<T> update(ID id,T entity);
 
     /**
      * Función para eliminar un elemento del repositorio.
@@ -47,5 +49,5 @@ public interface CRUDRepository<T,ID> {
      * @param id Id del elemento que vamos a eliminar.
      * @return Devuelve el elemento que hemos eliminado.
      */
-    T delete(ID id);
+    Optional<T> delete(ID id);
 }

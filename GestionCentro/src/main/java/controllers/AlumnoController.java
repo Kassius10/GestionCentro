@@ -5,7 +5,6 @@ import models.Alumno;
 import repositories.IRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Clase que controla los alumnos.
@@ -40,12 +39,9 @@ public class AlumnoController {
      * @return Devuelve el alumno si existe con el dni indicado.
      * @throws AlumnoException Excepción si no existe un alumno con el dni.
      */
-    public Optional<Alumno> getAlumnByDni(String dni) throws AlumnoException {
-        var alumno = alumnos.findByDni(dni);
-        if (!alumno.isEmpty()){
-            return alumno;
-        }
-        throw new AlumnoException("No existe un alumno con dni " + dni);
+    public Alumno getAlumnByDni(String dni) throws AlumnoException {
+        var alumno = alumnos.findByDni(dni).orElseThrow(()-> new AlumnoException("No existe un alumno con dni " + dni));
+        return alumno;
     }
 
     /**
@@ -64,7 +60,7 @@ public class AlumnoController {
      */
     public Alumno insertAlumno(Alumno alumno) throws AlumnoException {
         var exist= alumnos.findByDni(alumno.getDni());
-        if (exist== null){
+        if (exist.isEmpty()){
             alumnos.save(alumno);
             return alumno;
         }
@@ -79,12 +75,12 @@ public class AlumnoController {
      * @throws AlumnoException Excepción si existe un alumno con el mismo dni.
      */
     public Alumno updateAlumno(int id, Alumno alumno) throws AlumnoException {
-        var alumn= alumnos.findByDni(alumno.getDni()).orElseThrow(()-> new AlumnoException("Ya existe"));
-        if (alumn != null || alumno.getId() == alumn.getId()){
+        var alumn= alumnos.findByDni(alumno.getDni());
+        if (alumn.isEmpty() || alumno.getId() == alumn.get().getId()){
             alumnos.update(id,alumno);
             return alumno;
         }
-        throw new AlumnoException("Ya existe un alumno con dni "+ alumn.getDni());
+        throw new AlumnoException("Ya existe un alumno con dni "+ alumn.get().getDni());
     }
 
     /**
@@ -94,12 +90,9 @@ public class AlumnoController {
      * @throws AlumnoException Excepción si no existe el alumno.
      */
     public Alumno deletAlumno(String dni) throws AlumnoException {
-        var alumno= alumnos.findByDni(dni).orElseThrow(()-> new AlumnoException("No existe"));
-        if (alumno!= null){
-            alumnos.delete(alumno.getId());
-            return alumno;
-        }
-        throw new AlumnoException("No existe el alumno con dni " + dni);
+        var alumno= alumnos.findByDni(dni).orElseThrow(()-> new AlumnoException("No existe el alumno con dni " + dni));
+        alumnos.delete(alumno.getId());
+        return alumno;
     }
 
 }
