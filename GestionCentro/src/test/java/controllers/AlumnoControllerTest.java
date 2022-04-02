@@ -2,12 +2,10 @@ package controllers;
 
 import exceptions.AlumnoException;
 import models.Alumno;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import repositories.AlumnoRepository;
 
@@ -28,7 +26,7 @@ class AlumnoControllerTest {
     private final Alumno alumno = new Alumno()
             .name("Dani")
             .dni("123456")
-            .serNames("Apellido")
+            .surNames("Apellido")
             .email("correo")
             .phone("123456")
             .hasLoseEvaluation(true);
@@ -45,7 +43,7 @@ class AlumnoControllerTest {
                 () -> assertEquals(lista1.get(0).getId(), alumno.getId()),
                 () -> assertEquals(lista1.get(0).getDni(), alumno.getDni()),
                 () -> assertEquals(lista1.get(0).getName(), alumno.getName()),
-                () -> assertEquals(lista1.get(0).getSerNames(), alumno.getSerNames()),
+                () -> assertEquals(lista1.get(0).getSurNames(), alumno.getSurNames()),
                 () -> assertEquals(lista1.get(0).getEmail(), alumno.getEmail()),
                 () -> assertEquals(lista1.get(0).getPhone(), alumno.getPhone()),
                 () -> assertEquals(lista1.get(0).getRegistrationDate(), alumno.getRegistrationDate()),
@@ -66,7 +64,7 @@ class AlumnoControllerTest {
         assertAll(
                 ()->assertEquals(aux.getDni(), alumno.getDni()),
                 ()->assertEquals(aux.getName(), alumno.getName()),
-                ()->assertEquals(aux.getSerNames(), alumno.getSerNames()),
+                ()->assertEquals(aux.getSurNames(), alumno.getSurNames()),
                 ()->assertEquals(aux.getEmail(), alumno.getEmail()),
                 ()->assertEquals(aux.getPhone(), alumno.getPhone()),
                 ()->assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
@@ -97,7 +95,7 @@ class AlumnoControllerTest {
         assertAll(
                 ()->assertEquals(aux.getDni(), alumno.getDni()),
                 ()->assertEquals(aux.getName(), alumno.getName()),
-                ()->assertEquals(aux.getSerNames(), alumno.getSerNames()),
+                ()->assertEquals(aux.getSurNames(), alumno.getSurNames()),
                 ()->assertEquals(aux.getEmail(), alumno.getEmail()),
                 ()->assertEquals(aux.getPhone(), alumno.getPhone()),
                 ()->assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
@@ -128,7 +126,7 @@ class AlumnoControllerTest {
         assertAll(
                 ()->assertEquals(aux.getDni(), alumno.getDni()),
                 ()->assertEquals(aux.getName(), alumno.getName()),
-                ()->assertEquals(aux.getSerNames(), alumno.getSerNames()),
+                ()->assertEquals(aux.getSurNames(), alumno.getSurNames()),
                 ()->assertEquals(aux.getEmail(), alumno.getEmail()),
                 ()->assertEquals(aux.getPhone(), alumno.getPhone()),
                 ()->assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
@@ -160,7 +158,7 @@ class AlumnoControllerTest {
         assertAll(
                 ()->assertEquals(aux.getDni(), alumno.getDni()),
                 ()->assertEquals(aux.getName(), alumno.getName()),
-                ()->assertEquals(aux.getSerNames(), alumno.getSerNames()),
+                ()->assertEquals(aux.getSurNames(), alumno.getSurNames()),
                 ()->assertEquals(aux.getEmail(), alumno.getEmail()),
                 ()->assertEquals(aux.getPhone(), alumno.getPhone()),
                 ()->assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
@@ -181,7 +179,7 @@ class AlumnoControllerTest {
         assertAll(
                 ()->assertEquals(aux.getDni(), alumno.getDni()),
                 ()->assertEquals(aux.getName(), alumno.getName()),
-                ()->assertEquals(aux.getSerNames(), alumno.getSerNames()),
+                ()->assertEquals(aux.getSurNames(), alumno.getSurNames()),
                 ()->assertEquals(aux.getEmail(), alumno.getEmail()),
                 ()->assertEquals(aux.getPhone(), alumno.getPhone()),
                 ()->assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),

@@ -10,22 +10,28 @@ public class MainView {
                 "3- Gestionar Pruebas de evaluación\n" +
                 "0- Salir");
 
-        boolean ok;
-        do {
-            var option= Input.readString("¿Qué desea hacer?: ");
-            ok= setOption(option);
+        var option= setOption();
 
-        }while(!ok);
+        switch(option){
+            case 1:
+                AlumnoView view= AlumnoView.getInstance();
+            break;
 
+            default:
+                System.out.println("Na");
+            break;
+        }
 
     }
 
-    private static boolean setOption(String option) {
+    private static int setOption() {
         var regex= "[0-3]";
-        if (option.matches(regex)){
-            return true;
-        }
-        System.out.println("Error.");
-        return false;
+        String option;
+        do {
+            option= Input.readString("¿Qué desea hacer?: ");
+            if (!option.matches(regex)) System.out.println("Error.");
+        }while(!option.matches(regex));
+
+        return Integer.parseInt(option);
     }
 }

@@ -16,7 +16,7 @@ class AlumnoRepositoryTest {
     private final Alumno alumno = new Alumno()
             .name("Dani")
             .dni("123456")
-            .serNames("Apellido")
+            .surNames("Apellido")
             .email("correo")
             .phone("123456")
             .hasLoseEvaluation(true);
@@ -40,7 +40,7 @@ class AlumnoRepositoryTest {
                 () -> assertEquals(lista2.get(0).getId(), alumno.getId()),
                 () -> assertEquals(lista2.get(0).getDni(), alumno.getDni()),
                 () -> assertEquals(lista2.get(0).getName(), alumno.getName()),
-                () -> assertEquals(lista2.get(0).getSerNames(), alumno.getSerNames()),
+                () -> assertEquals(lista2.get(0).getSurNames(), alumno.getSurNames()),
                 () -> assertEquals(lista2.get(0).getEmail(), alumno.getEmail()),
                 () -> assertEquals(lista2.get(0).getPhone(), alumno.getPhone()),
                 () -> assertEquals(lista2.get(0).getRegistrationDate(), alumno.getRegistrationDate()),
@@ -56,7 +56,7 @@ class AlumnoRepositoryTest {
         assertAll(
                 ()-> assertEquals(alumnoEncontrado.get().getId(), alumno.getId()),
                 ()-> assertEquals(alumnoEncontrado.get().getName(), alumno.getName()),
-                ()->assertEquals(alumnoEncontrado.get().getSerNames(), alumno.getSerNames()),
+                ()->assertEquals(alumnoEncontrado.get().getSurNames(), alumno.getSurNames()),
                 ()->assertEquals(alumnoEncontrado.get().getDni(), alumno.getDni()),
                 ()->assertEquals(alumnoEncontrado.get().getEmail(), alumno.getEmail()),
                 ()->assertEquals(alumnoEncontrado.get().getPhone(), alumno.getPhone()),
@@ -78,7 +78,7 @@ class AlumnoRepositoryTest {
         assertAll(
                 ()-> assertEquals(alumnoEncontrado.get().getId(), alumno.getId()),
                 ()-> assertEquals(alumnoEncontrado.get().getName(), alumno.getName()),
-                ()->assertEquals(alumnoEncontrado.get().getSerNames(), alumno.getSerNames()),
+                ()->assertEquals(alumnoEncontrado.get().getSurNames(), alumno.getSurNames()),
                 ()->assertEquals(alumnoEncontrado.get().getDni(), alumno.getDni()),
                 ()->assertEquals(alumnoEncontrado.get().getEmail(), alumno.getEmail()),
                 ()->assertEquals(alumnoEncontrado.get().getPhone(), alumno.getPhone()),
@@ -101,7 +101,7 @@ class AlumnoRepositoryTest {
                 ()->assertEquals(aux.get().getId(),alumno.getId()),
                 ()->assertEquals(aux.get().getDni(),alumno.getDni()),
                 ()->assertEquals(aux.get().getName(),alumno.getName()),
-                ()->assertEquals(aux.get().getSerNames(),alumno.getSerNames()),
+                ()->assertEquals(aux.get().getSurNames(),alumno.getSurNames()),
                 ()->assertEquals(aux.get().getEmail(),alumno.getEmail()),
                 ()->assertEquals(aux.get().getPhone(),alumno.getPhone()),
                 ()->assertEquals(aux.get().getRegistrationDate(),alumno.getRegistrationDate()),
@@ -115,7 +115,7 @@ class AlumnoRepositoryTest {
         repository.save(alumno);
         alumno.setDni("1234");
         alumno.setName("Manolo");
-        alumno.setSerNames("Nuevo");
+        alumno.setSurNames("Nuevo");
         alumno.setEmail("nuevocorreo");
         alumno.setPhone("45678");
         alumno.setHasLoseEvaluation(false);
@@ -128,7 +128,7 @@ class AlumnoRepositoryTest {
                 ()->assertEquals(aux.get().getId(),alumno.getId()),
                 ()->assertEquals(aux.get().getDni(),alumno.getDni()),
                 ()->assertEquals(aux.get().getName(),alumno.getName()),
-                ()->assertEquals(aux.get().getSerNames(),alumno.getSerNames()),
+                ()->assertEquals(aux.get().getSurNames(),alumno.getSurNames()),
                 ()->assertEquals(aux.get().getEmail(),alumno.getEmail()),
                 ()->assertEquals(aux.get().getPhone(),alumno.getPhone()),
                 ()->assertEquals(aux.get().getRegistrationDate(),alumno.getRegistrationDate()),
@@ -145,7 +145,7 @@ class AlumnoRepositoryTest {
                 ()->assertEquals(aux.get().getId(),alumno.getId()),
                 ()->assertEquals(aux.get().getDni(),alumno.getDni()),
                 ()->assertEquals(aux.get().getName(),alumno.getName()),
-                ()->assertEquals(aux.get().getSerNames(),alumno.getSerNames()),
+                ()->assertEquals(aux.get().getSurNames(),alumno.getSurNames()),
                 ()->assertEquals(aux.get().getEmail(),alumno.getEmail()),
                 ()->assertEquals(aux.get().getPhone(),alumno.getPhone()),
                 ()->assertEquals(aux.get().getRegistrationDate(),alumno.getRegistrationDate())
