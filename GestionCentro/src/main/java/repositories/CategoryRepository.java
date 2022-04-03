@@ -12,7 +12,9 @@ import java.util.TreeMap;
  * añadiendo al mismo.
  */
 
-public class CategoryRepository extends TreeMap<String, Categories> implements ICategoryRepository {
+public class CategoryRepository implements ICategoryRepository {
+
+    private final TreeMap<String, Categories> categoRep = new TreeMap<>();
 
     /**
      * Lista todas las Categorías existentes
@@ -21,7 +23,7 @@ public class CategoryRepository extends TreeMap<String, Categories> implements I
      */
     @Override
     public List<Categories> findAll() {
-            return new ArrayList<>(this.values());
+            return new ArrayList<>(this.categoRep.values());
     }
 
     /**
@@ -32,8 +34,8 @@ public class CategoryRepository extends TreeMap<String, Categories> implements I
      */
 
     @Override
-    public Categories insert(Categories category) {
-        this.put(category.getName(), category);
+    public Categories save(Categories category) {
+        this.categoRep.put(category.getName(), category);
         return category;
     }
 
@@ -45,10 +47,10 @@ public class CategoryRepository extends TreeMap<String, Categories> implements I
      */
 
     @Override
-    public Categories update(Categories category) {
-        var categoryFound = this.get(category.getName());
+    public Categories updated(Categories category) {
+        var categoryFound = this.categoRep.get(category.getName());
         if (categoryFound != null){
-            this.put(category.getName(), category);
+            this.categoRep.put(category.getName(), category);
         }
         return category;
     }
@@ -60,7 +62,19 @@ public class CategoryRepository extends TreeMap<String, Categories> implements I
      * @return la categoría encontraada
      */
     @Override
-    public Categories findByNombre(String name ) {
-        return this.get(name);
+    public Categories findByName(String name ) {
+        return this.categoRep.get(name);
     }
+
+//    @Override
+//    public boolean isEmpty(Categories category) {
+//
+//        var categoryFound = this.categoRep.get(category.getName());
+//
+//        return categoryFound.getName() == null;
+//
+//
+//    }
+
+
 }

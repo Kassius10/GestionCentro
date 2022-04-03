@@ -11,10 +11,13 @@ import java.util.List;
 public interface ICRUDRepository<T, ID> {
     List<T> findAll();
 
-    T insert(T entity);
+    T save(T entity);
 
-    T update(T entity);
+    T updated(T entity);
 
-    T findByNombre(ID id);
+    T findByName(ID id);
+
+//    boolean isEmpty(T entity);
+
 
 }

@@ -15,7 +15,7 @@ public class Alumno {
     private String email;
     private String phone;
     private boolean hasLoseEvaluation;
-    private LocalDate registrationDate;
+    private final LocalDate registrationDate;
 
     /**
      * Método constructor de Alumno.
