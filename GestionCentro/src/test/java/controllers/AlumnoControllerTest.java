@@ -23,14 +23,14 @@ class AlumnoControllerTest {
     @InjectMocks
     private AlumnoController controller;
 
-    private final Alumno alumno = new Alumno()
-            .name("Dani")
-            .dni("123456")
-            .surNames("Apellido")
-            .email("correo")
-            .phone("123456")
-            .hasLoseEvaluation(true);
-
+    private final Alumno alumno = new Alumno(
+            "12345678a",
+            "dani",
+            "lopez sanchez",
+            "d@d.com",
+            "666-666666",
+            true
+    );
 
     @Test
     void getAllAlumnos(){
@@ -191,8 +191,9 @@ class AlumnoControllerTest {
     }
 
     @Test
-    void updateAlumnoExistsExceptionTest(){
-        Alumno al = new Alumno().dni("123456");
+    void updateAlumnoExistsExceptionTest() throws AlumnoException {
+        Alumno al = new Alumno();
+        al.setDni("12345678a");
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.of(alumno));
 
 
