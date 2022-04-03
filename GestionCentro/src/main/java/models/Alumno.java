@@ -11,7 +11,7 @@ public class Alumno {
     private static int contador=1;
     private String dni;
     private String name;
-    private String serNames;
+    private String surNames;
     private String email;
     private String phone;
     private boolean hasLoseEvaluation;
@@ -22,6 +22,26 @@ public class Alumno {
      */
     public Alumno(){
         this.id = contador++;
+        registrationDate= LocalDate.now(); //TODO cambiar el formato de la fecha a DD/MM/YYYY
+    }
+
+    /**
+     * Constructor de alumno con parámetros
+     * @param dni Dni que le daremos.
+     * @param name Nombre que tendrá el alumno
+     * @param surNames Apellidos que tendrá el alumno.
+     * @param email Email que tendrá el alumno.
+     * @param phone Teléfono que tendrá el alumno.
+     * @param hasLoseEvaluation Indicamos si ha perdido la evaluación o no.
+     */
+    public Alumno(String dni, String name, String surNames, String email, String phone, boolean hasLoseEvaluation){
+        this.id = contador++;
+        this.dni=dni;
+        this.name=name;
+        this.surNames = surNames;
+        this.email=email;
+        this.phone=phone;
+        this.hasLoseEvaluation=hasLoseEvaluation;
         registrationDate= LocalDate.now(); //TODO cambiar el formato de la fecha a DD/MM/YYYY
     }
 
@@ -77,16 +97,16 @@ public class Alumno {
      * Función que devuelve los apellidos del alumno.
      * @return Devuelve los apellidos.
      */
-    public String getSerNames() {
-        return serNames;
+    public String getSurNames() {
+        return surNames;
     }
 
     /**
      * Procedimiento que permite indicarle los apellidos del alumno.
-     * @param serNames Apellidos que le daremos.
+     * @param surNames Apellidos que le daremos.
      */
-    public void setSerNames(String serNames) {
-        this.serNames = serNames;
+    public void setSurNames(String surNames) {
+        this.surNames = surNames;
     }
 
     /**
@@ -180,8 +200,8 @@ public class Alumno {
      * @param serNames Apellidos que le añadiremos al alumno
      * @return devuelve el propio alumno.
      */
-    public Alumno serNames(String serNames) {
-        this.serNames = serNames;
+    public Alumno surNames(String serNames) {
+        this.surNames = serNames;
         return this;
     }
 
@@ -225,7 +245,7 @@ public class Alumno {
                 "id=" + id +
                 ", dni='" + dni + '\'' +
                 ", name='" + name + '\'' +
-                ", serNames='" + serNames + '\'' +
+                ", serNames='" + surNames + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", hasLoseEvaluation=" + hasLoseEvaluation +

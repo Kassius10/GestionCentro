@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repositories.CategoryRepository;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryRepositoryTest {
@@ -56,8 +58,8 @@ class CategoryRepositoryTest {
                 var founded = categoryRepository.findByName(secondCategory.getName());
 
             assertAll(
-                    () -> assertEquals(result.getName(), secondCategory.getName()),
-                    () -> assertEquals(founded.getName(), result.getName())
+                    () -> assertEquals(result.get().getName(), secondCategory.getName()),
+                    () -> assertEquals(founded.get().getName(), result.get().getName())
 
             );
         }
@@ -68,12 +70,13 @@ class CategoryRepositoryTest {
      */
     @Test
         void update(){
-            category.setName("Examen_02_2022");
-            //Actualizamos el nombre de la categoría
-                var result = categoryRepository.updated(category);
+
+                var result = categoryRepository.updated( "Examen03_DAM", category);
+
+                Optional<Categories> categoriesFound = categoryRepository.findByName("Examen03_DAM");
 
             assertAll(
-                    () -> assertEquals(result.getName(), category.getName())
+                    () -> assertEquals(categoriesFound.get().getName(), category.getName())
             );
 
     }
@@ -88,7 +91,7 @@ class CategoryRepositoryTest {
 
 
         assertAll(
-                () -> assertEquals(result.getName(), category.getName()),
+                () -> assertEquals(result.get().getName(), category.getName()),
                 () -> assertTrue(result.toString().equals(category.toString()))
         );
 
