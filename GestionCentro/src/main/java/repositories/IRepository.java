@@ -2,8 +2,6 @@ package repositories;
 
 import models.Alumno;
 
-import java.util.Optional;
-
 /**
  * Interfaz que añade funciones al repositorio.
  */
@@ -14,7 +12,7 @@ public interface IRepository extends CRUDRepository<Alumno,Integer>{
      * @param dni Dni del alumno por el que buscaremos en el repositorio.
      * @return Devuelve el Alumno encontrado en el repositorio.
      */
-    Optional<Alumno> findByDni(String dni);
+    Alumno findByDni(String dni);
 
     /**
      * Procedimiento para eliminar todos los elementos del repositorio.

@@ -1,5 +1,5 @@
+
 import models.*;
-import views.MainView;
 
 
 public class Main {
@@ -10,7 +10,10 @@ public class Main {
                 .name("Mateo")
                 .phone("5645644");
         System.out.println(alumno);
-        MainView.menu();
+
+
+
+
 
 
 

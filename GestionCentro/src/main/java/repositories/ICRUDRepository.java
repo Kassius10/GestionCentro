@@ -1,7 +1,6 @@
 package repositories;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Interfaz de Gestión CRUD
@@ -12,13 +11,13 @@ import java.util.Optional;
 public interface ICRUDRepository<T, ID> {
     List<T> findAll();
 
-    Optional<T> save(T entity);
+    T save(T entity);
 
-    Optional<T> updated( ID id, T entity);
+    T updated(T entity);
 
-    Optional<T> findByName(ID id);
+    T findByName(ID id);
 
-
+//    boolean isEmpty(T entity);
 
 
 }

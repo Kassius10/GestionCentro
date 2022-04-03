@@ -4,7 +4,6 @@ import models.Categories;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.TreeMap;
 
 /**
@@ -35,9 +34,9 @@ public class CategoryRepository implements ICategoryRepository {
      */
 
     @Override
-    public Optional<Categories> save(Categories category) {
+    public Categories save(Categories category) {
         this.categoRep.put(category.getName(), category);
-        return Optional.of(category);
+        return category;
     }
 
     /**
@@ -48,20 +47,13 @@ public class CategoryRepository implements ICategoryRepository {
      */
 
     @Override
-    public Optional<Categories> updated(String s, Categories category) {
-        this.categoRep.put(s, category);
-
-        return Optional.of(category);
-
+    public Categories updated(Categories category) {
+        var categoryFound = this.categoRep.get(category.getName());
+        if (categoryFound != null){
+            this.categoRep.put(category.getName(), category);
+        }
+        return category;
     }
-
-    /**
-     * Actualiza la Categoría Según su Nombre
-     *
-     * @param category que categoría queremos actualizar
-     * @return categoría actualizada
-     */
-
 
     /**
      * Busca una Categoría por su nombre
@@ -70,14 +62,8 @@ public class CategoryRepository implements ICategoryRepository {
      * @return la categoría encontraada
      */
     @Override
-    public Optional<Categories> findByName(String name ) {
-
-        for (Categories category: this.categoRep.values()){
-            if(category.getName().equals(name)){
-                return Optional.of(category);
-            }
-        }
-        return Optional.empty();
+    public Categories findByName(String name ) {
+        return this.categoRep.get(name);
     }
 
 //    @Override

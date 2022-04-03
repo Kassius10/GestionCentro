@@ -2,10 +2,11 @@ package controllers;
 
 import exceptions.CategoriesException;
 import models.Categories;
+import repositories.CategoryRepository;
 import repositories.ICategoryRepository;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Locale;
 
 /**
  * Controlador que gestionará las operaciones
@@ -42,11 +43,11 @@ public class CategoriesController {
          checkIsOk(category);
          var exists = categoryRepository.findByName(category.getName());
 
-         if(exists.isEmpty()){
+         if(exists == null){
              categoryRepository.save(category);
              return category;
          }else{
-             throw new CategoriesException("Está categoría ya se encuentra dentro del sistema");
+             throw new CategoriesException("Está categoría ya se encuentra dentro del sisitema ");
          }
 
     }
@@ -78,9 +79,12 @@ public class CategoriesController {
      * @return la categoría buscada
      * @throws CategoriesException lanza esta excepcion en caso de que el nombre no se encuentre en la lista
      */
-   public Categories getCategoryByName(String categoryName) throws CategoriesException {
-       var categoryFound = categoryRepository.findByName(categoryName).orElseThrow(() -> new CategoriesException("No existe esta categoría en la lista"));
-       return categoryFound;
+   public Categories getCategoryByName(String categoryName) throws CategoriesException{
+      var categoryFound = categoryRepository.findByName(categoryName);
+      if(categoryFound != null){
+         return categoryFound;
+      }
+      throw new CategoriesException("No existe " + categoryName + " en la lista");
    }
 
 
@@ -90,17 +94,16 @@ public class CategoriesController {
      * @return categoría actualizada
      * @throws CategoriesException lanza esta excepciono en caso de que no se pueda actualizar la categoría
      */
-   public Categories updateCategory( String s, Categories category) throws CategoriesException{
+   public Categories updateCategory(Categories category) throws CategoriesException{
       checkIsOk(category);
 
       var categoryToBeUpdated = categoryRepository.findByName(category.getName());
-
-      if(categoryToBeUpdated.isEmpty() || category.getName() == categoryToBeUpdated.get().getName()){
-          categoryRepository.updated(s, category);
-          return category;
+      //Comprobamos si la categoría existe y si existe se actualizará sino lanza una excepción
+      if((categoryToBeUpdated == null) || (categoryToBeUpdated.getName()==category.getName())){
+          return categoryRepository.updated(category);
       }
+       throw new CategoriesException("No se puede actualizar la categoría" + category);
 
-        throw new CategoriesException("No se puede actualizar la categoría ya existente");
    }
 
 

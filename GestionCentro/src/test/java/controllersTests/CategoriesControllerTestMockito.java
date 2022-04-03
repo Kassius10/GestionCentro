@@ -1,7 +1,6 @@
 package controllersTests;
 
 import controllers.CategoriesController;
-import exceptions.AlumnoException;
 import exceptions.CategoriesException;
 import models.Categories;
 import models.Exam;
@@ -14,9 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.InjectMocks;
 import repositories.CategoryRepository;
-
-import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -47,123 +43,17 @@ public class CategoriesControllerTestMockito {
 
     @Test
     void save() throws CategoriesException{
-        when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.empty());
-        when(categoryRepository.save(cat1)).thenReturn(Optional.of(cat1));
 
-                var catAux= categoriesController.save(cat1);
 
-                    assertAll(
 
-                            () -> assertEquals(catAux.getName(), cat1.getName()),
-                            () -> assertNotEquals(catAux.getName(), cat2.getName())
+        assertAll(
+                () -> assertEquals(result.getName(), secondCategory.getName()),
+                () -> assertEquals(founded.getName(), result.getName())
 
-                    );
-
-                verify(categoryRepository, times(1)).findByName(cat1.getName());
-                verify(categoryRepository, times(1)).save(cat1);
+        );
     }
 
 
-    @Test
-    void saveExceptionTest(){
-
-        when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.of(cat1));
-
-        Exception exceptionToTrow =
-
-                assertThrows(CategoriesException.class, () -> categoriesController.save(cat1));
-
-                assertTrue(exceptionToTrow.getMessage().contains("Está categoría ya se encuentra dentro del sistema"));
-
-                     verify(categoryRepository, times(1)).findByName(cat1.getName());
-    }
-
-
-
-    @Test
-    void getCategoryByName() throws CategoriesException {
-        when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.of(cat1));
-
-        var catAux= categoriesController.getCategoryByName(cat1.getName());
-
-                    assertAll(
-                            () -> assertEquals(catAux.getName(), cat1.getName()),
-                            () -> assertNotEquals(catAux.getName(), cat2.getName())
-                    );
-
-        verify(categoryRepository, times(1)).findByName(cat1.getName());
-
-    }
-
-
-
-    @Test
-    void getCategoryByNameExceptionTest(){
-        when(categoryRepository.findByName(anyString())).thenReturn(Optional.empty());
-
-        Exception exceptionToTrow =
-
-                assertThrows(CategoriesException.class,()-> categoriesController.getCategoryByName(anyString()));
-
-                assertTrue(exceptionToTrow.getMessage().contains("No existe esta categoría en la lista"));
-
-
-                    verify(categoryRepository, times(1)).findByName(anyString());
-
-    }
-
-
-    @Test
-    void getAllCategories(){
-        when(categoryRepository.findAll()).thenReturn(List.of(cat1));
-
-            var list = categoriesController.getAllCategories();
-
-
-                    assertAll(
-                            () -> assertEquals(list.size(), 3),
-                            () -> assertTrue(list.contains(cat1))
-
-                    );
-
-    }
-
-    @Test
-    void updateCategory() throws CategoriesException {
-        when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.empty());
-        when(categoryRepository.updated("Examen_03_DAM", cat1)).thenReturn(Optional.of(cat1));
-
-            var catAux= categoriesController.updateCategory(anyString(),cat1);
-
-                assertAll(
-                        () -> assertEquals(catAux.getName(), cat1.getName())
-                        //....
-                );
-
-
-
-            verify(categoryRepository, times(1)).findByName(cat1.getName());
-            verify(categoryRepository, times(1)).updated("Examen_03_DAM",cat1);
-    }
-
-    @Test
-    void updateCategoryExceptionTest()  {
-        Categories newCat= new Exam("Exam_01_DAM");
-        when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.of(cat1));
-
-
-
-            CategoriesException exceptionToTrow =
-
-                    assertThrows(CategoriesException.class,()-> categoriesController.updateCategory(newCat.getName(),newCat));
-
-                    assertTrue(exceptionToTrow.getMessage().contains("No se puede actualizar la categoría ya existente"));
-
-
-
-        verify(categoryRepository, times(1)).findByName(cat1.getName());
-
-    }
 
 
 }

@@ -4,10 +4,11 @@ package models;
  */
 public class Categories {
     private String name;
-
+//    private static int contador=0;
+//    private final int id;
     public Categories(String nombre) {
         this.name = nombre;
-
+//        this.id = ++contador;
     }
 
     /**
@@ -34,6 +35,7 @@ public class Categories {
     public String toString() {
         return "Categorias{"+
                 "name='" + name + '\'' +
+//                ", id=" + id +
                 '}';
     }
 
