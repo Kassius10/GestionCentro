@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import repositories.CategoryRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 class CategoriesControllerTests {
 
@@ -42,7 +43,7 @@ class CategoriesControllerTests {
     @Test
     void save() throws CategoriesException{
 
-        Categories secondCategory = new Practice("Práctica_02_Dam");
+        Categories secondCategory = new Practice("Práctica_04_Dam");
 
         var result = categoriesController.save(secondCategory);
         var founded = categoriesController.getCategoryByName(secondCategory.getName());
@@ -81,7 +82,8 @@ class CategoriesControllerTests {
 
     @Test
     void updateCategory() throws CategoriesException{
-        var toUpdateCategory = categoriesController.updateCategory(cat1);
+
+        var toUpdateCategory = categoriesController.updateCategory(any(),cat1);
         var toCompare = categoriesController.getCategoryByName(cat1.getName());
 
         assertAll(
