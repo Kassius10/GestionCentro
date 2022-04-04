@@ -13,13 +13,14 @@ import static org.mockito.Mockito.*;
 class AlumnoRepositoryTest {
     private final AlumnoRepository repository=new AlumnoRepository();
 
-    private final Alumno alumno = new Alumno()
-            .name("Dani")
-            .dni("123456")
-            .surNames("Apellido")
-            .email("correo")
-            .phone("123456")
-            .hasLoseEvaluation(true);
+    private final Alumno alumno = new Alumno(
+            "12345678a",
+            "Dani",
+            "A p",
+            "d@d.com",
+            "666-666666",
+            true
+    );
 
     @BeforeEach
     void setUp(){
@@ -113,11 +114,11 @@ class AlumnoRepositoryTest {
     @Test
     void updateTest() throws AlumnoException {
         repository.save(alumno);
-        alumno.setDni("1234");
-        alumno.setName("Manolo");
-        alumno.setSurNames("Nuevo");
-        alumno.setEmail("nuevocorreo");
-        alumno.setPhone("45678");
+        alumno.setDni("12345678a");
+        alumno.setName("manolo");
+        alumno.setSurNames("lopez sanchez");
+        alumno.setEmail("d@d.com");
+        alumno.setPhone("666-666666");
         alumno.setHasLoseEvaluation(false);
 
         var aux = repository.update(alumno.getId(),alumno);

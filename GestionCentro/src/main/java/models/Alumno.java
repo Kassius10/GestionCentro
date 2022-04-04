@@ -1,6 +1,10 @@
 package models;
 
+import exceptions.AlumnoException;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * Clase que representa un Alumno.
@@ -15,14 +19,18 @@ public class Alumno {
     private String email;
     private String phone;
     private boolean hasLoseEvaluation;
+<<<<<<< HEAD
     private final LocalDate registrationDate;
+=======
+    private LocalDateTime registrationDate;
+>>>>>>> b6fed9e050ed2f64ea6f7dbffc3053c36cce9904
 
     /**
      * Método constructor de Alumno.
      */
     public Alumno(){
         this.id = contador++;
-        registrationDate= LocalDate.now(); //TODO cambiar el formato de la fecha a DD/MM/YYYY
+        registrationDate= LocalDateTime.now(); //TODO cambiar el formato de la fecha a DD/MM/YYYY
     }
 
     /**
@@ -42,7 +50,7 @@ public class Alumno {
         this.email=email;
         this.phone=phone;
         this.hasLoseEvaluation=hasLoseEvaluation;
-        registrationDate= LocalDate.now(); //TODO cambiar el formato de la fecha a DD/MM/YYYY
+        registrationDate= LocalDateTime.now(); //TODO cambiar el formato de la fecha a DD/MM/YYYY
     }
 
     /**
@@ -57,9 +65,9 @@ public class Alumno {
      * Procedimiento que permite indicarle el id al alumno.
      * @param id Id que le daremos.
      */
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     /**
      * Función que devuelve el Dni del alumno
@@ -73,8 +81,10 @@ public class Alumno {
      *  Procedimiento que permite indicarle el DNI al alumno.
      * @param dni Dni que le daremos.
      */
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setDni(String dni) throws AlumnoException {
+        var regex= "^([1-9]{1}[0-9]{7}[a-z])$";
+        if (dni.matches(regex)) this.dni=dni;
+        else throw new AlumnoException("El dni es incorrecto.");
     }
 
     /**
@@ -89,8 +99,10 @@ public class Alumno {
      * Procedimiento que permite indicarle el nombre al alumno.
      * @param name Nombre que le daremos.
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String name) throws AlumnoException {
+        var regex= "([a-záéíóú]{1}[a-zñáéíóú]*)$";
+        if (name.matches(regex)) this.name=name;
+        else throw new AlumnoException("El nombre es incorrecto.");
     }
 
     /**
@@ -105,8 +117,10 @@ public class Alumno {
      * Procedimiento que permite indicarle los apellidos del alumno.
      * @param surNames Apellidos que le daremos.
      */
-    public void setSurNames(String surNames) {
-        this.surNames = surNames;
+    public void setSurNames(String surNames) throws AlumnoException {
+        var regex= "^([a-záéíóú]{1}[a-zñáéíóú]*)\\s([a-záéíóú]{1}[a-zñáéíóú]*)$";
+        if (surNames.matches(regex)) this.surNames=surNames;
+        else throw new AlumnoException("Los apellidos son incorrectos.");
     }
 
     /**
@@ -121,8 +135,10 @@ public class Alumno {
      * Procedimiento que permite indicarle el email del alumno.
      * @param email Email que le daremos.
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String email) throws AlumnoException {
+        var regex= "^[\\w]+@{1}([\\w]+\\.)+[a-z]{2,3}$";
+        if (email.matches(regex)) this.email=email;
+        else throw new AlumnoException("El email es incorrecto.");
     }
 
     /**
@@ -137,8 +153,11 @@ public class Alumno {
      * Procedimiento que permite indicarle el teléfono del alumno.
      * @param phone Teléfono que le daremos.
      */
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhone(String phone) throws AlumnoException {
+        var regex= "^[6-9]{1}[0-9]{2}[-][0-9]{6}$";
+        if (phone.matches(regex)) this.phone=phone;
+        else throw new AlumnoException("El teléfono es incorrecto.");
+
     }
 
     /**
@@ -161,7 +180,7 @@ public class Alumno {
      * Función que devuelve la fecha de matriculación del alumno.
      * @return Devuelve la fecha de matriculación.
      */
-    public LocalDate getRegistrationDate() {
+    public LocalDateTime getRegistrationDate() {
         return registrationDate;
     }
 
@@ -180,8 +199,11 @@ public class Alumno {
      * @param dni Dni que le añadiremos al alumno
      * @return devuelve el propio alumno.
      */
-    public Alumno dni(String dni) {
-        this.dni = dni;
+    public Alumno dni(String dni) throws AlumnoException {
+        var regex= "^([1-9]{1}[0-9]{7}[a-z])$";
+        if (dni.matches(regex)) this.dni=dni;
+        else throw new AlumnoException("El dni es incorrecto.");
+
         return this;
     }
 
@@ -190,18 +212,22 @@ public class Alumno {
      * @param name Nombre que le añadiremos al alumno
      * @return devuelve el propio alumno.
      */
-    public Alumno name(String name) {
-        this.name = name;
+    public Alumno name(String name) throws AlumnoException {
+        var regex= "([a-záéíóú]{1}[a-zñáéíóú]*)$";
+        if (name.matches(regex)) this.name=name;
+        else throw new AlumnoException("El nombre es incorrecto.");
         return this;
     }
 
     /**
      * Método fluido para añadirle unos apellidos al alumno.
-     * @param serNames Apellidos que le añadiremos al alumno
+     * @param surNames Apellidos que le añadiremos al alumno
      * @return devuelve el propio alumno.
      */
-    public Alumno surNames(String serNames) {
-        this.surNames = serNames;
+    public Alumno surNames(String surNames) throws AlumnoException {
+        var regex= "^([a-záéíóú]{1}[a-zñáéíóú]*)\\s([a-záéíóú]{1}[a-zñáéíóú]*)$";
+        if (surNames.matches(regex)) this.surNames=surNames;
+        else throw new AlumnoException("Los apellidos son incorrectos.");
         return this;
     }
 
@@ -210,8 +236,10 @@ public class Alumno {
      * @param email Email que le añadiremos al alumno
      * @return devuelve el propio alumno.
      */
-    public Alumno email(String email) {
-        this.email = email;
+    public Alumno email(String email) throws AlumnoException {
+        var regex= "^[\\w]+@{1}([\\w]+\\.)+[a-z]{2,3}$";
+        if (email.matches(regex)) this.email=email;
+        else throw new AlumnoException("El email es incorrecto.");
         return this;
     }
 
@@ -220,8 +248,11 @@ public class Alumno {
      * @param phone Teléfono que le añadiremos al alumno
      * @return devuelve el propio alumno.
      */
-    public Alumno phone(String phone) {
-        this.phone = phone;
+    public Alumno phone(String phone) throws AlumnoException {
+        var regex= "^[6-9]{1}[0-9]{2}[-][0-9]{6}$";
+        if (phone.matches(regex)) this.phone=phone;
+        else throw new AlumnoException("El teléfono es incorrecto.");
+
         return this;
     }
 
@@ -252,4 +283,18 @@ public class Alumno {
                 ", registrationDate=" + registrationDate +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Alumno alumno = (Alumno) o;
+        return id == alumno.id && hasLoseEvaluation == alumno.hasLoseEvaluation && dni.equals(alumno.dni) && name.equals(alumno.name) && surNames.equals(alumno.surNames) && email.equals(alumno.email) && phone.equals(alumno.phone) && registrationDate.equals(alumno.registrationDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dni, name, surNames, email, phone, hasLoseEvaluation, registrationDate);
+    }
+
 }
