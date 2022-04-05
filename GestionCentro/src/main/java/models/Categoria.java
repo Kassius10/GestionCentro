@@ -2,10 +2,10 @@ package models;
 /**
  * Clase Categoría
  */
-public class Categories {
+public class Categoria {
     private String name;
 
-    public Categories(String nombre) {
+    public Categoria(String nombre) {
         this.name = nombre;
 
     }

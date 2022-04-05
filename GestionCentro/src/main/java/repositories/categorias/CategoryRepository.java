@@ -1,6 +1,6 @@
-package repositories;
+package repositories.categorias;
 
-import models.Categories;
+import models.Categoria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.TreeMap;
 
 public class CategoryRepository implements ICategoryRepository {
 
-    private final TreeMap<String, Categories> categoRep = new TreeMap<>();
+    private final TreeMap<String, Categoria> categoRep = new TreeMap<>();
 
     /**
      * Lista todas las Categorías existentes
@@ -23,7 +23,7 @@ public class CategoryRepository implements ICategoryRepository {
      * @return Lista de Categorías
      */
     @Override
-    public List<Categories> findAll() {
+    public List<Categoria> findAll() {
             return new ArrayList<>(this.categoRep.values());
     }
 
@@ -35,7 +35,7 @@ public class CategoryRepository implements ICategoryRepository {
      */
 
     @Override
-    public Optional<Categories> save(Categories category) {
+    public Optional<Categoria> save(Categoria category) {
         this.categoRep.put(category.getName(), category);
         return Optional.of(category);
     }
@@ -48,7 +48,7 @@ public class CategoryRepository implements ICategoryRepository {
      */
 
     @Override
-    public Optional<Categories> updated(String s, Categories category) {
+    public Optional<Categoria> updated(String s, Categoria category) {
         this.categoRep.put(s, category);
 
         return Optional.of(category);
@@ -70,9 +70,9 @@ public class CategoryRepository implements ICategoryRepository {
      * @return la categoría encontraada
      */
     @Override
-    public Optional<Categories> findByName(String name ) {
+    public Optional<Categoria> findByName(String name ) {
 
-        for (Categories category: this.categoRep.values()){
+        for (Categoria category: this.categoRep.values()){
             if(category.getName().equals(name)){
                 return Optional.of(category);
             }

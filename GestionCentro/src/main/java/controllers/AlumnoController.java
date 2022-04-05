@@ -2,7 +2,7 @@ package controllers;
 
 import exceptions.AlumnoException;
 import models.Alumno;
-import repositories.IRepository;
+import repositories.alumnos.IAlumnoRepository;
 
 import java.util.List;
 
@@ -11,13 +11,13 @@ import java.util.List;
  */
 public class AlumnoController {
     private static AlumnoController instance;
-    private final IRepository alumnos;
+    private final IAlumnoRepository alumnos;
 
     /**
      * Constructor privado para solo poder generarse una instancia.
      * @param alumnos Repositorio que le daremos para almacenar los alumnos.
      */
-    private AlumnoController(IRepository alumnos) {
+    private AlumnoController(IAlumnoRepository alumnos) {
         this.alumnos = alumnos;
     }
 
@@ -26,7 +26,7 @@ public class AlumnoController {
      *
      * @return Devuelve la instancia creada.
      */
-    public static AlumnoController getInstance(IRepository alumnos) {
+    public static AlumnoController getInstance(IAlumnoRepository alumnos) {
         if(instance == null){
             instance = new AlumnoController(alumnos);
         }

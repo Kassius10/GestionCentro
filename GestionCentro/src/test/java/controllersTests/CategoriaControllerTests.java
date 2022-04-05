@@ -2,24 +2,21 @@ package controllersTests;
 
 import controllers.CategoriesController;
 import exceptions.CategoriesException;
-import models.Categories;
-import models.Exam;
-import models.Exercise;
-import models.Practice;
+import models.Categoria;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import repositories.CategoryRepository;
+import repositories.categorias.CategoryRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
-class CategoriesControllerTests {
+class CategoriaControllerTests {
 
 
     CategoryRepository catRepo = new CategoryRepository();
-    Categories cat1 = new Exam("Examen_01_DAM");
-    Categories cat2 = new Exercise("Ejercicio_02_DAM");
-    Categories cat3 = new Practice("Práctica_03_DAM");
+    Categoria cat1 = new Exam("Examen_01_DAM");
+    Categoria cat2 = new Exercise("Ejercicio_02_DAM");
+    Categoria cat3 = new Practice("Práctica_03_DAM");
 
     CategoriesController categoriesController = CategoriesController.getInstance(catRepo);
 
@@ -35,7 +32,7 @@ class CategoriesControllerTests {
     @Test
     void checkIsOk() {
 
-        var result = assertThrows(CategoriesException.class, () -> categoriesController.checkIsOk(new Categories("")));
+        var result = assertThrows(CategoriesException.class, () -> categoriesController.checkIsOk(new Categoria("")));
         assertEquals("No es posible introducir el nombre de esta categoría el espacio está vacío", result.getMessage());
 
     }
@@ -43,7 +40,7 @@ class CategoriesControllerTests {
     @Test
     void save() throws CategoriesException{
 
-        Categories secondCategory = new Practice("Práctica_04_Dam");
+        Categoria secondCategory = new Practice("Práctica_04_Dam");
 
         var result = categoriesController.save(secondCategory);
         var founded = categoriesController.getCategoryByName(secondCategory.getName());

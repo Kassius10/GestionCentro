@@ -1,4 +1,4 @@
-package repositories;
+package repositories.alumnos;
 
 import exceptions.AlumnoException;
 import models.Alumno;
@@ -11,7 +11,7 @@ import java.util.TreeMap;
 /**
  * Repositorio de los alumnos.
  */
-public class AlumnoRepository implements IRepository {
+public class AlumnoRepository implements IAlumnoRepository {
     private final TreeMap<Integer,Alumno> alumnos = new TreeMap<>();
 
     /**

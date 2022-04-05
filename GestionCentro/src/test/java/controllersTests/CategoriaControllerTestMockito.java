@@ -1,19 +1,15 @@
 package controllersTests;
 
 import controllers.CategoriesController;
-import exceptions.AlumnoException;
 import exceptions.CategoriesException;
-import models.Categories;
-import models.Exam;
-import models.Exercise;
-import models.Practice;
+import models.Categoria;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Isolated;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.InjectMocks;
-import repositories.CategoryRepository;
+import repositories.categorias.CategoryRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +20,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
     @Isolated
 
-public class CategoriesControllerTestMockito {
+public class CategoriaControllerTestMockito {
 
    @Mock
     CategoryRepository categoryRepository;
@@ -33,14 +29,14 @@ public class CategoriesControllerTestMockito {
    CategoriesController categoriesController;
 
     //Distintas Categorías de Prueba
-    Categories cat1 = new Exam("Examen_01_DAM");
-    Categories cat2 = new Exercise("Ejercicio_02_DAM");
-    Categories cat3 = new Practice("Práctica_03_DAM");
+    Categoria cat1 = new Exam("Examen_01_DAM");
+    Categoria cat2 = new Exercise("Ejercicio_02_DAM");
+    Categoria cat3 = new Practice("Práctica_03_DAM");
 
 
     @Test
     void checkIsOk()  {
-        var result = assertThrows(CategoriesException.class, () -> categoriesController.checkIsOk(new Categories("")));
+        var result = assertThrows(CategoriesException.class, () -> categoriesController.checkIsOk(new Categoria("")));
         assertEquals("No es posible introducir el nombre de esta categoría el espacio está vacío", result.getMessage());
 
     }
@@ -148,7 +144,7 @@ public class CategoriesControllerTestMockito {
 
     @Test
     void updateCategoryExceptionTest()  {
-        Categories newCat= new Exam("Exam_01_DAM");
+        Categoria newCat= new Exam("Exam_01_DAM");
         when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.of(cat1));
 
 

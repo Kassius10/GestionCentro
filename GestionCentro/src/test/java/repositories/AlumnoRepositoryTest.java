@@ -4,6 +4,7 @@ import exceptions.AlumnoException;
 import models.Alumno;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import repositories.alumnos.AlumnoRepository;
 
 import java.util.Optional;
 

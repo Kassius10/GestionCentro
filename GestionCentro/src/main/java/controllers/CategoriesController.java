@@ -1,11 +1,10 @@
 package controllers;
 
 import exceptions.CategoriesException;
-import models.Categories;
-import repositories.ICategoryRepository;
+import models.Categoria;
+import repositories.categorias.ICategoryRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Controlador que gestionará las operaciones
@@ -34,11 +33,11 @@ public class CategoriesController {
 
     /**
      * Añade una categoría con un nuevo nombre al sistema
-      * @param category categoría a añadir
+     * @param category categoría a añadir
      * @return la categoría insertada
      * @throws CategoriesException excepcion que nos muestra un mensaje en caso de fallo
      */
-    public Categories save(Categories category) throws CategoriesException{
+    public Categoria save(Categoria category) throws CategoriesException{
          checkIsOk(category);
          var exists = categoryRepository.findByName(category.getName());
 
@@ -56,7 +55,7 @@ public class CategoriesController {
     * @param category categoría a observar
     * @throws CategoriesException lanza esta excepciono en caso de que el nombre esté vacío
     */
-   public void checkIsOk(Categories category) throws CategoriesException {
+   public void checkIsOk(Categoria category) throws CategoriesException {
          if(category.getName() == null || category.getName().trim().isEmpty()){
             throw new CategoriesException("No es posible introducir el nombre de esta categoría el espacio está vacío");
 
@@ -67,7 +66,7 @@ public class CategoriesController {
      * Función que nos devuelve una lista de categorías
      * @return
      */
-   public List<Categories> getAllCategories(){
+   public List<Categoria> getAllCategories(){
          return categoryRepository.findAll();
    }
 
@@ -78,7 +77,7 @@ public class CategoriesController {
      * @return la categoría buscada
      * @throws CategoriesException lanza esta excepcion en caso de que el nombre no se encuentre en la lista
      */
-   public Categories getCategoryByName(String categoryName) throws CategoriesException {
+   public Categoria getCategoryByName(String categoryName) throws CategoriesException {
        var categoryFound = categoryRepository.findByName(categoryName).orElseThrow(() -> new CategoriesException("No existe esta categoría en la lista"));
        return categoryFound;
    }
@@ -90,7 +89,7 @@ public class CategoriesController {
      * @return categoría actualizada
      * @throws CategoriesException lanza esta excepciono en caso de que no se pueda actualizar la categoría
      */
-   public Categories updateCategory( String s, Categories category) throws CategoriesException{
+   public Categoria updateCategory( String s, Categoria category) throws CategoriesException{
       checkIsOk(category);
 
       var categoryToBeUpdated = categoryRepository.findByName(category.getName());

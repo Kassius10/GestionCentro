@@ -1,13 +1,11 @@
 package repositoriesTests;
 
-import models.Categories;
-import models.Exam;
-import models.Practice;
+import models.Categoria;
 
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import repositories.CategoryRepository;
+import repositories.categorias.CategoryRepository;
 
 import java.util.Optional;
 
@@ -17,7 +15,7 @@ class CategoryRepositoryTest {
 
         CategoryRepository categoryRepository = new CategoryRepository();
 
-        Categories category = new Exam("Examen_01_2021");
+        Categoria category = new Exam("Examen_01_2021");
 
     /**
      * Configuracion para que cada vez que haga el test pcomo minimo guarde 1 dato presentado
@@ -52,7 +50,7 @@ class CategoryRepositoryTest {
         @Test
         void save(){
 
-                Categories secondCategory = new Practice("Práctica_02_Dam");
+                Categoria secondCategory = new Practice("Práctica_02_Dam");
 
                 var result = categoryRepository.save(secondCategory);
                 var founded = categoryRepository.findByName(secondCategory.getName());
@@ -73,7 +71,7 @@ class CategoryRepositoryTest {
 
                 var result = categoryRepository.updated( "Examen03_DAM", category);
 
-                Optional<Categories> categoriesFound = categoryRepository.findByName("Examen03_DAM");
+                Optional<Categoria> categoriesFound = categoryRepository.findByName("Examen03_DAM");
 
             assertAll(
                     () -> assertEquals(categoriesFound.get().getName(), category.getName())

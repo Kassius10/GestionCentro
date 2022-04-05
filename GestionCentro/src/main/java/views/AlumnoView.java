@@ -5,7 +5,7 @@ import comparators.AlumnoNumListComparator;
 import controllers.AlumnoController;
 import exceptions.AlumnoException;
 import models.Alumno;
-import repositories.AlumnoRepository;
+import repositories.alumnos.AlumnoRepository;
 import utils.AlumnoPatterns;
 import utils.Input;
 
@@ -16,14 +16,13 @@ import java.util.List;
  */
 public class AlumnoView {
     private static AlumnoView instance;
-    private final AlumnoController alumnoController= AlumnoController.getInstance(new AlumnoRepository());
+    private static final AlumnoController alumnoController= AlumnoController.getInstance(new AlumnoRepository());
 
     /**
      * Constructor privado de AlumnoView
      */
     private AlumnoView(){
         loadData();
-        init();
     }
 
     /**
@@ -42,7 +41,6 @@ public class AlumnoView {
      */
     public void init(){
         menu();
-
     }
 
     /**
@@ -63,7 +61,7 @@ public class AlumnoView {
     /**
      * Procedimiento de selección de menu.
      */
-    private void menu(){
+    public void menu(){
         int option;
         do {
             System.out.println("1- Añadir un Alumno\n" +
@@ -127,7 +125,7 @@ public class AlumnoView {
                     .hasLoseEvaluation(ev);
 
             var res = alumnoController.updateAlumno(exist.getId(), exist);
-            System.out.println("País actualizado");
+            System.out.println("Alumno actualizado");
             System.out.println(res);
 
         } catch (AlumnoException e) {
@@ -154,7 +152,7 @@ public class AlumnoView {
     /**
      * Procedimiento para añadir un alumno
      */
-    private void crearAlumno(){ //TODO hay que filtrar también el back
+    private void crearAlumno(){
         System.out.println("Añadir alumno:");
         String dni = Input.readString("DNI del alumno: ");
         dni= AlumnoPatterns.patternDni(dni);
@@ -244,7 +242,7 @@ public class AlumnoView {
      * Función para indicar la opción del menu.
      * @return Devuelve el número de la opción.
      */
-    private static int setOption() {
+    private int setOption() {
         var regex= "[0-4]";
         String option;
         do {

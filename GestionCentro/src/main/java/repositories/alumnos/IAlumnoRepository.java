@@ -1,13 +1,14 @@
-package repositories;
+package repositories.alumnos;
 
 import models.Alumno;
+import repositories.CRUDRepository;
 
 import java.util.Optional;
 
 /**
  * Interfaz que añade funciones al repositorio.
  */
-public interface IRepository extends CRUDRepository<Alumno,Integer>{
+public interface IAlumnoRepository extends CRUDRepository<Alumno,Integer> {
     /**
      * Función para buscar un Alumno por el dni.
      *

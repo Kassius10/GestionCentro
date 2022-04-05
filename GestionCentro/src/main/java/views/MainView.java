@@ -1,5 +1,6 @@
 package views;
 
+import models.PruebaEvaluacion;
 import utils.Input;
 
 /**
@@ -15,14 +16,18 @@ public class MainView {
         do {
             System.out.println("1- Gestionar Alumnos\n" +
                     "2- Gestionar Categorías\n" +
-                    "3- Gestionar Pruebas de evaluación\n" +
+                    "3- Gestionar Evaluación\n" +
                     "0- Salir");
 
             option= setOption();
 
             switch(option){
                 case 1:
-                    AlumnoView view= AlumnoView.getInstance();
+                    alumnoView();
+                    break;
+
+                case 3:
+                    pruebaView();
                     break;
 
                 default:
@@ -46,5 +51,13 @@ public class MainView {
         }while(!option.matches(regex));
 
         return Integer.parseInt(option);
+    }
+    private static void alumnoView(){
+        AlumnoView view = AlumnoView.getInstance();
+        view.init();
+    }
+    private static void pruebaView(){
+        EvaluationView view = EvaluationView.getInstance();
+        view.init();
     }
 }
