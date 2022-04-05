@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -17,4 +18,9 @@ public class Input {
         System.out.println(message);
         return sc.nextLine().trim().toLowerCase();
     }
+    public static String readStringUppercase(String message){
+        System.out.println(message);
+        return sc.nextLine().toUpperCase();
+    }
+
 }

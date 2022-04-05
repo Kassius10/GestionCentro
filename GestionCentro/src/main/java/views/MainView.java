@@ -24,6 +24,9 @@ public class MainView {
                 case 1:
                     AlumnoView view= AlumnoView.getInstance();
                     break;
+                case 2:
+                    CategoriesView catView = CategoriesView.getInstance();
+                    break;
 
                 default:
                     System.out.println("Na");

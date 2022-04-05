@@ -3,23 +3,20 @@ package controllersTests;
 import controllers.CategoriesController;
 import exceptions.CategoriesException;
 import models.Categories;
-import models.Exam;
-import models.Exercise;
-import models.Practice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repositories.CategoryRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+
 
 class CategoriesControllerTests {
 
 
     CategoryRepository catRepo = new CategoryRepository();
-    Categories cat1 = new Exam("Examen_01_DAM");
-    Categories cat2 = new Exercise("Ejercicio_02_DAM");
-    Categories cat3 = new Practice("Práctica_03_DAM");
+    Categories cat1 = new Categories("Examen_01_DAM");
+    Categories cat2 = new Categories("Ejercicio_02_DAM");
+    Categories cat3 = new Categories("Práctica_03_DAM");
 
     CategoriesController categoriesController = CategoriesController.getInstance(catRepo);
 
@@ -43,7 +40,7 @@ class CategoriesControllerTests {
     @Test
     void save() throws CategoriesException{
 
-        Categories secondCategory = new Practice("Práctica_04_Dam");
+        Categories secondCategory = new Categories("Práctica_04_Dam");
 
         var result = categoriesController.save(secondCategory);
         var founded = categoriesController.getCategoryByName(secondCategory.getName());
@@ -58,7 +55,7 @@ class CategoriesControllerTests {
     @Test
     void getCategoryByName() throws CategoriesException{
 
-        var fakeResult = new Exercise("Ejercicio3_DAM");
+        var fakeResult = new Categories("Ejercicio3_DAM");
         var result = categoriesController.getCategoryByName(cat1.getName());
         var result2 = categoriesController.getCategoryByName(cat2.getName());
 
@@ -83,7 +80,7 @@ class CategoriesControllerTests {
     @Test
     void updateCategory() throws CategoriesException{
 
-        var toUpdateCategory = categoriesController.updateCategory(any(),cat1);
+        var toUpdateCategory = categoriesController.updateCategory("Examen_02_DAM",cat1);
         var toCompare = categoriesController.getCategoryByName(cat1.getName());
 
         assertAll(

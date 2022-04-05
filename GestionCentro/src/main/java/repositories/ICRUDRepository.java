@@ -14,7 +14,7 @@ public interface ICRUDRepository<T, ID> {
 
     Optional<T> save(T entity);
 
-    Optional<T> updated( ID id, T entity);
+    Optional<T> updated(ID id, T entity);
 
     Optional<T> findByName(ID id);
 

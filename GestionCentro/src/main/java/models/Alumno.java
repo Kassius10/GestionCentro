@@ -2,7 +2,6 @@ package models;
 
 import exceptions.AlumnoException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -19,11 +18,11 @@ public class Alumno {
     private String email;
     private String phone;
     private boolean hasLoseEvaluation;
-<<<<<<< HEAD
-    private final LocalDate registrationDate;
-=======
-    private LocalDateTime registrationDate;
->>>>>>> b6fed9e050ed2f64ea6f7dbffc3053c36cce9904
+
+    private final LocalDateTime registrationDate;
+
+//    /*private LocalDateTime registrationDate;*/
+
 
     /**
      * Método constructor de Alumno.

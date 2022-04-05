@@ -1,8 +1,6 @@
 package repositoriesTests;
 
 import models.Categories;
-import models.Exam;
-import models.Practice;
 
 
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +15,7 @@ class CategoryRepositoryTest {
 
         CategoryRepository categoryRepository = new CategoryRepository();
 
-        Categories category = new Exam("Examen_01_2021");
+        Categories category = new Categories("Examen_01_2021");
 
     /**
      * Configuracion para que cada vez que haga el test pcomo minimo guarde 1 dato presentado
@@ -52,7 +50,7 @@ class CategoryRepositoryTest {
         @Test
         void save(){
 
-                Categories secondCategory = new Practice("Práctica_02_Dam");
+                Categories secondCategory = new Categories("Práctica_02_Dam");
 
                 var result = categoryRepository.save(secondCategory);
                 var founded = categoryRepository.findByName(secondCategory.getName());
@@ -71,13 +69,14 @@ class CategoryRepositoryTest {
     @Test
         void update(){
 
-                var result = categoryRepository.updated( "Examen03_DAM", category);
+        category.setName("Examen_05_DAM");
+                var result = categoryRepository.updated( "Examen05_DAM", category);
 
-                Optional<Categories> categoriesFound = categoryRepository.findByName("Examen03_DAM");
+                Optional<Categories> categoriesFound = categoryRepository.findByName("Examen_05_DAM");
 
-            assertAll(
-                    () -> assertEquals(categoriesFound.get().getName(), category.getName())
-            );
+
+                     assertEquals(categoriesFound.get().getName(), category.getName());
+
 
     }
 
@@ -92,7 +91,7 @@ class CategoryRepositoryTest {
 
         assertAll(
                 () -> assertEquals(result.get().getName(), category.getName()),
-                () -> assertTrue(result.toString().equals(category.toString()))
+                () -> assertTrue(result.get().getName().equals(category.getName()))
         );
 
     }
