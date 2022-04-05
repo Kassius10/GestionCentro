@@ -29,6 +29,9 @@ public class MainView {
                 case 3:
                     pruebaView();
                     break;
+                case 2:
+                    CategoriesView catView = CategoriesView.getInstance();
+                    break;
 
                 default:
                     System.out.println("Na");

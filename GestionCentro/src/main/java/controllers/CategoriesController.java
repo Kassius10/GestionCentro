@@ -99,7 +99,7 @@ public class CategoriesController {
           return category;
       }
 
-        throw new CategoriesException("No se puede actualizar la categoría ya existente");
+        throw new CategoriesException("No se puede actualizar una categoría inexistente");
    }
 
 

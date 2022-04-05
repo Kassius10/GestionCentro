@@ -40,6 +40,7 @@ public class CategoryRepository implements ICategoryRepository {
         return Optional.of(category);
     }
 
+
     /**
      * Actualiza la Categoría Según su Nombre
      *
@@ -80,15 +81,6 @@ public class CategoryRepository implements ICategoryRepository {
         return Optional.empty();
     }
 
-//    @Override
-//    public boolean isEmpty(Categories category) {
-//
-//        var categoryFound = this.categoRep.get(category.getName());
-//
-//        return categoryFound.getName() == null;
-//
-//
-//    }
 
 
 }

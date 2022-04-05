@@ -2,7 +2,6 @@ package models;
 
 import exceptions.AlumnoException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -21,6 +20,10 @@ public class Alumno {
     private boolean hasLoseEvaluation;
 
     private LocalDateTime registrationDate;
+
+
+//    /*private LocalDateTime registrationDate;*/
+
 
     /**
      * Método constructor de Alumno.
