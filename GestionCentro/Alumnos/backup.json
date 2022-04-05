@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "dni": "50583789h",
+    "name": "Dani",
+    "surNames": "Ca Ro",
+    "email": "d@d.com",
+    "phone": "654-987789",
+    "hasLoseEvaluation": true,
+    "registrationDate": {
+      "date": {
+        "year": 2022,
+        "month": 4,
+        "day": 5
+      },
+      "time": {
+        "hour": 22,
+        "minute": 7,
+        "second": 27,
+        "nano": 513504400
+      }
+    }
+  },
+  {
+    "id": 2,
+    "dni": "50583469h",
+    "name": "Wani",
+    "surNames": "Ca Ro",
+    "email": "d@d.com",
+    "phone": "654-987789",
+    "hasLoseEvaluation": true,
+    "registrationDate": {
+      "date": {
+        "year": 2022,
+        "month": 4,
+        "day": 5
+      },
+      "time": {
+        "hour": 22,
+        "minute": 7,
+        "second": 27,
+        "nano": 514992800
+      }
+    }
+  },
+  {
+    "id": 3,
+    "dni": "50583459h",
+    "name": "Fani",
+    "surNames": "Ca Ro",
+    "email": "d@d.com",
+    "phone": "654-987789",
+    "hasLoseEvaluation": true,
+    "registrationDate": {
+      "date": {
+        "year": 2022,
+        "month": 4,
+        "day": 5
+      },
+      "time": {
+        "hour": 22,
+        "minute": 7,
+        "second": 27,
+        "nano": 514992800
+      }
+    }
+  },
+  {
+    "id": 4,
+    "dni": "50583179h",
+    "name": "Gani",
+    "surNames": "Ca Ro",
+    "email": "d@d.com",
+    "phone": "654-987789",
+    "hasLoseEvaluation": true,
+    "registrationDate": {
+      "date": {
+        "year": 2022,
+        "month": 4,
+        "day": 5
+      },
+      "time": {
+        "hour": 22,
+        "minute": 7,
+        "second": 27,
+        "nano": 514992800
+      }
+    }
+  },
+  {
+    "id": 5,
+    "dni": "50583159h",
+    "name": "TYani",
+    "surNames": "Ca Ro",
+    "email": "d@d.com",
+    "phone": "654-987789",
+    "hasLoseEvaluation": true,
+    "registrationDate": {
+      "date": {
+        "year": 2022,
+        "month": 4,
+        "day": 5
+      },
+      "time": {
+        "hour": 22,
+        "minute": 7,
+        "second": 27,
+        "nano": 514992800
+      }
+    }
+  },
+  {
+    "id": 6,
+    "dni": "55443322h",
+    "name": "jeremy",
+    "surNames": "r s",
+    "email": "papu@gmail.com",
+    "phone": "654-987789",
+    "hasLoseEvaluation": false,
+    "registrationDate": {
+      "date": {
+        "year": 2022,
+        "month": 4,
+        "day": 5
+      },
+      "time": {
+        "hour": 22,
+        "minute": 9,
+        "second": 30,
+        "nano": 655799300
+      }
+    }
+  }
+]

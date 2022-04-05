@@ -3,6 +3,8 @@ package controllers;
 import exceptions.AlumnoException;
 import models.Alumno;
 import repositories.IRepository;
+import services.IStorage;
+import services.IStorageAlumnos;
 
 import java.util.List;
 
@@ -12,13 +14,15 @@ import java.util.List;
 public class AlumnoController {
     private static AlumnoController instance;
     private final IRepository alumnos;
+    private final IStorageAlumnos alumnosStorage;
 
     /**
      * Constructor privado para solo poder generarse una instancia.
      * @param alumnos Repositorio que le daremos para almacenar los alumnos.
      */
-    private AlumnoController(IRepository alumnos) {
+    private AlumnoController(IRepository alumnos, IStorageAlumnos alumnosStorage ) {
         this.alumnos = alumnos;
+        this.alumnosStorage=alumnosStorage;
     }
 
     /**
@@ -26,9 +30,9 @@ public class AlumnoController {
      *
      * @return Devuelve la instancia creada.
      */
-    public static AlumnoController getInstance(IRepository alumnos) {
+    public static AlumnoController getInstance(IRepository alumnos, IStorageAlumnos alumnosStorage) {
         if(instance == null){
-            instance = new AlumnoController(alumnos);
+            instance = new AlumnoController(alumnos, alumnosStorage);
         }
         return instance;
     }
@@ -88,11 +92,51 @@ public class AlumnoController {
      * @param dni Dni del alumno
      * @return Devuelve el alumno eliminado.
      * @throws AlumnoException Excepción si no existe el alumno.
+     *
      */
     public Alumno deletAlumno(String dni) throws AlumnoException {
         var alumno= alumnos.findByDni(dni).orElseThrow(()-> new AlumnoException("No existe el alumno con dni " + dni));
         alumnos.delete(alumno.getId());
         return alumno;
     }
+
+    /**
+     * Exporta todos los alumnos al fichero BackUp
+     */
+    public void exportarDatos(){
+        System.out.println("Exportanto Backup de los Alumnos......");
+        var listOfStudents = alumnos.findAll();
+        var backup = alumnosStorage.save(listOfStudents);
+        if(backup){
+            System.out.println("Datos exportados al BackUp con éxito en: " +  alumnosStorage.getBackupPath() + "\nCon la cantidad de alumnos de: " + listOfStudents.size());
+        }else{
+            System.err.println("Error al exportar al backup. Intentelo denuevo más tarde");
+        }
+
+    }
+
+    /**
+     * Importar todos los alumnos al fichero BackUp
+     */
+    public void importarDatos(){
+        System.out.println("~~~~~~ Importando datos desde el Backup ~~~~~~");
+        System.out.println("Backup encontrado en: " + alumnosStorage.getBackupPath());
+        var listOfStudents = alumnosStorage.load();
+        //Sí la lista actual está llena que la vacíe
+        if(listOfStudents.size() >0){
+            alumnos.deleteAll();
+            for (Alumno alumno : listOfStudents){
+                alumnos.save(alumno);
+            }
+            System.out.println("Datos importados en el sistema con éxito." +
+                    "\nSe han insertado: " + listOfStudents.size() + "Alumn@s");
+        }else {
+            System.err.println("Ha ocurrido un problema al importar los datos desde" + alumnosStorage.getBackupPath() + "Inténtelo denuevo más tarde Gracias! ");
+        }
+
+    }
+
+
+
 
 }

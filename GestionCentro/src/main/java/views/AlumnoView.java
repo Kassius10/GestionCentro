@@ -6,6 +6,7 @@ import controllers.AlumnoController;
 import exceptions.AlumnoException;
 import models.Alumno;
 import repositories.AlumnoRepository;
+import services.StorageAlumnosJsonFile;
 import utils.AlumnoPatterns;
 import utils.Input;
 
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class AlumnoView {
     private static AlumnoView instance;
-    private final AlumnoController alumnoController= AlumnoController.getInstance(new AlumnoRepository());
+    private final AlumnoController alumnoController= AlumnoController.getInstance(new AlumnoRepository(), new StorageAlumnosJsonFile());
 
     /**
      * Constructor privado de AlumnoView
@@ -70,6 +71,8 @@ public class AlumnoView {
                     "2- Modificar datos de un Alumno\n" +
                     "3- Eliminar un Alumno\n" +
                     "4- Consultar lista de alumnos\n" +
+                    "5- Exportar Datos a Backup\n" +
+                    "6- Importar desde el BackUp\n" +
                     "0- Salir");
             option= setOption();
             switch(option){
@@ -84,6 +87,12 @@ public class AlumnoView {
                     break;
                 case 4:
                     showAlumnos();
+                    break;
+                case 5:
+                    alumnoController.exportarDatos();
+                    break;
+                case 6:
+                    alumnoController.importarDatos();
                     break;
 
                 default:
@@ -245,7 +254,7 @@ public class AlumnoView {
      * @return Devuelve el número de la opción.
      */
     private static int setOption() {
-        var regex= "[0-4]";
+        var regex= "[0-6]";
         String option;
         do {
             option= Input.readString("¿Qué desea hacer?: ");
