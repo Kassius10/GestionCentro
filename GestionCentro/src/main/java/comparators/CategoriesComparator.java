@@ -1,10 +1,10 @@
 package comparators;
 
-import models.Categories;
+import models.Categoria;
 
 import java.util.Comparator;
 
-public class CategoriesComparator  implements Comparator<Categories> {
+public class CategoriesComparator  implements Comparator<Categoria> {
 
     /**
      * Método de comparar una categoría con otra existente.
@@ -15,7 +15,7 @@ public class CategoriesComparator  implements Comparator<Categories> {
 
 
     @Override
-    public int compare(Categories o1, Categories o2) {
+    public int compare(Categoria o1, Categoria o2) {
         return o1.getName().compareTo(o2.getName());
     }
 }

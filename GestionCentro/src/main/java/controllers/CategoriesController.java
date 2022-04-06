@@ -15,20 +15,20 @@ public class CategoriesController {
       private final ICategoryRepository categoryRepository;
 
     public CategoriesController(ICategoryRepository categoryRepository) {
-      this.categoryRepository = categoryRepository;
-   }
+        this.categoryRepository = categoryRepository;
+    }
 
-         /**
-          * Metodo Singleton aplicado
-          * @param categories Repositorio de Categorías
-          * @return Una instancia de
-          */
-         public static CategoriesController getInstance(ICategoryRepository categories) {
-            if (instance == null) {
-                  instance = new CategoriesController(categories);
-            }
-            return instance;
-         }
+     /**
+      * Método Singleton aplicado
+      * @param categories Repositorio de Categorías
+      * @return Una instancia de
+      */
+     public static CategoriesController getInstance(ICategoryRepository categories) {
+        if (instance == null) {
+              instance = new CategoriesController(categories);
+        }
+        return instance;
+     }
 
 
     /**
@@ -60,7 +60,7 @@ public class CategoriesController {
             throw new CategoriesException("No es posible introducir el nombre de esta categoría el espacio está vacío");
 
          }
-      }
+   }
 
     /**
      * Función que nos devuelve una lista de categorías
@@ -94,21 +94,12 @@ public class CategoriesController {
 
       var categoryToBeUpdated = categoryRepository.findByName(category.getName());
 
-      if(categoryToBeUpdated.isEmpty() || category.getName() == categoryToBeUpdated.get().getName()){
+      if(categoryToBeUpdated.isEmpty() || category.getName().equals(categoryToBeUpdated.get().getName())){
           categoryRepository.updated(s, category);
           return category;
       }
 
         throw new CategoriesException("No se puede actualizar una categoría inexistente");
    }
-
-
-
-
-
-
-
-
-
 
 }

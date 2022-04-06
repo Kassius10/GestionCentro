@@ -1,8 +1,7 @@
-package controllersTests;
+package controllers;
 
-import controllers.CategoriesController;
 import exceptions.CategoriesException;
-import models.Categories;
+import models.Categoria;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repositories.categorias.CategoryRepository;
@@ -14,9 +13,9 @@ class CategoriesControllerTests {
 
 
     CategoryRepository catRepo = new CategoryRepository();
-    Categories cat1 = new Categories("Examen_01_DAM");
-    Categories cat2 = new Categories("Ejercicio_02_DAM");
-    Categories cat3 = new Categories("Práctica_03_DAM");
+    Categoria cat1 = new Categoria("Examen_01_DAM");
+    Categoria cat2 = new Categoria("Ejercicio_02_DAM");
+    Categoria cat3 = new Categoria("Práctica_03_DAM");
 
     CategoriesController categoriesController = CategoriesController.getInstance(catRepo);
 
@@ -40,7 +39,7 @@ class CategoriesControllerTests {
     @Test
     void save() throws CategoriesException{
 
-        Categories secondCategory = new Categories("Práctica_04_Dam");
+        Categoria secondCategory = new Categoria("Práctica_04_Dam");
 
         var result = categoriesController.save(secondCategory);
         var founded = categoriesController.getCategoryByName(secondCategory.getName());
@@ -55,7 +54,7 @@ class CategoriesControllerTests {
     @Test
     void getCategoryByName() throws CategoriesException{
 
-        var fakeResult = new Categories("Ejercicio3_DAM");
+        var fakeResult = new Categoria("Ejercicio3_DAM");
         var result = categoriesController.getCategoryByName(cat1.getName());
         var result2 = categoriesController.getCategoryByName(cat2.getName());
 

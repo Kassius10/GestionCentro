@@ -1,66 +1,78 @@
 package views;
 
-import models.PruebaEvaluacion;
-import utils.Input;
+import utils.Patterns;
 
 /**
  * Clase interfaz del programa.
  */
 public class MainView {
+    public MainView() {
+    }
 
     /**
      * Procedimiento de menu para gestionar.
      */
-    public static void menu(){
+    public static void menu() {
         int option;
         do {
             System.out.println("1- Gestionar Alumnos\n" +
                     "2- Gestionar Categorías\n" +
                     "3- Gestionar Evaluación\n" +
+                    "4- Importar datos\n" +
+                    "5- Exportar datos\n" +
                     "0- Salir");
 
-            option= setOption();
+            option = Patterns.setOption(0, 5);
 
-            switch(option){
+            switch (option) {
                 case 1:
                     alumnoView();
+                    break;
+
+                case 2:
+                    categoriesView();
                     break;
 
                 case 3:
                     pruebaView();
                     break;
-                case 2:
-                    CategoriesView catView = CategoriesView.getInstance();
+                case 4:
+                    System.out.println("Aun falta");
+                    break;
+                case 5:
+                    System.out.println("exportar");
                     break;
 
+
                 default:
-                    System.out.println("Na");
+                    System.out.println("Vuelva pronto");
                     break;
             }
-        }while(option!=0);
+        } while (option != 0);
 
     }
 
     /**
-     * Función de selección de opción del menu.
-     * @return devuelve el número de opción indicado.
+     * Procedimiento para iniciar la view de alumno.
      */
-    private static int setOption() {
-        var regex= "[0-3]";
-        String option;
-        do {
-            option= Input.readString("¿Qué desea hacer?: ");
-            if (!option.matches(regex)) System.out.println("Error.");
-        }while(!option.matches(regex));
-
-        return Integer.parseInt(option);
-    }
-    private static void alumnoView(){
+    private static void alumnoView() {
         AlumnoView view = AlumnoView.getInstance();
         view.init();
     }
-    private static void pruebaView(){
+
+    /**
+     * Procedimiento para iniciar la view de pruebas
+     */
+    private static void pruebaView() {
         EvaluationView view = EvaluationView.getInstance();
+        view.init();
+    }
+
+    /**
+     * Procedimiento para iniciar la view de categorías
+     */
+    private static void categoriesView() {
+        CategoriesView view = CategoriesView.getInstance();
         view.init();
     }
 }

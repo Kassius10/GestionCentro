@@ -1,6 +1,5 @@
 package repositories;
 
-import exceptions.AlumnoException;
 import exceptions.PruebaException;
 
 import java.util.List;
@@ -8,10 +7,11 @@ import java.util.Optional;
 
 /**
  * Interfaz CRUD para los repositorios. Sin update.
- * @param <T> El objeto que pasaremos o queremos devolver.
+ *
+ * @param <T>  El objeto que pasaremos o queremos devolver.
  * @param <ID> Id del objeto.
  */
-public interface CRDRepository<T,ID> {
+public interface CRDRepository<T, ID> {
     /**
      * Devuelve una lista de todos los elementos que tenga el repositorio.
      *
@@ -41,5 +41,5 @@ public interface CRDRepository<T,ID> {
      * @param id Id del elemento que vamos a eliminar.
      * @return Devuelve el elemento que hemos eliminado.
      */
-    Optional<T> delete(ID id);
+    Optional<T> delete(ID id) throws PruebaException;
 }

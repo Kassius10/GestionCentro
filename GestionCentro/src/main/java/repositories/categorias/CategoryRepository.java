@@ -57,14 +57,6 @@ public class CategoryRepository implements ICategoryRepository {
     }
 
     /**
-     * Actualiza la Categoría Según su Nombre
-     *
-     * @param category que categoría queremos actualizar
-     * @return categoría actualizada
-     */
-
-
-    /**
      * Busca una Categoría por su nombre
      *
      * @param name nombre la categoría

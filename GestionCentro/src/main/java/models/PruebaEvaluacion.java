@@ -3,6 +3,7 @@ package models;
 import repositories.CalificacionRepository;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class PruebaEvaluacion {
     private LocalDateTime evaluationDate;
@@ -10,10 +11,14 @@ public class PruebaEvaluacion {
     private Categoria category;
     private CalificacionRepository qualifications;
 
+    public PruebaEvaluacion() {
+
+    }
+
     public PruebaEvaluacion(String description, Categoria category, CalificacionRepository qualifications) {
         this.description = description;
         this.category = category;
-        this.qualifications=qualifications;
+        this.qualifications = qualifications;
         this.evaluationDate = LocalDateTime.now();
     }
 
@@ -49,13 +54,36 @@ public class PruebaEvaluacion {
         this.qualifications = qualifications;
     }
 
+    public PruebaEvaluacion evaluationDate(LocalDateTime evaluationDate) {
+        this.evaluationDate = evaluationDate;
+        return this;
+    }
+
+    public PruebaEvaluacion description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public PruebaEvaluacion category(Categoria category) {
+        this.category = category;
+        return this;
+    }
+
+    public PruebaEvaluacion qualifications(CalificacionRepository qualifications) {
+        this.qualifications = qualifications;
+        return this;
+    }
+
+
     @Override
     public String toString() {
         return "PruebaEvaluacion{" +
-                "evaluationDate=" + evaluationDate +
+                "evaluationDate=" + evaluationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")) +
                 ", description='" + description + '\'' +
                 ", category=" + category +
-                ", qualifications=" + qualifications +
+                ", qualifications=" + qualifications.findAll() +
                 '}';
     }
+
+
 }

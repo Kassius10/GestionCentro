@@ -1,14 +1,13 @@
 package views;
 
-import comparators.AlumnoNameComparator;
-import comparators.AlumnoNumListComparator;
 import controllers.AlumnoController;
 import exceptions.AlumnoException;
 import models.Alumno;
 import repositories.alumnos.AlumnoRepository;
-import utils.AlumnoPatterns;
 import utils.Input;
+import utils.Patterns;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -16,43 +15,48 @@ import java.util.List;
  */
 public class AlumnoView {
     private static AlumnoView instance;
-    private static final AlumnoController alumnoController= AlumnoController.getInstance(new AlumnoRepository());
+    private final AlumnoController alumnoController = AlumnoController.getInstance(new AlumnoRepository());
 
     /**
      * Constructor privado de AlumnoView
      */
-    private AlumnoView(){
+    private AlumnoView() {
         loadData();
     }
 
     /**
      * Método de creación de instancia con el patron Singleton.
+     *
      * @return devuelve la instancia.
      */
-    public static AlumnoView getInstance(){
-        if(instance==null){
+    public static AlumnoView getInstance() {
+        if (instance == null) {
             instance = new AlumnoView();
         }
         return instance;
     }
 
+    public AlumnoController getAlumnoController() {
+        return alumnoController;
+    }
+
     /**
      * Método para iniciar.
      */
-    public void init(){
+    public void init() {
         menu();
     }
 
     /**
      * Datos cargados.
      */
-    private void loadData(){
+    private void loadData() {
         try {
-            alumnoController.insertAlumno(new Alumno("50583789h","Dani","Ca Ro","d@d.com","654-987789",true));
-            alumnoController.insertAlumno(new Alumno("50583469h","Wani","Ca Ro","d@d.com","654-987789",true));
-            alumnoController.insertAlumno(new Alumno("50583459h","Fani","Ca Ro","d@d.com","654-987789",true));
-            alumnoController.insertAlumno(new Alumno("50583179h","Gani","Ca Ro","d@d.com","654-987789",true));
-            alumnoController.insertAlumno(new Alumno("50583159h","TYani","Ca Ro","d@d.com","654-987789",true));
+            alumnoController.insertAlumno(new Alumno("50583789h", "Dani", "Ca Ro", "d@d.com", "654-987789", true, true));
+            alumnoController.insertAlumno(new Alumno("50583469h", "Wani", "Ca Ro", "d@d.com", "654-987789", true, true));
+            alumnoController.insertAlumno(new Alumno("50583459h", "Fani", "Ca Ro", "d@d.com", "654-987789", true, true));
+            alumnoController.insertAlumno(new Alumno("50583179h", "Gani", "Ca Ro", "d@d.com", "654-987789", true, true));
+            alumnoController.insertAlumno(new Alumno("50583159h", "TYani", "Ca Ro", "d@d.com", "654-987789", true, true));
         } catch (AlumnoException e) {
             e.printStackTrace();
         }
@@ -61,7 +65,7 @@ public class AlumnoView {
     /**
      * Procedimiento de selección de menu.
      */
-    public void menu(){
+    public void menu() {
         int option;
         do {
             System.out.println("1- Añadir un Alumno\n" +
@@ -69,8 +73,8 @@ public class AlumnoView {
                     "3- Eliminar un Alumno\n" +
                     "4- Consultar lista de alumnos\n" +
                     "0- Salir");
-            option= setOption();
-            switch(option){
+            option = setOption();
+            switch (option) {
                 case 1:
                     crearAlumno();
                     break;
@@ -90,33 +94,33 @@ public class AlumnoView {
             }
 
 
-        }while(option!=0);
+        } while (option != 0);
 
     }
 
     private void modificarAlumno() {
         System.out.println("Modificar alumno: ");
-        var alumno= Input.readString("Indica el dni del alumno que desea modificar: ");
+        var alumno = Input.readString("Indica el dni del alumno que desea modificar: ");
         System.out.println("Introduce los nuevos datos o deje en blanco para mantener los actuales.");
 
         try {
-            var exist= alumnoController.getAlumnByDni(alumno);
+            var exist = alumnoController.getAlumnByDni(alumno);
 
             String name = Input.readString("Indica nuevo nombre del Alumno: (anterior: " + exist.getName() + "):");
-            if (name.isEmpty()) name=exist.getName();
-            else name= AlumnoPatterns.patternName(name);
+            if (name.isEmpty()) name = exist.getName();
+            else name = Patterns.patternName(name);
 
             String surNames = Input.readString("Indica los nuevos apellidos del Alumno: (anterior: " + exist.getSurNames() + "):");
-            surNames=(surNames.isEmpty())?exist.getSurNames() :AlumnoPatterns.patternSurnames(surNames);
+            surNames = (surNames.isEmpty()) ? exist.getSurNames() : Patterns.patternSurnames(surNames);
 
             String email = Input.readString("Indica el nuevo email del Alumno: (anterior: " + exist.getEmail() + "):");
-            email=(email.isEmpty())?exist.getEmail() :AlumnoPatterns.patternEmail(email);
+            email = (email.isEmpty()) ? exist.getEmail() : Patterns.patternEmail(email);
 
             String phone = Input.readString("Indica el nuevo teléfono del Alumno: (anterior: " + exist.getPhone() + "):");
-            phone= (phone.isEmpty())?exist.getPhone() :AlumnoPatterns.patternPhone(phone);
+            phone = (phone.isEmpty()) ? exist.getPhone() : Patterns.patternPhone(phone);
 
             String evaluation = Input.readString("Indica si ha perdido la evaluacion [si - no]: ");
-            boolean ev = (evaluation.isEmpty())? exist.isHasLoseEvaluation(): AlumnoPatterns.patternBoolean(evaluation).equals("si");
+            boolean ev = (evaluation.isEmpty()) ? exist.isHasLoseEvaluation() : Patterns.patternBoolean(evaluation).equals("si");
 
             exist.name(name)
                     .surNames(surNames)
@@ -139,11 +143,14 @@ public class AlumnoView {
      */
     private void eliminarAlumno() {
         System.out.println("Eliminar alumno:");
-        var alumno= Input.readString("Introduzca el dni del alumno que desea eliminar: ");
+        var alumno = Input.readString("Introduzca el dni del alumno que desea eliminar: ");
         try {
-            var res= alumnoController.deletAlumno(alumno);
-            System.out.println("Alumno eliminado satisfactoriamente.");
-            System.out.println(res);
+            var res = alumnoController.getAlumnByDni(alumno);
+            if (res.isEnabled()) {
+                alumnoController.deletAlumno(alumno);
+                System.out.println("Alumno eliminado satisfactoriamente.");
+                System.out.println(res);
+            } else System.out.println("No se puede eliminar el alumno, se encuentra no disponible.");
         } catch (AlumnoException e) {
             System.out.println("Error al eliminar el alumno: " + e.getMessage());
         }
@@ -152,25 +159,25 @@ public class AlumnoView {
     /**
      * Procedimiento para añadir un alumno
      */
-    private void crearAlumno(){
+    private void crearAlumno() {
         System.out.println("Añadir alumno:");
         String dni = Input.readString("DNI del alumno: ");
-        dni= AlumnoPatterns.patternDni(dni);
+        dni = Patterns.patternDni(dni);
 
         String name = Input.readString("Nombre del alumno: ");
-        name= AlumnoPatterns.patternName(name);
+        name = Patterns.patternName(name);
 
         String surNames = Input.readString("Apellidos del alumno: ");
-        surNames= AlumnoPatterns.patternSurnames(surNames);
+        surNames = Patterns.patternSurnames(surNames);
 
         String email = Input.readString("Email del alumno: ");
-        email= AlumnoPatterns.patternEmail(email);
+        email = Patterns.patternEmail(email);
 
         String phone = Input.readString("Número de teléfono de contacto del alumno: ");
-        phone= AlumnoPatterns.patternPhone(phone);
+        phone = Patterns.patternPhone(phone);
 
         String evaluation = Input.readString("Indica si ha perdido la evaluacion [si - no]: ");
-        evaluation= AlumnoPatterns.patternBoolean(evaluation);
+        evaluation = Patterns.patternBoolean(evaluation);
 
         System.out.println("Matriculando...");
         Alumno alumno = null;
@@ -187,11 +194,11 @@ public class AlumnoView {
         }
 
         try {
-            var res= alumnoController.insertAlumno(alumno);
+            var res = alumnoController.insertAlumno(alumno);
             System.out.println("El alumno ha sido matriculado perfectamente.");
             System.out.println(res);
         } catch (AlumnoException e) {
-            System.out.println("Erros al añadir el alumno: "+ e.getMessage());
+            System.out.println("Erros al añadir el alumno: " + e.getMessage());
         }
 
     }
@@ -199,56 +206,57 @@ public class AlumnoView {
     /**
      * Procedimiento para consultar la lista de alumnos
      */
-    private void showAlumnos(){
+    private void showAlumnos() {
         List<Alumno> alumnos = alumnoController.getAllAlumnos();
         System.out.println("1- Por orden de lista\n" +
                 "2- Por orden alfabético.");
 
+        System.out.println("\nLista de alumnos:");
         metodoOrdenacion(alumnos);
 
-        System.out.println("\nLista de alumnos:");
-        for(Alumno alumno : alumnos){
-            System.out.println(alumno);
-        }
-        System.out.println("Hay "+ alumnos.size() + " alumnos.");
+        System.out.println("Hay " + alumnos.size() + " alumnos.");
     }
 
     /**
      * Procedimiento para indicar como queremos ordenar la lista.
+     *
      * @param alumnos Lista de alumnos que queremos ordenar.
      */
     private void metodoOrdenacion(List<Alumno> alumnos) {
         boolean ok;
         do {
-            var option= Input.readString("Como quieres ordenarlo: ");
-            switch(option){
+            var option = Input.readString("Como quieres ordenarlo: ");
+            switch (option) {
                 case "1":
-                    alumnos.sort(new AlumnoNumListComparator());
-                    ok=true;
+                    //alumnos.sort(new AlumnoNumListComparator());
+                    alumnos.stream().sorted(Comparator.comparing(Alumno::getId)).forEach(System.out::println);
+                    ok = true;
                     break;
                 case "2":
-                    alumnos.sort(new AlumnoNameComparator());
-                    ok=true;
+                    //alumnos.sort(new AlumnoNameComparator());
+                    alumnos.stream().sorted(Comparator.comparing(Alumno::getName)).forEach(System.out::println);
+                    ok = true;
                     break;
                 default:
                     System.out.println("Error");
-                    ok=false;
+                    ok = false;
                     break;
             }
-        }while (!ok);
+        } while (!ok);
     }
 
     /**
      * Función para indicar la opción del menu.
+     *
      * @return Devuelve el número de la opción.
      */
     private int setOption() {
-        var regex= "[0-4]";
+        var regex = "[0-4]";
         String option;
         do {
-            option= Input.readString("¿Qué desea hacer?: ");
+            option = Input.readString("¿Qué desea hacer?: ");
             if (!option.matches(regex)) System.out.println("La opción seleccionada es incorrecta.");
-        }while(!option.matches(regex));
+        } while (!option.matches(regex));
 
         return Integer.parseInt(option);
     }

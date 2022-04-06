@@ -1,14 +1,13 @@
-package controllersTests;
+package controllers;
 
-import controllers.CategoriesController;
 import exceptions.CategoriesException;
-import models.Categories;
+import models.Categoria;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Isolated;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.InjectMocks;
 import repositories.categorias.CategoryRepository;
 
 import java.util.List;
@@ -18,50 +17,50 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-    @Isolated
+@Isolated
 
 public class CategoriaControllerTestMockito {
 
-   @Mock
+    @Mock
     CategoryRepository categoryRepository;
 
-   @InjectMocks
-   CategoriesController categoriesController;
+    @InjectMocks
+    CategoriesController categoriesController;
 
     //Distintas Categorías de Prueba
-    Categories cat1 = new Categories("Examen_01_DAM");
-    Categories cat2 = new Categories("Ejercicio_02_DAM");
-    Categories cat3 = new Categories("Práctica_03_DAM");
+    Categoria cat1 = new Categoria("Examen_01_DAM");
+    Categoria cat2 = new Categoria("Ejercicio_02_DAM");
+    Categoria cat3 = new Categoria("Práctica_03_DAM");
 
 
     @Test
-    void checkIsOk()  {
+    void checkIsOk() {
         var result = assertThrows(CategoriesException.class, () -> categoriesController.checkIsOk(new Categoria("")));
         assertEquals("No es posible introducir el nombre de esta categoría el espacio está vacío", result.getMessage());
 
     }
 
     @Test
-    void save() throws CategoriesException{
+    void save() throws CategoriesException {
         when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.empty());
         when(categoryRepository.save(cat1)).thenReturn(Optional.of(cat1));
 
-                var catAux= categoriesController.save(cat1);
+        var catAux = categoriesController.save(cat1);
 
-                    assertAll(
+        assertAll(
 
-                            () -> assertEquals(catAux.getName(), cat1.getName()),
-                            () -> assertNotEquals(catAux.getName(), cat2.getName())
+                () -> assertEquals(catAux.getName(), cat1.getName()),
+                () -> assertNotEquals(catAux.getName(), cat2.getName())
 
-                    );
+        );
 
-                verify(categoryRepository, times(1)).findByName(cat1.getName());
-                verify(categoryRepository, times(1)).save(cat1);
+        verify(categoryRepository, times(1)).findByName(cat1.getName());
+        verify(categoryRepository, times(1)).save(cat1);
     }
 
 
     @Test
-    void saveExceptionTest(){
+    void saveExceptionTest() {
 
         when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.of(cat1));
 
@@ -69,59 +68,57 @@ public class CategoriaControllerTestMockito {
 
                 assertThrows(CategoriesException.class, () -> categoriesController.save(cat1));
 
-                assertTrue(exceptionToTrow.getMessage().contains("Está categoría ya se encuentra dentro del sistema"));
+        assertTrue(exceptionToTrow.getMessage().contains("Está categoría ya se encuentra dentro del sistema"));
 
-                     verify(categoryRepository, times(1)).findByName(cat1.getName());
+        verify(categoryRepository, times(1)).findByName(cat1.getName());
     }
-
 
 
     @Test
     void getCategoryByName() throws CategoriesException {
         when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.of(cat1));
 
-        var catAux= categoriesController.getCategoryByName(cat1.getName());
+        var catAux = categoriesController.getCategoryByName(cat1.getName());
 
-                    assertAll(
-                            () -> assertEquals(catAux.getName(), cat1.getName()),
-                            () -> assertNotEquals(catAux.getName(), cat2.getName())
-                    );
+        assertAll(
+                () -> assertEquals(catAux.getName(), cat1.getName()),
+                () -> assertNotEquals(catAux.getName(), cat2.getName())
+        );
 
         verify(categoryRepository, times(1)).findByName(cat1.getName());
 
     }
 
 
-
     @Test
-    void getCategoryByNameExceptionTest(){
+    void getCategoryByNameExceptionTest() {
         when(categoryRepository.findByName(anyString())).thenReturn(Optional.empty());
 
         Exception exceptionToTrow =
 
-                assertThrows(CategoriesException.class,()-> categoriesController.getCategoryByName(anyString()));
+                assertThrows(CategoriesException.class, () -> categoriesController.getCategoryByName(anyString()));
 
-                assertTrue(exceptionToTrow.getMessage().contains("No existe esta categoría en la lista"));
+        assertTrue(exceptionToTrow.getMessage().contains("No existe esta categoría en la lista"));
 
 
-                    verify(categoryRepository, times(1)).findByName(anyString());
+        verify(categoryRepository, times(1)).findByName(anyString());
 
     }
 
 
     @Test
-    void getAllCategories(){
+    void getAllCategories() {
         when(categoryRepository.findAll()).thenReturn(List.of(cat1));
 
 
-            var list = categoriesController.getAllCategories();
+        var list = categoriesController.getAllCategories();
 
 
-                    assertAll(
-                            () -> assertEquals(list.size(), 1),
-                            () -> assertTrue(list.contains(cat1))
+        assertAll(
+                () -> assertEquals(list.size(), 1),
+                () -> assertTrue(list.contains(cat1))
 
-                    );
+        );
 
     }
 
@@ -130,17 +127,16 @@ public class CategoriaControllerTestMockito {
         when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.empty());
         when(categoryRepository.updated("Examen_03_DAM", cat1)).thenReturn(Optional.of(cat1));
 
-            var catAux= categoriesController.updateCategory("Examen_03_DAM", cat1);
+        var catAux = categoriesController.updateCategory("Examen_03_DAM", cat1);
 
-                assertAll(
-                        () -> assertEquals(catAux.getName(), cat1.getName())
-                        //....
-                );
+        assertAll(
+                () -> assertEquals(catAux.getName(), cat1.getName())
+                //....
+        );
 
 
-
-            verify(categoryRepository, times(1)).findByName(cat1.getName());
-            verify(categoryRepository, times(1)).updated("Examen_03_DAM",cat1);
+        verify(categoryRepository, times(1)).findByName(cat1.getName());
+        verify(categoryRepository, times(1)).updated("Examen_03_DAM", cat1);
     }
 
 //    @Test
