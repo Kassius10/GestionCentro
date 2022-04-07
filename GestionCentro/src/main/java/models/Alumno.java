@@ -1,15 +1,16 @@
 package models;
 
 import exceptions.AlumnoException;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 /**
  * Clase que representa un Alumno.
  * Es una clase POJO, solo contiene getter and setters y una interfaz fluida.
  */
+@Data
 public class Alumno {
     private static int contador = 1;
     private final LocalDateTime registrationDate;
@@ -27,7 +28,7 @@ public class Alumno {
      */
     public Alumno() {
         this.id = contador++;
-        registrationDate = LocalDateTime.now(); //TODO cambiar el formato de la fecha a DD/MM/YYYY
+        registrationDate = LocalDateTime.now();
         this.enabled = true;
     }
 
@@ -335,18 +336,5 @@ public class Alumno {
                 ", enabled= " + enabled +
                 ", registrationDate=" + registrationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Alumno alumno = (Alumno) o;
-        return id == alumno.id && hasLoseEvaluation == alumno.hasLoseEvaluation && enabled == alumno.enabled && registrationDate.equals(alumno.registrationDate) && dni.equals(alumno.dni) && name.equals(alumno.name) && surNames.equals(alumno.surNames) && email.equals(alumno.email) && phone.equals(alumno.phone);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(registrationDate, id, dni, name, surNames, email, phone, hasLoseEvaluation, enabled);
     }
 }

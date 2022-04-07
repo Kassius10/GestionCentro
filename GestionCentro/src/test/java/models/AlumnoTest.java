@@ -4,6 +4,8 @@ import exceptions.AlumnoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AlumnoTest {
@@ -22,6 +24,12 @@ class AlumnoTest {
         alumno.id(1);
     }
 
+
+    @Test
+    void constructorSinParametrosTest() {
+        Alumno alumno = new Alumno();
+        assertEquals(LocalDateTime.now().getDayOfMonth(), alumno.getRegistrationDate().getDayOfMonth());
+    }
 
     @Test
     void constructorTest() {
@@ -69,12 +77,16 @@ class AlumnoTest {
     void isHasLoseEvaluationTest() {
         assertTrue(alumno.isHasLoseEvaluation());
     }
-    //TODO MIRAR ESTE TEST MEJOR
-//    @Test
-//    void getRegistrationDateTest(){
-//        assertEquals(LocalDateTime.now().,alumno.getRegistrationDate());
-//        System.out.println(alumno.getRegistrationDate());
-//    }
+
+    @Test
+    void isEnabledTest() {
+        assertTrue(alumno.isEnabled());
+    }
+
+    @Test
+    void getRegistrationDateTest() {
+        assertEquals(LocalDateTime.now().getDayOfMonth(), alumno.getRegistrationDate().getDayOfMonth());
+    }
 
     @Test
     void setDniTest() throws AlumnoException {
@@ -226,6 +238,14 @@ class AlumnoTest {
     }
 
     @Test
+    void setEnabledTest() {
+        alumno.setEnabled(false);
+        assertFalse(alumno.isEnabled());
+        alumno.setEnabled(true);
+        assertTrue(alumno.isEnabled());
+    }
+
+    @Test
     void dniTest() throws AlumnoException {
         var al = alumno.dni("11111111a");
         assertEquals("11111111a", al.getDni());
@@ -372,5 +392,22 @@ class AlumnoTest {
         al = alumno.hasLoseEvaluation(true);
         assertTrue(al.isHasLoseEvaluation());
     }
-    //TODO FALTA TESTEAR 5 METODOS HASHCODE, EQUALS, TOSTRING,CONSTRUCTOR SIN PARAMETROS,LOCALDATETIME.
+
+    @Test
+    void enabledTest() {
+        var al = alumno.enabled(false);
+        assertFalse(al.isEnabled());
+        al = alumno.enabled(true);
+        assertTrue(al.isEnabled());
+    }
+
+    @Test
+    void toStringTest() {
+        assertTrue(alumno.toString().contains("Alumno"));
+        assertTrue(alumno.toString().contains(alumno.getName()));
+        assertTrue(alumno.toString().contains(alumno.getSurNames()));
+        assertTrue(alumno.toString().contains(alumno.getDni()));
+
+    }
+
 }

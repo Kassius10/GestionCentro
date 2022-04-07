@@ -43,12 +43,16 @@ public class MainView {
                     System.out.println("exportar");
                     break;
 
+                case 0:
+                    System.out.println("Saliendo...");
+
 
                 default:
-                    System.out.println("Vuelva pronto");
+                    System.out.println("Error.");
                     break;
             }
         } while (option != 0);
+        System.out.println("Vuelva pronto");
 
     }
 

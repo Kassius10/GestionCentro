@@ -97,7 +97,7 @@ public class Patterns {
     public static String categoryItsOk(String name) {
         var regex = "^[a-zA-Z]+$";
         while (!name.matches(regex)) {
-            name = Input.readStringUppercase("Formato a introducir: Nombre_Número[NN]_CURSO(Iniciales)");
+            name = Input.readStringUppercase("El nombre es incorrecto");
         }
         return name;
     }

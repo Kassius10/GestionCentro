@@ -65,10 +65,9 @@ public class CategoriesView {
      * @return Verdadero si la cadena supera la expresión regular.
      */
     private static String categoryItsOk(String name) {
-//        var regex = "^[a-zA-Z]{1,11}[_][\\d]{1,2}[_][a-zA-Z]{2,5}";
         var regex = "^[a-zA-Z]+";
         while (!name.matches(regex)) {
-            name = Input.readStringUppercase("Formato a introducir: Nombre_Número[NN]_CURSO(Iniciales)");
+            name = Input.readStringUppercase("El nombre es incorrecto");
         }
         return name;
     }
@@ -121,6 +120,8 @@ public class CategoriesView {
                 case 3:
                     getAllCategories();
                     break;
+                case 0:
+                    System.out.println("Saliendo...");
                 default:
                     System.out.println(":D");
                     break;
@@ -156,14 +157,14 @@ public class CategoriesView {
 
         getAllCategories();
 
-        var category = Input.readStringUppercase("Indica el nombre de la categoría que desea modificar\n" + "\t Formato a introducir: Nombre_Número[NN]_CURSO(Iniciales)");
+        var category = Input.readString("Indica el nombre de la categoría que desea modificar");
 
         try {
             var isThere = categoriesController.getCategoryByName(categoryItsOk(category));
             var nameAntiguo = isThere.getName();
 
 
-            String newName = Input.readStringUppercase("Introduce el nuevo nombre de la categoría" + "(Anterior: " + isThere.getName() + ")");
+            String newName = Input.readString("Introduce el nuevo nombre de la categoría" + "(Anterior: " + isThere.getName() + ")");
 
             if (newName.isEmpty()) {
                 newName = isThere.getName();
@@ -187,7 +188,7 @@ public class CategoriesView {
     private void addNewCategory() {
         System.out.println("\nAñadiendo Categoría......");
 
-        String name = Input.readString("Introduce el nombre de la categoría\n" + "\t Formato a introducir: Nombre_Número[NN]_CURSO(Iniciales)");
+        String name = Input.readString("Introduce el nombre de la categoría\n");
 
 
         System.out.println("\nIntroduciendo la nueva categoría en el sistema");

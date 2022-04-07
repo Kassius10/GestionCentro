@@ -18,15 +18,13 @@ public class PruebaRepository implements IPruebaRepository {
     }
 
     @Override
-    public Optional<PruebaEvaluacion> findById(Categoria categoria) {
-        var prueba = pruebas.stream()
-                .filter(c -> c.getCategory().getName().equals(categoria.getName()))
-                .findFirst();
-        if (!prueba.isEmpty()) {
-
-            return prueba;
+    public Optional<PruebaEvaluacion> findById(Categoria categoria) throws PruebaException {
+        for (PruebaEvaluacion p : pruebas) {
+            if (p.getCategory().getName().equals(categoria.getName())) {
+                return Optional.of(p);
+            }
         }
-        return Optional.empty();
+        throw new PruebaException("No se encuentra ninguna prueba con la categoria " + categoria.getName());
     }
 
     @Override
@@ -37,7 +35,7 @@ public class PruebaRepository implements IPruebaRepository {
 
     @Override
     public Optional<PruebaEvaluacion> delete(Categoria categoria) throws PruebaException {
-        var prueba = findById(categoria).orElseThrow(() -> new PruebaException("No existe ninguna prueba con categoria " + categoria.getName()));
+        var prueba = findById(categoria).get();
         pruebas.remove(prueba);
         return Optional.of(prueba);
     }

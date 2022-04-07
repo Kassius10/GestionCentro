@@ -15,6 +15,12 @@ class CategoriaTest {
     }
 
     @Test
+    void constructorSinParametrosTest() {
+        Categoria category = new Categoria();
+        assertEquals(category.getClass(), Categoria.class);
+    }
+
+    @Test
     void getNameTest() {
         assertEquals("test_01_dam", category.getName());
     }

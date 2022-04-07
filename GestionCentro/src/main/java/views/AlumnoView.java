@@ -52,11 +52,11 @@ public class AlumnoView {
      */
     private void loadData() {
         try {
-            alumnoController.insertAlumno(new Alumno("50583789h", "Dani", "Ca Ro", "d@d.com", "654-987789", true, true));
-            alumnoController.insertAlumno(new Alumno("50583469h", "Wani", "Ca Ro", "d@d.com", "654-987789", true, true));
-            alumnoController.insertAlumno(new Alumno("50583459h", "Fani", "Ca Ro", "d@d.com", "654-987789", true, true));
-            alumnoController.insertAlumno(new Alumno("50583179h", "Gani", "Ca Ro", "d@d.com", "654-987789", true, true));
-            alumnoController.insertAlumno(new Alumno("50583159h", "TYani", "Ca Ro", "d@d.com", "654-987789", true, true));
+            alumnoController.insertAlumno(new Alumno("11111111a", "dani", "carmona rodriguez", "dani@alumno.org", "611-111111", true, true));
+            alumnoController.insertAlumno(new Alumno("22222222b", "jeremy", "ramos segura", "jeremy@alumno.org", "622-222222", true, true));
+            alumnoController.insertAlumno(new Alumno("33333333c", "nuria", "gonzalez margallo", "nuria@alumno.org", "633-333333", true, true));
+            alumnoController.insertAlumno(new Alumno("44444444d", "marta", "sanchez perez", "marta@alumno.org", "644-444444", true, true));
+            alumnoController.insertAlumno(new Alumno("55555555e", "luis", "lopez lopez", "luis@alumno.org", "655-555555S", true, true));
         } catch (AlumnoException e) {
             e.printStackTrace();
         }
@@ -101,11 +101,11 @@ public class AlumnoView {
     private void modificarAlumno() {
         System.out.println("Modificar alumno: ");
         var alumno = Input.readString("Indica el dni del alumno que desea modificar: ");
-        System.out.println("Introduce los nuevos datos o deje en blanco para mantener los actuales.");
+
 
         try {
             var exist = alumnoController.getAlumnByDni(alumno);
-
+            System.out.println("Introduce los nuevos datos o deje en blanco para mantener los actuales.");
             String name = Input.readString("Indica nuevo nombre del Alumno: (anterior: " + exist.getName() + "):");
             if (name.isEmpty()) name = exist.getName();
             else name = Patterns.patternName(name);
@@ -122,11 +122,15 @@ public class AlumnoView {
             String evaluation = Input.readString("Indica si ha perdido la evaluacion [si - no]: ");
             boolean ev = (evaluation.isEmpty()) ? exist.isHasLoseEvaluation() : Patterns.patternBoolean(evaluation).equals("si");
 
+            String enabled = Input.readString("Indica si esta disponible el alumno [si - no]: (anterior:  " + exist.isEnabled() + "):");
+            boolean disponible = (enabled.isEmpty()) ? exist.isEnabled() : Patterns.patternBoolean(enabled).equals("si");
+
             exist.name(name)
                     .surNames(surNames)
                     .email(email)
                     .phone(phone)
-                    .hasLoseEvaluation(ev);
+                    .hasLoseEvaluation(ev)
+                    .enabled(disponible);
 
             var res = alumnoController.updateAlumno(exist.getId(), exist);
             System.out.println("Alumno actualizado");
@@ -161,23 +165,26 @@ public class AlumnoView {
      */
     private void crearAlumno() {
         System.out.println("Añadir alumno:");
-        String dni = Input.readString("DNI del alumno: ");
+        String dni = Input.readString("DNI del alumno: Formato: [NNNNNNNNL]");
         dni = Patterns.patternDni(dni);
 
         String name = Input.readString("Nombre del alumno: ");
         name = Patterns.patternName(name);
 
-        String surNames = Input.readString("Apellidos del alumno: ");
+        String surNames = Input.readString("Apellidos del alumno: [Separado por espacio]");
         surNames = Patterns.patternSurnames(surNames);
 
-        String email = Input.readString("Email del alumno: ");
+        String email = Input.readString("Email del alumno: Formato: [loquesea@correo.com - loquesea@correo.dominio.es]");
         email = Patterns.patternEmail(email);
 
-        String phone = Input.readString("Número de teléfono de contacto del alumno: ");
+        String phone = Input.readString("Número de teléfono de contacto del alumno: Formato: [NNN-NNNNNNN] el número debe empezar entre 6-9.");
         phone = Patterns.patternPhone(phone);
 
         String evaluation = Input.readString("Indica si ha perdido la evaluacion [si - no]: ");
         evaluation = Patterns.patternBoolean(evaluation);
+
+        String enabled = Input.readString("Indica si el usuario esta disponible. [si - no]: ");
+        enabled = Patterns.patternBoolean(enabled);
 
         System.out.println("Matriculando...");
         Alumno alumno = null;
@@ -188,7 +195,8 @@ public class AlumnoView {
                     .surNames(surNames)
                     .email(email)
                     .phone(phone)
-                    .hasLoseEvaluation(evaluation.equals("si"));
+                    .hasLoseEvaluation(evaluation.equals("si"))
+                    .enabled(enabled.equals("si"));
         } catch (AlumnoException e) {
             System.out.println(e.getMessage());
         }

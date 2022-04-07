@@ -13,7 +13,6 @@ import repositories.pruebas.PruebaRepository;
 import utils.Input;
 import utils.Patterns;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,18 +73,19 @@ public class EvaluationView {
                 case 5:
                     importQualifications();
                     break;
-
+                case 0:
+                    System.out.println("Saliendo...");
                 default:
                     System.out.println("Error.");
                     break;
             }
-
 
         } while (option != 0);
     }
 
     private void importQualifications() {
         PruebaEvaluacion prueba = getPruebaEvaluation("\nSelecciona el tipo de prueba que desea importar: ", "Selecciona cual quiere importar: ");
+        prueba.getQualifications().mostrarInforme(prueba);
     }
 
     private void alterQualifications() {
@@ -104,6 +104,9 @@ public class EvaluationView {
                 case 2:
                     showQualifiactions(prueba);
                     break;
+
+                case 0:
+                    System.out.println("Saliendo...");
 
                 default:
                     System.out.println("Na");
@@ -163,7 +166,12 @@ public class EvaluationView {
         PruebaEvaluacion prueba = getPruebaEvaluation("\nIndica que tipo de prueba quiere eliminar: ", "Seleccione cual quiere eliminar.");
 
         try {
-            var res = evaluationController.deleteEvaluationTest(prueba);
+            PruebaEvaluacion res = null;
+            try {
+                res = evaluationController.deleteEvaluationTest(prueba);
+            } catch (CategoriesException e) {
+                e.printStackTrace();
+            }
             System.out.println("Prueba borrada correctamente.");
             System.out.println(res);
         } catch (PruebaException e) {
@@ -213,8 +221,7 @@ public class EvaluationView {
         PruebaEvaluacion prueba = new PruebaEvaluacion()
                 .description(description)
                 .category(categoria)
-                .qualifications(calificaciones)
-                .evaluationDate(LocalDateTime.now());
+                .qualifications(calificaciones);
 
         try {
             var res = evaluationController.createEvaluationTest(prueba);
@@ -254,7 +261,7 @@ public class EvaluationView {
     private Optional<Calificacion> getNotas(String[] notas) {
         AlumnoView view = AlumnoView.getInstance();
         var regex = "([1-9]{1}[0-9]{7}[a-z])";
-        var regex1 = "[0-9]|[0-9].[0-9]{1,2}";
+        var regex1 = "[0-9]|[0-9].[0-9]{1,2}|10";
         if (notas.length < 2 || !notas[0].trim().matches(regex) || !notas[1].trim().matches(regex1)) {
             System.out.println("Error.");
         } else {

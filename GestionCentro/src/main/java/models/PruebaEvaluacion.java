@@ -6,13 +6,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class PruebaEvaluacion {
-    private LocalDateTime evaluationDate;
+    private final LocalDateTime evaluationDate;
     private String description;
     private Categoria category;
     private CalificacionRepository qualifications;
 
     public PruebaEvaluacion() {
-
+        this.evaluationDate = LocalDateTime.now();
     }
 
     public PruebaEvaluacion(String description, Categoria category, CalificacionRepository qualifications) {
@@ -24,10 +24,6 @@ public class PruebaEvaluacion {
 
     public LocalDateTime getEvaluationDate() {
         return evaluationDate;
-    }
-
-    public void setEvaluationDate(LocalDateTime evaluationDate) {
-        this.evaluationDate = evaluationDate;
     }
 
     public String getDescription() {
@@ -52,11 +48,6 @@ public class PruebaEvaluacion {
 
     public void setQualifications(CalificacionRepository qualifications) {
         this.qualifications = qualifications;
-    }
-
-    public PruebaEvaluacion evaluationDate(LocalDateTime evaluationDate) {
-        this.evaluationDate = evaluationDate;
-        return this;
     }
 
     public PruebaEvaluacion description(String description) {

@@ -91,7 +91,7 @@ public class Calificacion {
      */
     @Override
     public String toString() {
-        return " | Alumno: " + student +
+        return "| Alumno: " + student +
                 "| Nota: " + qualification +
                 "| Fecha de entrega: " + deliveryDate;
     }

@@ -1,5 +1,6 @@
 package controllers;
 
+import exceptions.CategoriesException;
 import exceptions.PruebaException;
 import models.Categoria;
 import models.PruebaEvaluacion;
@@ -31,15 +32,15 @@ public class EvaluationTestController {
         return prueba;
     }
 
-    public PruebaEvaluacion deleteEvaluationTestByCategory(Categoria categoria) throws PruebaException {
-        var prueba = pruebas.findById(categoria).orElseThrow(() -> new PruebaException("No existe ningúna prueba de " + categoria.getName()));
+    public PruebaEvaluacion deleteEvaluationTestByCategory(Categoria categoria) throws CategoriesException, PruebaException {
+        var prueba = pruebas.findById(categoria).get();
         pruebas.delete(prueba.getCategory());
         return prueba;
 
     }
 
-    public PruebaEvaluacion deleteEvaluationTest(PruebaEvaluacion prueba) throws PruebaException {
-        var test = pruebas.findById(prueba.getCategory()).orElseThrow(() -> new PruebaException("No existe ningúna prueba de " + prueba.getCategory().getName()));
+    public PruebaEvaluacion deleteEvaluationTest(PruebaEvaluacion prueba) throws PruebaException, CategoriesException {
+        var test = pruebas.findById(prueba.getCategory());
         pruebas.deleteByPrueba(prueba);
         return prueba;
 
