@@ -13,6 +13,7 @@ public class PruebaEvaluacion {
     private String description;
     private Categoria category;
     private CalificacionRepository qualifications;
+    private int id;
 
     /**
      * Constructor sin parametros

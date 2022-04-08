@@ -10,6 +10,7 @@ public class Calificacion {
     private final String deliveryDate;
     private Alumno student;
     private double qualification;
+    private int id;
 
     /**
      * Constructor con paramatros

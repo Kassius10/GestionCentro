@@ -157,5 +157,11 @@ class AlumnoRepositoryTest {
 
     }
 
+    @Test
+    void size() {
+        repository.save(alumno);
+        assertEquals(1, repository.size());
+    }
+
 
 }

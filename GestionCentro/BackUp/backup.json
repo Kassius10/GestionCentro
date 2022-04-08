@@ -1,5 +1,5 @@
 {
-  "createAt": "2022-04-08T14:55:07.651787600",
+  "createAt": "2022-04-08T17:46:24.633522700",
   "alumnos": [
     {
       "registrationDate": {
@@ -142,16 +142,20 @@
   ],
   "categories": [
     {
-      "name": "ejercicio"
+      "name": "ejercicio",
+      "id": 0
     },
     {
-      "name": "examen"
+      "name": "examen",
+      "id": 0
     },
     {
-      "name": "exposicion"
+      "name": "exposicion",
+      "id": 0
     },
     {
-      "name": "practica"
+      "name": "practica",
+      "id": 0
     }
   ],
   "pruebas": [
@@ -171,7 +175,8 @@
       },
       "description": "Examen de lengua",
       "category": {
-        "name": "examen"
+        "name": "examen",
+        "id": 0
       },
       "qualifications": {
         "calificaciones": [
@@ -197,10 +202,12 @@
               "hasLoseEvaluation": false,
               "enabled": true
             },
-            "qualification": 8.0
+            "qualification": 8.0,
+            "id": 0
           }
         ]
-      }
+      },
+      "id": 0
     },
     {
       "evaluationDate": {
@@ -218,11 +225,13 @@
       },
       "description": "Test Entornos",
       "category": {
-        "name": "test"
+        "name": "test",
+        "id": 0
       },
       "qualifications": {
         "calificaciones": []
-      }
+      },
+      "id": 0
     },
     {
       "evaluationDate": {
@@ -240,11 +249,13 @@
       },
       "description": "Examen de mates",
       "category": {
-        "name": "examen"
+        "name": "examen",
+        "id": 0
       },
       "qualifications": {
         "calificaciones": []
-      }
+      },
+      "id": 0
     },
     {
       "evaluationDate": {
@@ -262,11 +273,13 @@
       },
       "description": "Prueba Programacion",
       "category": {
-        "name": "ejercicio"
+        "name": "ejercicio",
+        "id": 0
       },
       "qualifications": {
         "calificaciones": []
-      }
+      },
+      "id": 0
     }
   ]
 }

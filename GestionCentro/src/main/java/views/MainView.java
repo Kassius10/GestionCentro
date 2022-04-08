@@ -29,7 +29,7 @@ public class MainView {
     public static void menu() {
         int option;
         do {
-            System.out.println("1- Gestionar Alumnos\n" +
+            System.out.println("\n1- Gestionar Alumnos\n" +
                     "2- Gestionar Categorías\n" +
                     "3- Gestionar Evaluación\n" +
                     "4- Importar datos\n" +
@@ -95,7 +95,11 @@ public class MainView {
         view.init();
     }
 
+    /**
+     * Procedimiento para importar los datos.
+     */
     private static void importarDatos() {
+        System.out.println();
         try {
             backupManager.importarDatos();
         } catch (Exception e) {
@@ -104,7 +108,11 @@ public class MainView {
 
     }
 
+    /**
+     * Procedimiento para exportar los datos.
+     */
     private static void exportarDatos() {
+        System.out.println();
         try {
             backupManager.exportarDatos();
         } catch (Exception e) {

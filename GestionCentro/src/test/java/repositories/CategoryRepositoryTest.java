@@ -39,7 +39,7 @@ class CategoryRepositoryTest {
                 () -> assertEquals(res.get(0).getName(), category.getName())
         );
     }
-    
+
     /**
      * @Test para crear una nueva categoría
      */
@@ -90,6 +90,12 @@ class CategoryRepositoryTest {
                 () -> assertTrue(result.get().getName().equals(category.getName()))
         );
 
+    }
+
+    @Test
+    void size() {
+        categoryRepository.save(category);
+        assertEquals(1, categoryRepository.size());
     }
 
 }

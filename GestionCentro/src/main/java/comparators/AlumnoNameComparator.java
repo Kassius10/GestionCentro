@@ -11,6 +11,7 @@ public class AlumnoNameComparator implements Comparator<Alumno> {
 
     /**
      * Método de comparar un alumno con otro por nombre.
+     *
      * @param o1 Primer Alumno
      * @param o2 Segundo Alumno
      * @return devuelve un número que sera la respuesta de quien es mayor.
@@ -22,6 +23,7 @@ public class AlumnoNameComparator implements Comparator<Alumno> {
 
     /**
      * Método para obtener el orden inverso al compare
+     *
      * @return Devuelve la comparación al inverso de alumno.
      */
     @Override

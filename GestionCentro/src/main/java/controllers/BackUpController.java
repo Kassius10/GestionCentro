@@ -9,15 +9,23 @@ import repositories.categorias.ICategoryRepository;
 import repositories.pruebas.IPruebaRepository;
 import services.IBackUpStorage;
 
-import java.sql.SQLException;
-
-
+/**
+ * Clase controladora de BackUp
+ */
 public class BackUpController {
     private final IAlumnoRepository alumnosRepository;
     private final ICategoryRepository categoryRepository;
     private final IPruebaRepository pruebaRepository;
     private final IBackUpStorage backUpStorage;
 
+    /**
+     * Constructor con parametros
+     *
+     * @param alumnosRepository  repositorio de alumnos
+     * @param backUpStorage      almacenamiento requerido
+     * @param categoryRepository repositorio de categoria
+     * @param pruebaRepository   repositorio de pruebas
+     */
     public BackUpController(IAlumnoRepository alumnosRepository, IBackUpStorage backUpStorage, ICategoryRepository categoryRepository, IPruebaRepository pruebaRepository) {
         this.alumnosRepository = alumnosRepository;
         this.backUpStorage = backUpStorage;
@@ -25,8 +33,10 @@ public class BackUpController {
         this.pruebaRepository = pruebaRepository;
     }
 
-
-    public void importarDatos() throws SQLException {
+    /**
+     * Procedimiento para importar los datos
+     */
+    public void importarDatos() {
         System.out.println("Importando datos de Backup: " + backUpStorage.getBackupPath());
         var backup = backUpStorage.load();
 
@@ -66,7 +76,10 @@ public class BackUpController {
         }
     }
 
-    public void exportarDatos() throws SQLException {
+    /**
+     * Procedimiento para exportar los datos
+     */
+    public void exportarDatos() {
         System.out.println("Exportando datos a fichero de Backup...");
         var alumnos = alumnosRepository.findAll();
         var categorías = categoryRepository.findAll();
@@ -76,7 +89,7 @@ public class BackUpController {
         if (res) {
             System.out.println("Exportando " + backup.getAlumnos().size() + " Alumn@s| "
                     + backup.getCategories().size() + " Categorías| "
-                    + backup.getPruebas().size() + "Pruebas|");
+                    + backup.getPruebas().size() + " Pruebas|");
             System.out.println("Datos exportados con éxito en: " + backUpStorage.getBackupPath());
         } else {
             System.out.println("Ha existido un problema al exportar los datos");

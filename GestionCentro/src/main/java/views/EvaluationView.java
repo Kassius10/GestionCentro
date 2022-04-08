@@ -17,14 +17,25 @@ import utils.Patterns;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Clase interfaz de evaluación
+ */
 public class EvaluationView {
     private static EvaluationView instance;
     private final EvaluationTestController evaluationController = EvaluationTestController.getInstance(PruebaRepository.getInstance());
 
+    /**
+     * Constructor privado sin parametros
+     */
     private EvaluationView() {
         loadData();
     }
 
+    /**
+     * Funcion constructora de la instancia de Evaluacion
+     *
+     * @return Devuelve la propia evaluacion
+     */
     public static EvaluationView getInstance() {
         if (instance == null) {
             instance = new EvaluationView();
@@ -32,6 +43,16 @@ public class EvaluationView {
         return instance;
     }
 
+    /**
+     * Procedimiento de iniciar
+     */
+    public void init() {
+        menu();
+    }
+
+    /**
+     * Procedimiento de carga de datos
+     */
     private void loadData() {
         try {
             CalificacionRepository repository = new CalificacionRepository();
@@ -50,18 +71,17 @@ public class EvaluationView {
         }
     }
 
-    public void init() {
-        menu();
-    }
-
+    /**
+     * Procedimiento que contine el menu de seleccion
+     */
     private void menu() {
         int option;
         do {
-            System.out.println("1- Crear una Prueba de Evaluación\n" +
+            System.out.println("\n1- Crear una Prueba de Evaluación\n" +
                     "2- Consultar las Prueba de Evaluación\n" +
                     "3- Modificar las calificaciones de una Prueba de Evaluación\n" +
                     "4- Eliminar una Prueba de Evaluación\n" +
-                    "5- Importar notas\n" +
+                    "5- Ver resumen notas o Importar Notas\n" +
                     "0- Salir");
             option = Patterns.setOption(0, 5);
             switch (option) {
@@ -91,8 +111,11 @@ public class EvaluationView {
         } while (option != 0);
     }
 
+    /**
+     * Procedimiento para la creación de pruebas de evalaución
+     */
     private void addNewEvaluationTest() {
-        System.out.println("Creando Nueva Prueba...");
+        System.out.println("\nCreando Nueva Prueba...");
 
         showCategories();
         String category = Input.readString("\nIndica que tipo de prueba va a ser: ");
@@ -124,6 +147,9 @@ public class EvaluationView {
 
     }
 
+    /**
+     * Procedimiento que muestra toda las pruebas de evaluación
+     */
     private void getAllEvaluationTest() {
         List<PruebaEvaluacion> pruebas = evaluationController.getAllEvaluationTest();
         System.out.println("\nLista de Pruebas");
@@ -131,6 +157,9 @@ public class EvaluationView {
         System.out.println("Hay " + pruebas.size() + " pruebas.");
     }
 
+    /**
+     * Procedimiento para la eliminacion de prueba de evaluación
+     */
     private void deleteEvaluationTest() {
         System.out.println("Eliminar prueba de evaluación...");
         PruebaEvaluacion prueba = getPruebaEvaluation("\nIndica que tipo de prueba quiere eliminar: ", "Seleccione cual quiere eliminar.");
@@ -145,6 +174,9 @@ public class EvaluationView {
         }
     }
 
+    /**
+     * Procedimiento para el acceso al resumen de notas de una prueba y/o importarlas
+     */
     private void importQualifications() {
         PruebaEvaluacion prueba = getPruebaEvaluation("\nSelecciona el tipo de prueba que desea importar: ", "Selecciona cual quiere importar: ");
         if (!prueba.getQualifications().findAll().isEmpty()) {
@@ -165,12 +197,15 @@ public class EvaluationView {
 
     }
 
+    /**
+     * Procedimiento de modificacion de notas de una prueba
+     */
     private void alterQualifications() {
         PruebaEvaluacion prueba = getPruebaEvaluation("\nIndica que tipo de prueba quiere modificar: ", "Seleccione cual quiere modificar.");
 
         int option;
         do {
-            System.out.println("1- Añadir nota\n" +
+            System.out.println("\n1- Añadir nota\n" +
                     "2- Ver las notas\n" +
                     "0- Salir");
             option = Patterns.setOption(0, 2);
@@ -195,17 +230,32 @@ public class EvaluationView {
 
     }
 
+    /**
+     * Procedimiento para añadir notas en una prueba de evaluación
+     *
+     * @param prueba Prueba donde añadiremos notas
+     */
     private void addNewQualifiactions(PruebaEvaluacion prueba) {
         var listaNotas = prueba.getQualifications();
         getStudentAndNotes(listaNotas);
 
     }
 
-
+    /**
+     * Procedimiento que muestra las notas de una prueba de evaluación
+     *
+     * @param prueba Prueba donde mostraremos las notas
+     */
     private void showQualifiactions(PruebaEvaluacion prueba) {
         prueba.getQualifications().findAll().forEach(System.out::println);
     }
 
+    /**
+     * Procedimiento para obtener la prueba de evaluacion
+     * @param message Primer mensaje de aviso
+     * @param message2 Segundo mensaje de aviso
+     * @return devuelve la prueba seleccionada
+     */
     private PruebaEvaluacion getPruebaEvaluation(String message, String message2) {
         showCategories();
         PruebaEvaluacion prueba = new PruebaEvaluacion();
@@ -215,6 +265,7 @@ public class EvaluationView {
             Categoria c = getCategoria(category);
             try {
                 List<PruebaEvaluacion> lista = evaluationController.findByCategory(c);
+                System.out.println();
                 if (!lista.isEmpty()) {
                     lista.forEach(l -> System.out.println((lista.indexOf(l) + 1) + ": " + l));
                     System.out.println(message2);
@@ -229,7 +280,9 @@ public class EvaluationView {
         return prueba;
     }
 
-
+    /**
+     * Procedimiento para mostrar todas las categorias
+     */
     private void showCategories() {
         CategoriesView view = CategoriesView.getInstance();
         System.out.print("TIPOS: [ ");
@@ -237,6 +290,11 @@ public class EvaluationView {
         System.out.print("]");
     }
 
+    /**
+     * Función para obtener la categoria
+     * @param category Nombre de la categoria a comprobar
+     * @return Devuelve la categoria obtenida
+     */
     private Categoria getCategoria(String category) {
         CategoriesView cat = CategoriesView.getInstance();
         boolean ok;
@@ -255,13 +313,21 @@ public class EvaluationView {
         return categoria;
     }
 
+    /**
+     * Procedimiento para la introduccion de notas y alumnos en una calificacion
+     * @param listaNotas Calificaciones de una prueba
+     */
     private void getStudentAndNotes(CalificacionRepository listaNotas) {
         boolean salir = false;
         var notas = Input.readString("Introduce el dni del alumno y la nota, separado por coma: \nSi desea salir solo escriba salir.").split(",");
         do {
             if (!notas[0].equals("salir")) {
                 var calificacion = getNotas(notas).orElse(null);
-                if (calificacion != null) listaNotas.save(calificacion);
+                var exist = listaNotas.findAll().stream()
+                        .filter(a -> a.getStudent().getDni().equals(calificacion.getStudent().getDni())).findFirst().orElse(null);
+                if (calificacion != null && exist == null) {
+                    listaNotas.save(calificacion);
+                } else System.out.println("No es posible añadir la nota.");
                 notas = Input.readString("Siguiente: ").split(",");
 
             } else salir = true;
@@ -269,6 +335,11 @@ public class EvaluationView {
         } while (!salir);
     }
 
+    /**
+     * Función para obtener las notas y alumnos
+     * @param notas Array de los datos de las notas
+     * @return Devuelve la calificacion si es correcto
+     */
     private Optional<Calificacion> getNotas(String[] notas) {
         AlumnoView view = AlumnoView.getInstance();
         var regex = "([1-9]{1}[0-9]{7}[a-z])";
@@ -280,7 +351,7 @@ public class EvaluationView {
             String nota = notas[1].trim();
             try {
                 Alumno al = view.getAlumnoController().getAlumnByDni(dni);
-                if (al.isEnabled() || !al.isHasLoseEvaluation()) {
+                if (al.isHasLoseEvaluation()) {
                     al.enabled(false);
                     return Optional.of(new Calificacion(
                             al,

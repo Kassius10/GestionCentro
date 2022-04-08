@@ -1,6 +1,5 @@
 package views;
 
-import comparators.CategoriesComparator;
 import controllers.CategoriesController;
 import exceptions.CategoriesException;
 import models.Categoria;
@@ -8,6 +7,7 @@ import repositories.categorias.CategoryRepository;
 import utils.Input;
 import utils.Patterns;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class CategoriesView {
@@ -81,10 +81,10 @@ public class CategoriesView {
         int option;
 
         do {
-            System.out.println("-1- Añadir una Nueva Categoría \n"
-                    + "-2- Modificar una Categoría\n"
-                    + "-3- Consultar las Categorías Existentes\n"
-                    + "-0- Salir");
+            System.out.println("\n1- Añadir una Nueva Categoría \n"
+                    + "2- Modificar una Categoría\n"
+                    + "3- Consultar las Categorías Existentes\n"
+                    + "0- Salir");
             option = Patterns.setOption(0, 3);
 
             switch (option) {
@@ -115,14 +115,10 @@ public class CategoriesView {
     private void getAllCategories() {
         List<Categoria> categories = categoriesController.getAllCategories();
 
-        categories.sort(new CategoriesComparator());
-
-        System.out.println("Categorías Existentes \n");
-
-        for (Categoria category : categories) {
-            System.out.println(category);
-        }
-        System.out.println();
+        System.out.println("\nCategorías Existentes");
+        categories.stream()
+                .sorted(Comparator.comparing(Categoria::getName))
+                .forEach(c -> System.out.println(c.getName()));
         System.out.println("Existen " + categories.size() + " categorías");
 
     }
@@ -131,7 +127,7 @@ public class CategoriesView {
      * Método con el cual modificamos una categoría existente
      */
     private void modifyCategory() {
-        System.out.println("Modificar Categoría Existente");
+        System.out.println("\nModificar Categoría Existente");
 
         getAllCategories();
 
@@ -166,14 +162,14 @@ public class CategoriesView {
     private void addNewCategory() {
         System.out.println("\nAñadiendo Categoría......");
 
-        String name = Input.readString("Introduce el nombre de la categoría\n");
+        String name = Input.readString("Introduce el nombre de la categoría:");
 
 
-        System.out.println("\nIntroduciendo la nueva categoría en el sistema");
+        System.out.println("Introduciendo la nueva categoría en el sistema");
         Categoria newCategory = new Categoria(categoryItsOk(name));
         try {
             var categoryCreated = categoriesController.save(newCategory);
-            System.out.println("\t" + categoryCreated);
+            System.out.println("Nueva categoria: " + categoryCreated);
             System.out.println();
         } catch (CategoriesException e) {
             System.out.println("Error al añadir la categoría. " + e.getMessage());

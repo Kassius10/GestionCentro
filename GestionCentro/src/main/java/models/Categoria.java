@@ -7,6 +7,7 @@ import exceptions.CategoriesException;
  */
 public class Categoria {
     private String name;
+    private int id;
 
     public Categoria() {
     }

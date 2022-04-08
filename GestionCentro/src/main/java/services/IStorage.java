@@ -3,9 +3,9 @@ package services;
 public interface IStorage<T> {
 
 
-        boolean save(T value);
+    boolean save(T value);
 
-        T load();
+    T load();
 
-        String getBackupPath();
+    String getBackupPath();
 }

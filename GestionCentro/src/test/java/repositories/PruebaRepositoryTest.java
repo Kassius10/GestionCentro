@@ -4,6 +4,7 @@ import exceptions.AlumnoException;
 import exceptions.PruebaException;
 import models.Categoria;
 import models.PruebaEvaluacion;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repositories.pruebas.PruebaRepository;
 
@@ -18,6 +19,11 @@ class PruebaRepositoryTest {
             new Categoria("examen"),
             new CalificacionRepository()
     );
+
+    @BeforeEach
+    public void setUp() {
+        repository.clear();
+    }
 
     @Test
     void findAllTest() {
@@ -102,6 +108,12 @@ class PruebaRepositoryTest {
                 () -> assertTrue(lista1.contains(prueba)),
                 () -> assertEquals(lista1.get(0).getCategory(), prueba.getCategory())
         );
+    }
+
+    @Test
+    void size() {
+        repository.save(prueba);
+        assertEquals(1, repository.size());
     }
 
 }

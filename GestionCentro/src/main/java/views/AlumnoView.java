@@ -69,7 +69,7 @@ public class AlumnoView {
     public void menu() {
         int option;
         do {
-            System.out.println("1- Añadir un Alumno\n" +
+            System.out.println("\n1- Añadir un Alumno\n" +
                     "2- Modificar datos de un Alumno\n" +
                     "3- Eliminar un Alumno\n" +
                     "4- Consultar lista de alumnos\n" +
@@ -106,6 +106,7 @@ public class AlumnoView {
      * Procedimiento de modificacion de alumno.
      */
     private void modificarAlumno() {
+        System.out.println("\n-------------");
         System.out.println("Modificar alumno: ");
         var alumno = Input.readString("Indica el dni del alumno que desea modificar: ");
 
@@ -113,11 +114,14 @@ public class AlumnoView {
             Alumno exist = getAlumno(alumno);
 
             var res = alumnoController.updateAlumno(exist.getId(), exist);
-            System.out.println("Alumno actualizado");
+            System.out.println("\nActualizando Alumno " + exist.getName());
+            Thread.sleep(1000);
             System.out.println(res);
 
         } catch (AlumnoException e) {
             System.out.println("Error al modificar el alumno. " + e.getMessage());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -130,7 +134,7 @@ public class AlumnoView {
      */
     private Alumno getAlumno(String alumno) throws AlumnoException {
         var exist = alumnoController.getAlumnByDni(alumno);
-        System.out.println("Introduce los nuevos datos o deje en blanco para mantener los actuales.");
+        System.out.println("\n-> Introduce los nuevos datos o deje en blanco para mantener los actuales.");
         String name = Input.readString("Indica nuevo nombre del Alumno: (anterior: " + exist.getName() + "):");
         if (name.isEmpty()) name = exist.getName();
         else name = Patterns.patternName(name);
@@ -164,13 +168,14 @@ public class AlumnoView {
      * Procedimiento para eliminar un alumno
      */
     private void eliminarAlumno() {
+        System.out.println("\n-------------");
         System.out.println("Eliminar alumno:");
         var alumno = Input.readString("Introduzca el dni del alumno que desea eliminar: ");
         try {
             var res = alumnoController.getAlumnByDni(alumno);
             if (res.isEnabled()) {
                 alumnoController.deletAlumno(alumno);
-                System.out.println("Alumno eliminado satisfactoriamente.");
+                System.out.println("\nAlumno eliminado satisfactoriamente.");
                 System.out.println(res);
             } else System.out.println("No se puede eliminar el alumno, se encuentra no disponible.");
         } catch (AlumnoException e) {
@@ -182,6 +187,7 @@ public class AlumnoView {
      * Procedimiento para añadir un alumno
      */
     private void crearAlumno() {
+        System.out.println("\n--------------");
         System.out.println("Añadir alumno:");
         String dni = Input.readString("DNI del alumno: Formato: [NNNNNNNNL]");
         dni = Patterns.patternDni(dni);
@@ -204,7 +210,13 @@ public class AlumnoView {
         String enabled = Input.readString("Indica si el usuario esta disponible. [si - no]: ");
         enabled = Patterns.patternBoolean(enabled);
 
-        System.out.println("Matriculando...");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("\nMatriculando...");
         Alumno alumno = null;
         try {
             alumno = new Alumno()
@@ -234,12 +246,10 @@ public class AlumnoView {
      */
     private void showAlumnos() {
         List<Alumno> alumnos = alumnoController.getAllAlumnos();
-        System.out.println("1- Por orden de lista\n" +
+        System.out.println("\n1- Por orden de lista\n" +
                 "2- Por orden alfabético.");
 
-        System.out.println("\nLista de alumnos:");
         metodoOrdenacion(alumnos);
-
         System.out.println("Hay " + alumnos.size() + " alumnos.");
     }
 
@@ -252,6 +262,7 @@ public class AlumnoView {
         boolean ok;
         do {
             var option = Input.readString("Como quieres ordenarlo: ");
+            System.out.println("-> Lista de alumnos:");
             switch (option) {
                 case "1":
                     //alumnos.sort(new AlumnoNumListComparator());

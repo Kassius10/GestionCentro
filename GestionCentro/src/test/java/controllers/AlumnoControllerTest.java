@@ -193,6 +193,7 @@ class AlumnoControllerTest {
     @Test
     void updateAlumnoExistsExceptionTest() throws AlumnoException {
         Alumno al = new Alumno();
+        al.id(1);
         al.setDni("12345678a");
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.of(alumno));
 

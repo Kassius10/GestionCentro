@@ -114,7 +114,7 @@ public class Patterns {
         String option;
         do {
             option = Input.readString("¿Qué desea hacer?: ");
-            if (!option.matches(regex)) System.out.println("La opción seleccionada es incorrecta.");
+            if (!option.matches(regex)) System.out.println("xx La opción seleccionada es incorrecta.");
         } while (!option.matches(regex));
 
         return Integer.parseInt(option);
