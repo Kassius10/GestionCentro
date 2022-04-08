@@ -10,6 +10,7 @@ import models.Categoria;
 import models.PruebaEvaluacion;
 import repositories.CalificacionRepository;
 import repositories.pruebas.PruebaRepository;
+import utils.FicheroMarkdown;
 import utils.Input;
 import utils.Patterns;
 
@@ -33,12 +34,18 @@ public class EvaluationView {
 
     private void loadData() {
         try {
-            evaluationController.createEvaluationTest(new PruebaEvaluacion("Examen de lengua", new Categoria("examen"), new CalificacionRepository()));
+            CalificacionRepository repository = new CalificacionRepository();
+            repository.save(new Calificacion(
+                    new Alumno()
+                            .name("manuel")
+                            .surNames("lopez lopez"), 8
+            ));
+            evaluationController.createEvaluationTest(new PruebaEvaluacion("Examen de lengua", new Categoria("examen"), repository));
             evaluationController.createEvaluationTest(new PruebaEvaluacion("Test Entornos", new Categoria("test"), new CalificacionRepository()));
             evaluationController.createEvaluationTest(new PruebaEvaluacion("Examen de mates", new Categoria("examen"), new CalificacionRepository()));
             evaluationController.createEvaluationTest(new PruebaEvaluacion("Prueba Programacion", new Categoria("ejercicio"), new CalificacionRepository()));
 
-        } catch (PruebaException e) {
+        } catch (AlumnoException e) {
             e.printStackTrace();
         }
     }
@@ -75,6 +82,7 @@ public class EvaluationView {
                     break;
                 case 0:
                     System.out.println("Saliendo...");
+                    break;
                 default:
                     System.out.println("Error.");
                     break;
@@ -83,9 +91,78 @@ public class EvaluationView {
         } while (option != 0);
     }
 
+    private void addNewEvaluationTest() {
+        System.out.println("Creando Nueva Prueba...");
+
+        showCategories();
+        String category = Input.readString("\nIndica que tipo de prueba va a ser: ");
+
+        category = Patterns.categoryItsOk(category);
+        Categoria categoria = getCategoria(category);
+
+
+        String description = Input.readString("Indica una breve descripción de la prueba: ");
+
+        var next = Input.readString("Desea introducir las notas ahora mismo: [Si][No]");
+        next = Patterns.patternBoolean(next);
+
+
+        CalificacionRepository calificaciones = new CalificacionRepository();
+        if (next.equals("si")) {
+            getStudentAndNotes(calificaciones);
+
+        }
+        System.out.println("\nGenerando Prueba...");
+        PruebaEvaluacion prueba = new PruebaEvaluacion()
+                .description(description)
+                .category(categoria)
+                .qualifications(calificaciones);
+
+        var res = evaluationController.createEvaluationTest(prueba);
+        System.out.println("La prueba ha sido creada correctamente.");
+        System.out.println(res);
+
+    }
+
+    private void getAllEvaluationTest() {
+        List<PruebaEvaluacion> pruebas = evaluationController.getAllEvaluationTest();
+        System.out.println("\nLista de Pruebas");
+        pruebas.forEach(System.out::println);
+        System.out.println("Hay " + pruebas.size() + " pruebas.");
+    }
+
+    private void deleteEvaluationTest() {
+        System.out.println("Eliminar prueba de evaluación...");
+        PruebaEvaluacion prueba = getPruebaEvaluation("\nIndica que tipo de prueba quiere eliminar: ", "Seleccione cual quiere eliminar.");
+
+        try {
+            PruebaEvaluacion res = null;
+            res = evaluationController.deleteEvaluationTest(prueba);
+            System.out.println("Prueba borrada correctamente.");
+            System.out.println(res);
+        } catch (PruebaException e) {
+            System.out.println("Error al eliminar la prueba " + e.getMessage());
+        }
+    }
+
     private void importQualifications() {
         PruebaEvaluacion prueba = getPruebaEvaluation("\nSelecciona el tipo de prueba que desea importar: ", "Selecciona cual quiere importar: ");
-        prueba.getQualifications().mostrarInforme(prueba);
+        if (!prueba.getQualifications().findAll().isEmpty()) {
+            prueba.getQualifications().mostrarInforme();
+
+            var option = Input.readString("Desea importar el informe: [si][no]");
+            option = Patterns.patternBoolean(option);
+
+            if (option.equals("si")) {
+                var dir = Input.readString("Donde desea guardar el archivo:");
+                dir = Patterns.patternName(dir);
+                System.out.println(dir);
+
+                FicheroMarkdown f = new FicheroMarkdown(prueba, dir);
+                f.saveNotas();
+            }
+        } else System.out.println("Esta prueba no contiene notas.");
+
     }
 
     private void alterQualifications() {
@@ -107,6 +184,7 @@ public class EvaluationView {
 
                 case 0:
                     System.out.println("Saliendo...");
+                    break;
 
                 default:
                     System.out.println("Na");
@@ -116,6 +194,13 @@ public class EvaluationView {
         } while (option != 0);
 
     }
+
+    private void addNewQualifiactions(PruebaEvaluacion prueba) {
+        var listaNotas = prueba.getQualifications();
+        getStudentAndNotes(listaNotas);
+
+    }
+
 
     private void showQualifiactions(PruebaEvaluacion prueba) {
         prueba.getQualifications().findAll().forEach(System.out::println);
@@ -144,94 +229,6 @@ public class EvaluationView {
         return prueba;
     }
 
-    private void addNewQualifiactions(PruebaEvaluacion prueba) {
-        var listaNotas = prueba.getQualifications();
-
-        boolean salir = false;
-        var notas = Input.readString("Introduce el dni del alumno y la nota, separado por coma: \nSi desea salir solo escriba salir.").split(",");
-        do {
-            if (!notas[0].equals("salir")) {
-                var calificacion = getNotas(notas).orElse(null);
-                if (calificacion != null) listaNotas.save(calificacion);
-                notas = Input.readString("Siguiente: ").split(",");
-
-            } else salir = true;
-
-        } while (!salir);
-
-    }
-
-    private void deleteEvaluationTest() {
-        System.out.println("Eliminar prueba de evaluación...");
-        PruebaEvaluacion prueba = getPruebaEvaluation("\nIndica que tipo de prueba quiere eliminar: ", "Seleccione cual quiere eliminar.");
-
-        try {
-            PruebaEvaluacion res = null;
-            try {
-                res = evaluationController.deleteEvaluationTest(prueba);
-            } catch (CategoriesException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Prueba borrada correctamente.");
-            System.out.println(res);
-        } catch (PruebaException e) {
-            System.out.println("Error al eliminar la prueba " + e.getMessage());
-        }
-    }
-
-    private void getAllEvaluationTest() {
-        List<PruebaEvaluacion> pruebas = evaluationController.getAllEvaluationTest();
-        System.out.println("\nLista de Pruebas");
-        pruebas.forEach(System.out::println);
-        System.out.println("Hay " + pruebas.size() + " pruebas.");
-    }
-
-    private void addNewEvaluationTest() {
-        System.out.println("Creando Nueva Prueba...");
-
-        showCategories();
-        String category = Input.readString("\nIndica que tipo de prueba va a ser: ");
-
-        category = Patterns.categoryItsOk(category);
-        Categoria categoria = getCategoria(category);
-
-
-        String description = Input.readString("Indica una breve descripción de la prueba: ");
-
-        var next = Input.readString("Desea introducir las notas ahora mismo: [Si][No]");
-        next = Patterns.patternBoolean(next);
-
-
-        CalificacionRepository calificaciones = new CalificacionRepository();
-        if (next.equals("si")) {
-            boolean salir = false;
-            var notas = Input.readString("Introduce el dni del alumno y la nota, separado por coma: \nSi desea salir solo escriba salir.").split(",");
-            do {
-                if (!notas[0].equals("salir")) {
-                    var calificacion = getNotas(notas).orElse(null);
-                    if (calificacion != null) calificaciones.save(calificacion);
-                    notas = Input.readString("Siguiente: ").split(",");
-
-                } else salir = true;
-
-            } while (!salir);
-
-        }
-        System.out.println("\nGenerando Prueba...");
-        PruebaEvaluacion prueba = new PruebaEvaluacion()
-                .description(description)
-                .category(categoria)
-                .qualifications(calificaciones);
-
-        try {
-            var res = evaluationController.createEvaluationTest(prueba);
-            System.out.println("La prueba ha sido creada correctamente.");
-            System.out.println(res);
-        } catch (PruebaException e) {
-            System.out.println("Error al crear la prueba. " + e.getMessage());
-        }
-
-    }
 
     private void showCategories() {
         CategoriesView view = CategoriesView.getInstance();
@@ -258,6 +255,20 @@ public class EvaluationView {
         return categoria;
     }
 
+    private void getStudentAndNotes(CalificacionRepository listaNotas) {
+        boolean salir = false;
+        var notas = Input.readString("Introduce el dni del alumno y la nota, separado por coma: \nSi desea salir solo escriba salir.").split(",");
+        do {
+            if (!notas[0].equals("salir")) {
+                var calificacion = getNotas(notas).orElse(null);
+                if (calificacion != null) listaNotas.save(calificacion);
+                notas = Input.readString("Siguiente: ").split(",");
+
+            } else salir = true;
+
+        } while (!salir);
+    }
+
     private Optional<Calificacion> getNotas(String[] notas) {
         AlumnoView view = AlumnoView.getInstance();
         var regex = "([1-9]{1}[0-9]{7}[a-z])";
@@ -282,5 +293,4 @@ public class EvaluationView {
         }
         return Optional.empty();
     }
-
 }

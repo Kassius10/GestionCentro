@@ -11,6 +11,12 @@ public class Calificacion {
     private Alumno student;
     private double qualification;
 
+    /**
+     * Constructor con paramatros
+     *
+     * @param student       Alumno que se requiere
+     * @param qualification Calificacion que se requiere
+     */
     public Calificacion(Alumno student, double qualification) {
         this.student = student;
         this.qualification = qualification;

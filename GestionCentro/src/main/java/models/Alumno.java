@@ -63,13 +63,6 @@ public class Alumno {
         return id;
     }
 
-    /**
-     * Procedimiento que permite indicarle el id al alumno.
-     * @param id Id que le daremos.
-     */
-//    public void setId(int id) {
-//        this.id = id;
-//    }
 
     /**
      * Función que devuelve el Dni del alumno

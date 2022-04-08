@@ -29,7 +29,7 @@ class CategoryRepositoryTest {
      * @Test para mostrar todas las categorías del repositorio
      */
     @Test
-    void findAll() {
+    void findAllTest() {
         var res = categoryRepository.findAll();
 
         assertAll(
@@ -39,13 +39,12 @@ class CategoryRepositoryTest {
                 () -> assertEquals(res.get(0).getName(), category.getName())
         );
     }
-
-
+    
     /**
      * @Test para crear una nueva categoría
      */
     @Test
-    void save() {
+    void saveTest() {
 
         Categoria secondCategory = new Categoria("Practica");
 
@@ -64,7 +63,7 @@ class CategoryRepositoryTest {
      * @Test para actualizar el nombre de una categoría
      */
     @Test
-    void update() throws CategoriesException {
+    void updateTest() throws CategoriesException {
 
         var name = category.getName();
         category.setName("Prueba");
@@ -81,7 +80,7 @@ class CategoryRepositoryTest {
      * @Test encontrar una categoria por el nombre
      */
     @Test
-    void findByName() {
+    void findByNameTest() {
 
         var result = categoryRepository.findByName(category.getName());
 

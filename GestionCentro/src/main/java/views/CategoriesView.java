@@ -6,6 +6,7 @@ import exceptions.CategoriesException;
 import models.Categoria;
 import repositories.categorias.CategoryRepository;
 import utils.Input;
+import utils.Patterns;
 
 import java.util.List;
 
@@ -32,30 +33,6 @@ public class CategoriesView {
             instance = new CategoriesView();
         }
         return instance;
-    }
-
-    /**
-     * Función que nos revisa la cadena de la opcion establecida y comprueba sí cuadra con la
-     * requerida o no
-     *
-     * @return Devolvemos la opción elegida.
-     */
-    private static int getOption() {
-        var regex = "[0-3]";
-        String option;
-        var ok = false;
-        do {
-            option = Input.readString("Dime la opción a elegír: ");
-            if (option.matches(regex)) {
-                System.out.println("Opción correcta");
-                ok = true;
-            } else {
-                System.err.println("No existe esta opción en el sistema ");
-            }
-        } while (!ok);
-
-        return Integer.parseInt(option);
-
     }
 
     /**
@@ -108,7 +85,7 @@ public class CategoriesView {
                     + "-2- Modificar una Categoría\n"
                     + "-3- Consultar las Categorías Existentes\n"
                     + "-0- Salir");
-            option = getOption();
+            option = Patterns.setOption(0, 3);
 
             switch (option) {
                 case 1:
@@ -122,6 +99,7 @@ public class CategoriesView {
                     break;
                 case 0:
                     System.out.println("Saliendo...");
+                    break;
                 default:
                     System.out.println(":D");
                     break;

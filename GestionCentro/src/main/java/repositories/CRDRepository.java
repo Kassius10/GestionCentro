@@ -1,6 +1,5 @@
 package repositories;
 
-import exceptions.CategoriesException;
 import exceptions.PruebaException;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public interface CRDRepository<T, ID> {
      * @param id Id del elemento
      * @return Devuelve el elemento.
      */
-    Optional<T> findById(ID id) throws PruebaException, CategoriesException;
+    Optional<T> findById(ID id) throws PruebaException;
 
     /**
      * Función para salvar un elemento en el repositorio.
@@ -42,5 +41,5 @@ public interface CRDRepository<T, ID> {
      * @param id Id del elemento que vamos a eliminar.
      * @return Devuelve el elemento que hemos eliminado.
      */
-    Optional<T> delete(ID id) throws PruebaException, CategoriesException;
+    Optional<T> delete(ID id) throws PruebaException;
 }

@@ -102,6 +102,13 @@ public class Patterns {
         return name;
     }
 
+    /**
+     * Función que aplica un formato determinado segun los datos
+     *
+     * @param num1 Numero mínimo
+     * @param num2 Numero máximo
+     * @return Devuelve la cadena
+     */
     public static int setOption(int num1, int num2) {
         var regex = "[" + num1 + "-" + num2 + "]";
         String option;

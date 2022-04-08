@@ -73,7 +73,7 @@ public class AlumnoView {
                     "3- Eliminar un Alumno\n" +
                     "4- Consultar lista de alumnos\n" +
                     "0- Salir");
-            option = setOption();
+            option = Patterns.setOption(0, 4);
             switch (option) {
                 case 1:
                     crearAlumno();
@@ -87,6 +87,9 @@ public class AlumnoView {
                 case 4:
                     showAlumnos();
                     break;
+                case 0:
+                    System.out.println("Saliendo...");
+                    break;
 
                 default:
                     System.out.println("Na");
@@ -98,39 +101,15 @@ public class AlumnoView {
 
     }
 
+    /**
+     * Procedimiento de modificacion de alumno.
+     */
     private void modificarAlumno() {
         System.out.println("Modificar alumno: ");
         var alumno = Input.readString("Indica el dni del alumno que desea modificar: ");
 
-
         try {
-            var exist = alumnoController.getAlumnByDni(alumno);
-            System.out.println("Introduce los nuevos datos o deje en blanco para mantener los actuales.");
-            String name = Input.readString("Indica nuevo nombre del Alumno: (anterior: " + exist.getName() + "):");
-            if (name.isEmpty()) name = exist.getName();
-            else name = Patterns.patternName(name);
-
-            String surNames = Input.readString("Indica los nuevos apellidos del Alumno: (anterior: " + exist.getSurNames() + "):");
-            surNames = (surNames.isEmpty()) ? exist.getSurNames() : Patterns.patternSurnames(surNames);
-
-            String email = Input.readString("Indica el nuevo email del Alumno: (anterior: " + exist.getEmail() + "):");
-            email = (email.isEmpty()) ? exist.getEmail() : Patterns.patternEmail(email);
-
-            String phone = Input.readString("Indica el nuevo teléfono del Alumno: (anterior: " + exist.getPhone() + "):");
-            phone = (phone.isEmpty()) ? exist.getPhone() : Patterns.patternPhone(phone);
-
-            String evaluation = Input.readString("Indica si ha perdido la evaluacion [si - no]: ");
-            boolean ev = (evaluation.isEmpty()) ? exist.isHasLoseEvaluation() : Patterns.patternBoolean(evaluation).equals("si");
-
-            String enabled = Input.readString("Indica si esta disponible el alumno [si - no]: (anterior:  " + exist.isEnabled() + "):");
-            boolean disponible = (enabled.isEmpty()) ? exist.isEnabled() : Patterns.patternBoolean(enabled).equals("si");
-
-            exist.name(name)
-                    .surNames(surNames)
-                    .email(email)
-                    .phone(phone)
-                    .hasLoseEvaluation(ev)
-                    .enabled(disponible);
+            Alumno exist = getAlumno(alumno);
 
             var res = alumnoController.updateAlumno(exist.getId(), exist);
             System.out.println("Alumno actualizado");
@@ -139,7 +118,44 @@ public class AlumnoView {
         } catch (AlumnoException e) {
             System.out.println("Error al modificar el alumno. " + e.getMessage());
         }
+    }
 
+    /**
+     * Función que devuelve el alumno modificado
+     *
+     * @param alumno Alumno el cual queremos modificar
+     * @return Devuelve el alumno con la modificacion de datos
+     * @throws AlumnoException Si el alumno no existe
+     */
+    private Alumno getAlumno(String alumno) throws AlumnoException {
+        var exist = alumnoController.getAlumnByDni(alumno);
+        System.out.println("Introduce los nuevos datos o deje en blanco para mantener los actuales.");
+        String name = Input.readString("Indica nuevo nombre del Alumno: (anterior: " + exist.getName() + "):");
+        if (name.isEmpty()) name = exist.getName();
+        else name = Patterns.patternName(name);
+
+        String surNames = Input.readString("Indica los nuevos apellidos del Alumno: (anterior: " + exist.getSurNames() + "):");
+        surNames = (surNames.isEmpty()) ? exist.getSurNames() : Patterns.patternSurnames(surNames);
+
+        String email = Input.readString("Indica el nuevo email del Alumno: (anterior: " + exist.getEmail() + "):");
+        email = (email.isEmpty()) ? exist.getEmail() : Patterns.patternEmail(email);
+
+        String phone = Input.readString("Indica el nuevo teléfono del Alumno: (anterior: " + exist.getPhone() + "):");
+        phone = (phone.isEmpty()) ? exist.getPhone() : Patterns.patternPhone(phone);
+
+        String evaluation = Input.readString("Indica si ha perdido la evaluacion [si - no]: ");
+        boolean ev = (evaluation.isEmpty()) ? exist.isHasLoseEvaluation() : Patterns.patternBoolean(evaluation).equals("si");
+
+        String enabled = Input.readString("Indica si esta disponible el alumno [si - no]: (anterior:  " + exist.isEnabled() + "):");
+        boolean disponible = (enabled.isEmpty()) ? exist.isEnabled() : Patterns.patternBoolean(enabled).equals("si");
+
+        exist.name(name)
+                .surNames(surNames)
+                .email(email)
+                .phone(phone)
+                .hasLoseEvaluation(ev)
+                .enabled(disponible);
+        return exist;
     }
 
     /**
@@ -251,21 +267,5 @@ public class AlumnoView {
                     break;
             }
         } while (!ok);
-    }
-
-    /**
-     * Función para indicar la opción del menu.
-     *
-     * @return Devuelve el número de la opción.
-     */
-    private int setOption() {
-        var regex = "[0-4]";
-        String option;
-        do {
-            option = Input.readString("¿Qué desea hacer?: ");
-            if (!option.matches(regex)) System.out.println("La opción seleccionada es incorrecta.");
-        } while (!option.matches(regex));
-
-        return Integer.parseInt(option);
     }
 }

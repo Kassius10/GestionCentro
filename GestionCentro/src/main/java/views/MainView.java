@@ -45,6 +45,7 @@ public class MainView {
 
                 case 0:
                     System.out.println("Saliendo...");
+                    break;
 
 
                 default:
