@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CategoriesView {
     private static CategoriesView instance;
-    private final CategoriesController categoriesController = CategoriesController.getInstance(new CategoryRepository());
+    private final CategoriesController categoriesController = CategoriesController.getInstance(CategoryRepository.getInstance());
 
 
     /**

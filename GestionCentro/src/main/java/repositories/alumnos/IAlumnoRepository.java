@@ -8,7 +8,7 @@ import java.util.Optional;
 /**
  * Interfaz que añade funciones al repositorio.
  */
-public interface IAlumnoRepository extends CRUDRepository<Alumno,Integer> {
+public interface IAlumnoRepository extends CRUDRepository<Alumno, Integer> {
     /**
      * Función para buscar un Alumno por el dni.
      *
@@ -21,4 +21,6 @@ public interface IAlumnoRepository extends CRUDRepository<Alumno,Integer> {
      * Procedimiento para eliminar todos los elementos del repositorio.
      */
     void deleteAll();
+
+    int size();
 }

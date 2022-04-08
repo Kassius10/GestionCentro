@@ -14,8 +14,15 @@ import java.util.TreeMap;
  */
 
 public class CategoryRepository implements ICategoryRepository {
-
+    private static CategoryRepository instance;
     private final TreeMap<String, Categoria> categoRep = new TreeMap<>();
+
+    public static CategoryRepository getInstance() {
+        if (instance == null) {
+            instance = new CategoryRepository();
+        }
+        return instance;
+    }
 
     /**
      * Lista todas las Categorías existentes
@@ -24,7 +31,7 @@ public class CategoryRepository implements ICategoryRepository {
      */
     @Override
     public List<Categoria> findAll() {
-            return new ArrayList<>(this.categoRep.values());
+        return new ArrayList<>(this.categoRep.values());
     }
 
     /**
@@ -63,16 +70,20 @@ public class CategoryRepository implements ICategoryRepository {
      * @return la categoría encontraada
      */
     @Override
-    public Optional<Categoria> findByName(String name ) {
+    public Optional<Categoria> findByName(String name) {
 
-        for (Categoria category: this.categoRep.values()){
-            if(category.getName().equals(name)){
+        for (Categoria category : this.categoRep.values()) {
+            if (category.getName().equals(name)) {
                 return Optional.of(category);
             }
         }
         return Optional.empty();
     }
 
+    @Override
+    public int size() {
+        return categoRep.size();
+    }
 
 
 }

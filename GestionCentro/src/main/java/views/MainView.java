@@ -1,12 +1,26 @@
 package views;
 
+import controllers.BackUpController;
+import repositories.alumnos.AlumnoRepository;
+import repositories.categorias.CategoryRepository;
+import repositories.pruebas.PruebaRepository;
+import services.BackUpStoragesJsonFile;
 import utils.Patterns;
 
 /**
  * Clase interfaz del programa.
  */
 public class MainView {
+    private static final BackUpController backupManager = new BackUpController(
+            AlumnoRepository.getInstance(),
+            BackUpStoragesJsonFile.getInstance(),
+            CategoryRepository.getInstance(),
+            PruebaRepository.getInstance());
+
     public MainView() {
+        AlumnoView view = AlumnoView.getInstance();
+        CategoriesView viewCat = CategoriesView.getInstance();
+        EvaluationView viewEv = EvaluationView.getInstance();
     }
 
     /**
@@ -37,10 +51,10 @@ public class MainView {
                     pruebaView();
                     break;
                 case 4:
-                    System.out.println("Aun falta");
+                    importarDatos();
                     break;
                 case 5:
-                    System.out.println("exportar");
+                    exportarDatos();
                     break;
 
                 case 0:
@@ -79,5 +93,24 @@ public class MainView {
     private static void categoriesView() {
         CategoriesView view = CategoriesView.getInstance();
         view.init();
+    }
+
+    private static void importarDatos() {
+        try {
+            backupManager.importarDatos();
+        } catch (Exception e) {
+            System.out.println("Error al exportar datos: " + e.getMessage());
+        }
+
+    }
+
+    private static void exportarDatos() {
+        try {
+            backupManager.exportarDatos();
+        } catch (Exception e) {
+            System.err.println("Error al exportar datos: " + e.getMessage());
+
+
+        }
     }
 }

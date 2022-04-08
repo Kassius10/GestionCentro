@@ -79,7 +79,7 @@ public class FicheroMarkdown {
     private void crearLineas(PrintWriter f) {
         //Datos que necesitaremos para almacenar en el fichero.
         var iniTime = System.currentTimeMillis();
-        var calificaciones = prueba.getQualifications().getCalificaciones().stream()
+        var calificaciones = prueba.getQualifications().findAll().stream()
                 .sorted(Comparator.comparing(Calificacion::getQualification).reversed()).collect(Collectors.toList());
         DoubleSummaryStatistics estadisticas = calificaciones.stream().mapToDouble(Calificacion::getQualification).summaryStatistics();
         var notas = estadisticas.getCount();

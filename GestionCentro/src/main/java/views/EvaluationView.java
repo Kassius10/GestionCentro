@@ -19,7 +19,7 @@ import java.util.Optional;
 
 public class EvaluationView {
     private static EvaluationView instance;
-    private final EvaluationTestController evaluationController = EvaluationTestController.getInstance(new PruebaRepository());
+    private final EvaluationTestController evaluationController = EvaluationTestController.getInstance(PruebaRepository.getInstance());
 
     private EvaluationView() {
         loadData();

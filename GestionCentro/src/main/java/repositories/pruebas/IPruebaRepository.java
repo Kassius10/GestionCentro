@@ -27,4 +27,8 @@ public interface IPruebaRepository extends CRDRepository<PruebaEvaluacion, Categ
      */
     Optional<PruebaEvaluacion> deleteByPrueba(PruebaEvaluacion prueba);
 
+    int size();
+
+    void clear();
+
 }

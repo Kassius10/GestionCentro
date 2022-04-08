@@ -15,7 +15,8 @@ import java.util.List;
  */
 public class AlumnoView {
     private static AlumnoView instance;
-    private final AlumnoController alumnoController = AlumnoController.getInstance(new AlumnoRepository());
+    private final AlumnoController alumnoController = AlumnoController.getInstance(AlumnoRepository.getInstance());
+    private int cont = 0;
 
     /**
      * Constructor privado de AlumnoView
@@ -52,11 +53,11 @@ public class AlumnoView {
      */
     private void loadData() {
         try {
-            alumnoController.insertAlumno(new Alumno("11111111a", "dani", "carmona rodriguez", "dani@alumno.org", "611-111111", true, true));
-            alumnoController.insertAlumno(new Alumno("22222222b", "jeremy", "ramos segura", "jeremy@alumno.org", "622-222222", true, true));
-            alumnoController.insertAlumno(new Alumno("33333333c", "nuria", "gonzalez margallo", "nuria@alumno.org", "633-333333", true, true));
-            alumnoController.insertAlumno(new Alumno("44444444d", "marta", "sanchez perez", "marta@alumno.org", "644-444444", true, true));
-            alumnoController.insertAlumno(new Alumno("55555555e", "luis", "lopez lopez", "luis@alumno.org", "655-555555S", true, true));
+            alumnoController.insertAlumno(new Alumno("11111111a", "dani", "carmona rodriguez", "dani@alumno.org", "611-111111", true, true).id(++cont));
+            alumnoController.insertAlumno(new Alumno("22222222b", "jeremy", "ramos segura", "jeremy@alumno.org", "622-222222", true, true).id(++cont));
+            alumnoController.insertAlumno(new Alumno("33333333c", "nuria", "gonzalez margallo", "nuria@alumno.org", "633-333333", true, true).id(++cont));
+            alumnoController.insertAlumno(new Alumno("44444444d", "marta", "sanchez perez", "marta@alumno.org", "644-444444", true, true).id(++cont));
+            alumnoController.insertAlumno(new Alumno("55555555e", "luis", "lopez lopez", "luis@alumno.org", "655-555555S", true, true).id(++cont));
         } catch (AlumnoException e) {
             e.printStackTrace();
         }
@@ -154,7 +155,8 @@ public class AlumnoView {
                 .email(email)
                 .phone(phone)
                 .hasLoseEvaluation(ev)
-                .enabled(disponible);
+                .enabled(disponible)
+                .id(++cont);
         return exist;
     }
 

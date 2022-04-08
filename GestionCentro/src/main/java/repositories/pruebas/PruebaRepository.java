@@ -13,7 +13,18 @@ import java.util.stream.Collectors;
  * Clase repositorio de pruebas
  */
 public class PruebaRepository implements IPruebaRepository {
+    private static PruebaRepository instance;
     private final List<PruebaEvaluacion> pruebas = new ArrayList<>();
+
+    private PruebaRepository() {
+    }
+
+    public static PruebaRepository getInstance() {
+        if (instance == null) {
+            instance = new PruebaRepository();
+        }
+        return instance;
+    }
 
     /**
      * Funcion que devuelve una lista de todos los elementos del repositorio
@@ -78,6 +89,16 @@ public class PruebaRepository implements IPruebaRepository {
     public Optional<PruebaEvaluacion> deleteByPrueba(PruebaEvaluacion prueba) {
         pruebas.remove(prueba);
         return Optional.of(prueba);
+    }
+
+    @Override
+    public int size() {
+        return pruebas.size();
+    }
+
+    @Override
+    public void clear() {
+        pruebas.clear();
     }
 
     /**

@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
  */
 @Data
 public class Alumno {
-    private static int contador = 1;
     private final LocalDateTime registrationDate;
     private int id;
     private String dni;
@@ -27,7 +26,6 @@ public class Alumno {
      * Método constructor de Alumno.
      */
     public Alumno() {
-        this.id = contador++;
         registrationDate = LocalDateTime.now();
         this.enabled = true;
     }
@@ -43,7 +41,6 @@ public class Alumno {
      * @param hasLoseEvaluation Indicamos si ha perdido la evaluación o no.
      */
     public Alumno(String dni, String name, String surNames, String email, String phone, boolean hasLoseEvaluation, boolean enabled) {
-        this.id = contador++;
         this.dni = dni;
         this.name = name;
         this.surNames = surNames;

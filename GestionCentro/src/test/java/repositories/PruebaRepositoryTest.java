@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PruebaRepositoryTest {
 
-    private final PruebaRepository repository = new PruebaRepository();
+    private final PruebaRepository repository = PruebaRepository.getInstance();
 
     private final PruebaEvaluacion prueba = new PruebaEvaluacion(
             "descripcion",
