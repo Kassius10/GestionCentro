@@ -1,12 +1,26 @@
 package views;
 
 import controllers.AlumnoController;
+import controllers.BackUpController;
+import controllers.DataBaseManager;
 import exceptions.AlumnoException;
 import models.Alumno;
+<<<<<<< HEAD
+import models.Categories;
+import repositories.AlumnoRepository;
+import repositories.CategoryRepository;
+import services.BackUpStoragesJsonFile;
+import utils.AlumnoPatterns;
+=======
 import repositories.alumnos.AlumnoRepository;
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 import utils.Input;
 import utils.Patterns;
 
+<<<<<<< HEAD
+import java.sql.SQLException;
+=======
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 import java.util.Comparator;
 import java.util.List;
 
@@ -15,31 +29,68 @@ import java.util.List;
  */
 public class AlumnoView {
     private static AlumnoView instance;
+<<<<<<< HEAD
+
+    private final AlumnoController alumnoController = new AlumnoController(
+            AlumnoRepository.getInstance(DataBaseManager.getInstance())
+    );
+
+
+=======
     private final AlumnoController alumnoController = AlumnoController.getInstance(AlumnoRepository.getInstance());
     private int cont = 0;
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 
     /**
      * Constructor privado de AlumnoView
      */
+<<<<<<< HEAD
+    private AlumnoView()  {
+        init();
+=======
     private AlumnoView() {
         loadData();
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
     }
 
     /**
      * Método de creación de instancia con el patron Singleton.
      *
      * @return devuelve la instancia.
+<<<<<<< HEAD
+//     */
+    public static AlumnoView getInstance()  {
+        if(instance==null){
+=======
      */
     public static AlumnoView getInstance() {
         if (instance == null) {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
             instance = new AlumnoView();
         }
         return instance;
     }
 
+<<<<<<< HEAD
+//    /**
+//     * Datos cargados.
+//     */
+//    private void loadData(){
+//        try {
+//            alumnoController.insertAlumno(new Alumno("50583789h","Dani","Ca Ro","d@d.com","654-987789",true));
+//            alumnoController.insertAlumno(new Alumno("50583469h","Wani","Ca Ro","d@d.com","654-987789",true));
+//            alumnoController.insertAlumno(new Alumno("50583459h","Fani","Ca Ro","d@d.com","654-987789",true));
+//            alumnoController.insertAlumno(new Alumno("50583179h","Gani","Ca Ro","d@d.com","654-987789",true));
+//            alumnoController.insertAlumno(new Alumno("50583159h","TYani","Ca Ro","d@d.com","654-987789",true));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+=======
     public AlumnoController getAlumnoController() {
         return alumnoController;
     }
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 
     /**
      * Método para iniciar.
@@ -49,6 +100,11 @@ public class AlumnoView {
     }
 
     /**
+<<<<<<< HEAD
+     * Procedimiento de selección de menu.
+     */
+    private void menu()  {
+=======
      * Datos cargados.
      */
     private void loadData() {
@@ -67,12 +123,15 @@ public class AlumnoView {
      * Procedimiento de selección de menu.
      */
     public void menu() {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         int option;
         do {
             System.out.println("\n1- Añadir un Alumno\n" +
                     "2- Modificar datos de un Alumno\n" +
                     "3- Eliminar un Alumno\n" +
                     "4- Consultar lista de alumnos\n" +
+                    "5- Exportar Datos a Backup\n" +
+                    "6- Importar desde el BackUp\n" +
                     "0- Salir");
             option = Patterns.setOption(0, 4);
             switch (option) {
@@ -87,6 +146,7 @@ public class AlumnoView {
                     break;
                 case 4:
                     showAlumnos();
+
                     break;
                 case 0:
                     System.out.println("Saliendo...");
@@ -118,7 +178,7 @@ public class AlumnoView {
             Thread.sleep(1000);
             System.out.println(res);
 
-        } catch (AlumnoException e) {
+        } catch (AlumnoException | SQLException e) {
             System.out.println("Error al modificar el alumno. " + e.getMessage());
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -172,6 +232,12 @@ public class AlumnoView {
         System.out.println("Eliminar alumno:");
         var alumno = Input.readString("Introduzca el dni del alumno que desea eliminar: ");
         try {
+<<<<<<< HEAD
+            var res= alumnoController.deletAlumno(alumno);
+            System.out.println("Alumno eliminado satisfactoriamente.");
+            System.out.println(res);
+        } catch (AlumnoException | SQLException e) {
+=======
             var res = alumnoController.getAlumnByDni(alumno);
             if (res.isEnabled()) {
                 alumnoController.deletAlumno(alumno);
@@ -179,6 +245,7 @@ public class AlumnoView {
                 System.out.println(res);
             } else System.out.println("No se puede eliminar el alumno, se encuentra no disponible.");
         } catch (AlumnoException e) {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
             System.out.println("Error al eliminar el alumno: " + e.getMessage());
         }
     }
@@ -210,6 +277,12 @@ public class AlumnoView {
         String enabled = Input.readString("Indica si el usuario esta disponible. [si - no]: ");
         enabled = Patterns.patternBoolean(enabled);
 
+<<<<<<< HEAD
+        String enable = Input.readString("Indica si está permitido [si - no]");
+        enable= AlumnoPatterns.patternBoolean(enable);
+
+        System.out.println("Matriculando...");
+=======
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -217,6 +290,7 @@ public class AlumnoView {
         }
 
         System.out.println("\nMatriculando...");
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         Alumno alumno = null;
         try {
             alumno = new Alumno()
@@ -226,7 +300,11 @@ public class AlumnoView {
                     .email(email)
                     .phone(phone)
                     .hasLoseEvaluation(evaluation.equals("si"))
+<<<<<<< HEAD
+                    .enabled(enable.equals("si"));
+=======
                     .enabled(enabled.equals("si"));
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         } catch (AlumnoException e) {
             System.out.println(e.getMessage());
         }
@@ -235,8 +313,13 @@ public class AlumnoView {
             var res = alumnoController.insertAlumno(alumno);
             System.out.println("El alumno ha sido matriculado perfectamente.");
             System.out.println(res);
+<<<<<<< HEAD
+        } catch (AlumnoException | SQLException e) {
+            System.out.println("Erros al añadir el alumno: "+ e.getMessage());
+=======
         } catch (AlumnoException e) {
             System.out.println("Erros al añadir el alumno: " + e.getMessage());
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         }
 
     }
@@ -245,12 +328,31 @@ public class AlumnoView {
      * Procedimiento para consultar la lista de alumnos
      */
     private void showAlumnos() {
+<<<<<<< HEAD
+        try {
+
+            List<Alumno> alumnos = alumnoController.getAllAlumnos();
+            System.out.println("1- Por orden de lista\n" +
+                    "2- Por orden alfabético.");
+
+            metodoOrdenacion(alumnos);
+
+            System.out.println("\nLista de alumnos:");
+            for (Alumno alumno : alumnos) {
+                System.out.println(alumno);
+            }
+            System.out.println("Hay " + alumnos.size() + " alumnos.");
+        }catch (Exception e){
+            System.err.println("Error al obtener los alumnos");
+        }
+=======
         List<Alumno> alumnos = alumnoController.getAllAlumnos();
         System.out.println("\n1- Por orden de lista\n" +
                 "2- Por orden alfabético.");
 
         metodoOrdenacion(alumnos);
         System.out.println("Hay " + alumnos.size() + " alumnos.");
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
     }
 
     /**
@@ -279,6 +381,26 @@ public class AlumnoView {
                     ok = false;
                     break;
             }
-        } while (!ok);
+<<<<<<< HEAD
+        }while (!ok);
     }
+
+    /**
+     * Función para indicar la opción del menu.
+     * @return Devuelve el número de la opción.
+     */
+    private static int setOption() {
+        var regex= "[0-6]";
+        String option;
+        do {
+            option= Input.readString("¿Qué desea hacer?: ");
+            if (!option.matches(regex)) System.out.println("La opción seleccionada es incorrecta.");
+        }while(!option.matches(regex));
+
+        return Integer.parseInt(option);
+=======
+        } while (!ok);
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
+    }
+
 }

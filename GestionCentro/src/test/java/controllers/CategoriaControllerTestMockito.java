@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import repositories.categorias.CategoryRepository;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +42,11 @@ public class CategoriaControllerTestMockito {
     }
 
     @Test
+<<<<<<< HEAD:GestionCentro/src/test/java/controllersTests/CategoriesControllerTestMockito.java
+    void save() throws CategoriesException, SQLException {
+=======
     void save() throws CategoriesException {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4:GestionCentro/src/test/java/controllers/CategoriaControllerTestMockito.java
         when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.empty());
         when(categoryRepository.save(cat1)).thenReturn(Optional.of(cat1));
 
@@ -60,7 +65,11 @@ public class CategoriaControllerTestMockito {
 
 
     @Test
+<<<<<<< HEAD:GestionCentro/src/test/java/controllersTests/CategoriesControllerTestMockito.java
+    void saveExceptionTest() throws SQLException {
+=======
     void saveExceptionTest() {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4:GestionCentro/src/test/java/controllers/CategoriaControllerTestMockito.java
 
         when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.of(cat1));
 
@@ -75,7 +84,7 @@ public class CategoriaControllerTestMockito {
 
 
     @Test
-    void getCategoryByName() throws CategoriesException {
+    void getCategoryByName() throws CategoriesException, SQLException {
         when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.of(cat1));
 
         var catAux = categoriesController.getCategoryByName(cat1.getName());
@@ -91,7 +100,11 @@ public class CategoriaControllerTestMockito {
 
 
     @Test
+<<<<<<< HEAD:GestionCentro/src/test/java/controllersTests/CategoriesControllerTestMockito.java
+    void getCategoryByNameExceptionTest() throws SQLException {
+=======
     void getCategoryByNameExceptionTest() {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4:GestionCentro/src/test/java/controllers/CategoriaControllerTestMockito.java
         when(categoryRepository.findByName(anyString())).thenReturn(Optional.empty());
 
         Exception exceptionToTrow =
@@ -107,7 +120,11 @@ public class CategoriaControllerTestMockito {
 
 
     @Test
+<<<<<<< HEAD:GestionCentro/src/test/java/controllersTests/CategoriesControllerTestMockito.java
+    void getAllCategories() throws SQLException {
+=======
     void getAllCategories() {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4:GestionCentro/src/test/java/controllers/CategoriaControllerTestMockito.java
         when(categoryRepository.findAll()).thenReturn(List.of(cat1));
 
 
@@ -123,7 +140,7 @@ public class CategoriaControllerTestMockito {
     }
 
     @Test
-    void updateCategory() throws CategoriesException {
+    void updateCategory() throws CategoriesException, SQLException {
         when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.empty());
         when(categoryRepository.updated("Examen_03_DAM", cat1)).thenReturn(Optional.of(cat1));
 

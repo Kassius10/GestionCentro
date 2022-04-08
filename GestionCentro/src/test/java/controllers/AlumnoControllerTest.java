@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import repositories.alumnos.AlumnoRepository;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +33,11 @@ class AlumnoControllerTest {
     private AlumnoController controller;
 
     @Test
+<<<<<<< HEAD
+    void getAllAlumnos() throws SQLException {/**/
+=======
     void getAllAlumnos() {/**/
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         when(repository.findAll()).thenReturn(List.of(alumno));
         var lista1 = controller.getAllAlumnos();
 
@@ -55,7 +60,7 @@ class AlumnoControllerTest {
     }
 
     @Test
-    void getAlumnByDniTest() throws AlumnoException {
+    void getAlumnByDniTest() throws AlumnoException, SQLException {
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.of(alumno));
 
         var aux = controller.getAlumnByDni(alumno.getDni());
@@ -75,7 +80,11 @@ class AlumnoControllerTest {
     }
 
     @Test
+<<<<<<< HEAD
+    void getAlumnByDniExceptionTest() throws SQLException {
+=======
     void getAlumnByDniExceptionTest() {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         when(repository.findByDni(anyString())).thenReturn(Optional.empty());
 
         Exception thrown = assertThrows(AlumnoException.class, () -> controller.getAlumnByDni(anyString()));
@@ -85,7 +94,7 @@ class AlumnoControllerTest {
     }
 
     @Test
-    void insertAlumnoTest() throws AlumnoException {
+    void insertAlumnoTest() throws AlumnoException, SQLException {
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.empty());
         when(repository.save(alumno)).thenReturn(Optional.of(alumno));
 
@@ -106,7 +115,11 @@ class AlumnoControllerTest {
     }
 
     @Test
+<<<<<<< HEAD
+    void insertAlumnoExceptionTest() throws SQLException {
+=======
     void insertAlumnoExceptionTest() {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.of(alumno));
 
         Exception thrown = assertThrows(AlumnoException.class, () -> controller.insertAlumno(alumno));
@@ -117,7 +130,7 @@ class AlumnoControllerTest {
     }
 
     @Test
-    void deleteAlumnoTest() throws AlumnoException {
+    void deleteAlumnoTest() throws AlumnoException, SQLException {
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.of(alumno));
         when(repository.delete(alumno.getId())).thenReturn(Optional.of(alumno));
 
@@ -138,7 +151,11 @@ class AlumnoControllerTest {
     }
 
     @Test
+<<<<<<< HEAD
+    void deleteAlumnoExceptionTest() throws SQLException {
+=======
     void deleteAlumnoExceptionTest() {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.empty());
 
         Exception thrown = assertThrows(AlumnoException.class, () -> controller.deletAlumno(alumno.getDni()));
@@ -149,7 +166,7 @@ class AlumnoControllerTest {
     }
 
     @Test
-    void updateAlumnoTest() throws AlumnoException {
+    void updateAlumnoTest() throws AlumnoException, SQLException {
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.empty());
         when(repository.update(alumno.getId(), alumno)).thenReturn(Optional.of(alumno));
 
@@ -170,7 +187,7 @@ class AlumnoControllerTest {
     }
 
     @Test
-    void updateAlumnoExistTest() throws AlumnoException {
+    void updateAlumnoExistTest() throws AlumnoException, SQLException {
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.of(alumno));
         when(repository.update(alumno.getId(), alumno)).thenReturn(Optional.of(alumno));
 
@@ -191,7 +208,7 @@ class AlumnoControllerTest {
     }
 
     @Test
-    void updateAlumnoExistsExceptionTest() throws AlumnoException {
+    void updateAlumnoExistsExceptionTest() throws AlumnoException, SQLException {
         Alumno al = new Alumno();
         al.id(1);
         al.setDni("12345678a");

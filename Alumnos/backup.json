@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "dni": "50583789h",
+    "name": "Dani",
+    "surNames": "Ca Ro",
+    "email": "d@d.com",
+    "phone": "654-987789",
+    "hasLoseEvaluation": true,
+    "registrationDate": {
+      "date": {
+        "year": 2022,
+        "month": 4,
+        "day": 6
+      },
+      "time": {
+        "hour": 16,
+        "minute": 42,
+        "second": 38,
+        "nano": 572050200
+      }
+    }
+  },
+  {
+    "id": 2,
+    "dni": "50583469h",
+    "name": "Wani",
+    "surNames": "Ca Ro",
+    "email": "d@d.com",
+    "phone": "654-987789",
+    "hasLoseEvaluation": true,
+    "registrationDate": {
+      "date": {
+        "year": 2022,
+        "month": 4,
+        "day": 6
+      },
+      "time": {
+        "hour": 16,
+        "minute": 42,
+        "second": 38,
+        "nano": 574034100
+      }
+    }
+  },
+  {
+    "id": 3,
+    "dni": "50583459h",
+    "name": "Fani",
+    "surNames": "Ca Ro",
+    "email": "d@d.com",
+    "phone": "654-987789",
+    "hasLoseEvaluation": true,
+    "registrationDate": {
+      "date": {
+        "year": 2022,
+        "month": 4,
+        "day": 6
+      },
+      "time": {
+        "hour": 16,
+        "minute": 42,
+        "second": 38,
+        "nano": 574034100
+      }
+    }
+  },
+  {
+    "id": 4,
+    "dni": "50583179h",
+    "name": "Gani",
+    "surNames": "Ca Ro",
+    "email": "d@d.com",
+    "phone": "654-987789",
+    "hasLoseEvaluation": true,
+    "registrationDate": {
+      "date": {
+        "year": 2022,
+        "month": 4,
+        "day": 6
+      },
+      "time": {
+        "hour": 16,
+        "minute": 42,
+        "second": 38,
+        "nano": 574034100
+      }
+    }
+  },
+  {
+    "id": 5,
+    "dni": "50583159h",
+    "name": "TYani",
+    "surNames": "Ca Ro",
+    "email": "d@d.com",
+    "phone": "654-987789",
+    "hasLoseEvaluation": true,
+    "registrationDate": {
+      "date": {
+        "year": 2022,
+        "month": 4,
+        "day": 6
+      },
+      "time": {
+        "hour": 16,
+        "minute": 42,
+        "second": 38,
+        "nano": 574034100
+      }
+    }
+  }
+]

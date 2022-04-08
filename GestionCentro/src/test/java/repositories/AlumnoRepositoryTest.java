@@ -1,18 +1,30 @@
 package repositories;
 
+import controllers.DataBaseManager;
 import exceptions.AlumnoException;
 import models.Alumno;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+<<<<<<< HEAD
+import utilities.DataBase;
+import utilities.DataDB;
+=======
 import repositories.alumnos.AlumnoRepository;
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 
+import java.sql.SQLException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.anyInt;
 
 class AlumnoRepositoryTest {
+<<<<<<< HEAD
+    private final AlumnoRepository repository= AlumnoRepository.getInstance(DataBaseManager.getInstance());
+=======
     private final AlumnoRepository repository = new AlumnoRepository();
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 
     private final Alumno alumno = new Alumno(
             "12345678a",
@@ -23,8 +35,22 @@ class AlumnoRepositoryTest {
             true,
             true
     );
+    @BeforeAll
+    static void setUpAll(){
+        DataBase.init();
+    }
 
     @BeforeEach
+<<<<<<< HEAD
+    void setUp() throws SQLException {
+        DataBase.deleteAll();
+        DataDB.insertAlumno(alumno);
+    }
+
+    @Test
+    void findAllTest() throws SQLException {
+        var lista1= repository.findAll();
+=======
     void setUp() {
         repository.deleteAll();
     }
@@ -32,6 +58,7 @@ class AlumnoRepositoryTest {
     @Test
     void findAllTest() {
         var lista1 = repository.findAll();
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 
         repository.save(alumno);
         var lista2 = repository.findAll();
@@ -53,7 +80,11 @@ class AlumnoRepositoryTest {
     }
 
     @Test
+<<<<<<< HEAD
+    void findByDniTest() throws SQLException {
+=======
     void findByDniTest() {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         repository.save(alumno);
         Optional<Alumno> alumnoEncontrado = repository.findByDni(alumno.getDni());
         assertAll(
@@ -69,14 +100,18 @@ class AlumnoRepositoryTest {
     }
 
     @Test
+<<<<<<< HEAD
+    void findByDniExcpetionTest() throws SQLException {
+=======
     void findByDniExcpetionTest() {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         Optional<Alumno> alumnoEncontrado = repository.findByDni(alumno.getDni());
         assertFalse(alumnoEncontrado.isPresent());
 
     }
 
     @Test
-    void findByIdTest() throws AlumnoException {
+    void findByIdTest() throws AlumnoException, SQLException {
         repository.save(alumno);
         Optional<Alumno> alumnoEncontrado = repository.findById(alumno.getId());
         assertAll(
@@ -98,6 +133,20 @@ class AlumnoRepositoryTest {
     }
 
     @Test
+<<<<<<< HEAD
+    void saveTest() throws AlumnoException, SQLException {
+        var aux= repository.save(alumno);
+        Optional<Alumno> alumnoEncontrado = repository.findById(alumno.getId());
+        assertAll(
+                ()->assertEquals(aux.get().getDni(),alumno.getDni()),
+                ()->assertEquals(aux.get().getName(),alumno.getName()),
+                ()->assertEquals(aux.get().getSurNames(),alumno.getSurNames()),
+                ()->assertEquals(aux.get().getEmail(),alumno.getEmail()),
+                ()->assertEquals(aux.get().getPhone(),alumno.getPhone()),
+                ()->assertEquals(aux.get().getRegistrationDate(),alumno.getRegistrationDate()),
+                ()->assertEquals(alumno.getDni(),alumnoEncontrado.get().getDni()),
+                ()->assertTrue(alumnoEncontrado.isPresent())
+=======
     void saveTest() throws AlumnoException {
         var aux = repository.save(alumno);
         Optional<Alumno> alumnoEncontrado = repository.findById(alumno.getId());
@@ -111,11 +160,12 @@ class AlumnoRepositoryTest {
                 () -> assertEquals(aux.get().getRegistrationDate(), alumno.getRegistrationDate()),
                 () -> assertEquals(alumno.getDni(), alumnoEncontrado.get().getDni()),
                 () -> assertTrue(alumnoEncontrado.isPresent())
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         );
     }
 
     @Test
-    void updateTest() throws AlumnoException {
+    void updateTest() throws AlumnoException, SQLException {
         repository.save(alumno);
         alumno.setDni("12345678a");
         alumno.setName("manolo");
@@ -141,7 +191,7 @@ class AlumnoRepositoryTest {
     }
 
     @Test
-    void deleteTest() throws AlumnoException {
+    void deleteTest() throws SQLException {
         repository.save(alumno);
         var aux = repository.delete(alumno.getId());
 

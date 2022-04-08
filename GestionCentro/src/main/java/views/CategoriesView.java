@@ -1,25 +1,45 @@
 package views;
 
 import controllers.CategoriesController;
+<<<<<<< HEAD
+import controllers.DataBaseManager;
+import models.Categories;
+import repositories.CategoryRepository;
+import utils.Input;
+=======
 import exceptions.CategoriesException;
 import models.Categoria;
 import repositories.categorias.CategoryRepository;
 import utils.Input;
 import utils.Patterns;
 
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 import java.util.Comparator;
 import java.util.List;
 
 public class CategoriesView {
     private static CategoriesView instance;
+<<<<<<< HEAD
+
+    private final CategoriesController categoriesController = new CategoriesController(
+            CategoryRepository.getInstance(DataBaseManager.getInstance())
+    );
+
+=======
     private final CategoriesController categoriesController = CategoriesController.getInstance(CategoryRepository.getInstance());
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 
 
     /**
      * Constructor creado de forma privada de CategoriesView
      */
+<<<<<<< HEAD
+    private CategoriesView()  {
+        init();
+=======
     private CategoriesView() {
         loadData();
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
     }
 
 
@@ -35,6 +55,22 @@ public class CategoriesView {
         return instance;
     }
 
+<<<<<<< HEAD
+//    /**
+//     * Inyección de Datos variados
+//     */
+//    private void loadData() {
+//        try {
+//            categoriesController.save(new Categories("PRACTICA_03_DAM"));
+//            categoriesController.save(new Categories("EXAMEN_01_DAM"));
+//            categoriesController.save(new Categories("EXPOSICIÓN_06_DAM"));
+//            categoriesController.save(new Categories("EJERCICIO_04_DAM"));
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+=======
     /**
      * Función que aplica un formato determinado a una cadena
      *
@@ -67,6 +103,7 @@ public class CategoriesView {
             e.printStackTrace();
         }
     }
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 
     /**
      * Método que inicia el menú de la vista
@@ -113,6 +150,16 @@ public class CategoriesView {
      * Método el cual nos muestra todas las categorías existentes
      */
     private void getAllCategories() {
+<<<<<<< HEAD
+        try {
+            List<Categories> categories = categoriesController.getAllCategories();
+            System.out.println("Numero de Categorías: " + categories.size() + " categorias");
+            categories.stream().sorted(Comparator.comparing(Categories::getName))
+                    .forEach(System.out::println);
+        } catch (Exception e) {
+            System.out.println("Error al obtener los países: " + e.getMessage());
+        }
+=======
         List<Categoria> categories = categoriesController.getAllCategories();
 
         System.out.println("\nCategorías Existentes");
@@ -121,19 +168,26 @@ public class CategoriesView {
                 .forEach(c -> System.out.println(c.getName()));
         System.out.println("Existen " + categories.size() + " categorías");
 
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
     }
 
     /**
      * Método con el cual modificamos una categoría existente
      */
+<<<<<<< HEAD
+    private void modifyCategory()  {
+        System.out.println("Modificar Categoría Existente");
+=======
     private void modifyCategory() {
         System.out.println("\nModificar Categoría Existente");
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 
         getAllCategories();
 
         var category = Input.readString("Indica el nombre de la categoría que desea modificar");
 
         try {
+
             var isThere = categoriesController.getCategoryByName(categoryItsOk(category));
             var nameAntiguo = isThere.getName();
 
@@ -150,7 +204,7 @@ public class CategoriesView {
                 System.out.println("\tCategoría Actualizada a: " + newName);
             }
 
-        } catch (CategoriesException e) {
+        } catch (Exception e) {
             System.out.println("Error al intentar modificar la categoría. " + e.getMessage());
         }
 
@@ -171,7 +225,7 @@ public class CategoriesView {
             var categoryCreated = categoriesController.save(newCategory);
             System.out.println("Nueva categoria: " + categoryCreated);
             System.out.println();
-        } catch (CategoriesException e) {
+        } catch (Exception e) {
             System.out.println("Error al añadir la categoría. " + e.getMessage());
         }
 

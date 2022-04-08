@@ -3,6 +3,7 @@ package models;
 import exceptions.AlumnoException;
 import lombok.Data;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -21,6 +22,16 @@ public class Alumno {
     private String phone;
     private boolean hasLoseEvaluation;
     private boolean enabled;
+<<<<<<< HEAD
+    private final LocalDateTime registrationDate;
+
+//    /*private LocalDateTime registrationDate;*/
+
+
+    public Alumno(){
+        this.id = contador++;
+        registrationDate= LocalDateTime.now(); //TODO cambiar el formato de la fecha a DD/MM/YYYY
+=======
 
     /**
      * Método constructor de Alumno.
@@ -28,6 +39,7 @@ public class Alumno {
     public Alumno() {
         registrationDate = LocalDateTime.now();
         this.enabled = true;
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
     }
 
     /**
@@ -40,6 +52,18 @@ public class Alumno {
      * @param phone             Teléfono que tendrá el alumno.
      * @param hasLoseEvaluation Indicamos si ha perdido la evaluación o no.
      */
+<<<<<<< HEAD
+    public Alumno(String dni, String name, String surNames, String email, String phone, boolean hasLoseEvaluation, boolean enabled){
+        this.id = contador++;
+        this.dni=dni;
+        this.name=name;
+        this.surNames = surNames;
+        this.email=email;
+        this.phone=phone;
+        this.hasLoseEvaluation=hasLoseEvaluation;
+        this.enabled = enabled;
+        registrationDate= LocalDateTime.now(); //TODO cambiar el formato de la fecha a DD/MM/YYYY
+=======
     public Alumno(String dni, String name, String surNames, String email, String phone, boolean hasLoseEvaluation, boolean enabled) {
         this.dni = dni;
         this.name = name;
@@ -49,6 +73,19 @@ public class Alumno {
         this.hasLoseEvaluation = hasLoseEvaluation;
         this.enabled = enabled;
         registrationDate = LocalDateTime.now(); //TODO cambiar el formato de la fecha a DD/MM/YYYY
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
+    }
+
+    public Alumno(int id, String dni, String nombre, String apellidos, String email, String telefono, boolean hasLoseEvaluation, boolean enabled, LocalDateTime fecha) {
+        this.id = id;
+        this.dni = dni;
+        this.name = nombre;
+        this.surNames = apellidos;
+        this.email = email;
+        this.phone = telefono;
+        this.hasLoseEvaluation = hasLoseEvaluation;
+        this.enabled = enabled;
+        this.registrationDate = LocalDateTime.now();
     }
 
     /**
@@ -60,6 +97,16 @@ public class Alumno {
         return id;
     }
 
+<<<<<<< HEAD
+    /**
+     * Procedimiento que permite indicarle el id al alumno.
+     * @param id Id que le daremos.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+=======
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 
     /**
      * Función que devuelve el Dni del alumno
@@ -327,4 +374,29 @@ public class Alumno {
                 ", registrationDate=" + registrationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
                 '}';
     }
+<<<<<<< HEAD
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Alumno alumno = (Alumno) o;
+        return id == alumno.id && hasLoseEvaluation == alumno.hasLoseEvaluation && dni.equals(alumno.dni) && name.equals(alumno.name) && surNames.equals(alumno.surNames) && email.equals(alumno.email) && phone.equals(alumno.phone) && registrationDate.equals(alumno.registrationDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dni, name, surNames, email, phone, hasLoseEvaluation, registrationDate);
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public Alumno enabled(boolean enabled) {
+        this.enabled = enabled;
+        return this;
+    }
+=======
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 }

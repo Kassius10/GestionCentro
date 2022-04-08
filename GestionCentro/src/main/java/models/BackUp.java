@@ -3,6 +3,23 @@ package models;
 import java.time.LocalDateTime;
 import java.util.List;
 
+<<<<<<< HEAD
+public class BackUp {
+    private final String createAt = LocalDateTime.now().toString();
+    private List<Alumno> alumnos;
+    private List<Categories> categories;
+
+
+    public BackUp(List<Alumno> alumnos, List<Categories> categories) {
+        this.alumnos = alumnos;
+        this.categories=categories;
+    }
+
+    public List<Categories> getCategories() {
+        return categories;
+    }
+
+=======
 /**
  * Clase Backup
  */
@@ -48,6 +65,7 @@ public class BackUp {
      *
      * @return devuelve una lista de alumnos
      */
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
     public List<Alumno> getAlumnos() {
         return alumnos;
     }

@@ -47,4 +47,11 @@ public class Categoria {
                 '}';
     }
 
+<<<<<<< HEAD:GestionCentro/src/main/java/models/Categories.java
+
+    public void setId(int id) {
+        this.id = id;
+    }
+=======
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4:GestionCentro/src/main/java/models/Categoria.java
 }

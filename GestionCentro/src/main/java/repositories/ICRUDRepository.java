@@ -1,5 +1,6 @@
 package repositories;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,21 @@ import java.util.Optional;
  * @param <T> Tipo de dato
  * @param <ID> Identificador del Objeto
  */
+<<<<<<< HEAD
+
+public interface ICRUDRepository<T, ID> {
+    List<T> findAll() throws SQLException;
+
+    Optional<T> save(T entity) throws SQLException;
+
+    Optional<T> updated(ID id, T entity) throws SQLException;
+
+    Optional<T> findByName(ID id) throws SQLException;
+
+
+
+
+=======
 public interface ICRUDRepository<T,ID> {
     /**
      * Devuelve una lista de todos los elementos que tenga el repositorio
@@ -31,4 +47,5 @@ public interface ICRUDRepository<T,ID> {
      */
     Optional<T> updated(ID id, T entity);
 
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 }
