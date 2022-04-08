@@ -1,0 +1,25 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="GestionCentro:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/GestionCentro_jar</output-path>
+    <root id="archive" name="GestionCentro.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/build/generated/sources/annotationProcessor/java/main/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="GestionCentro.main" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.8.2/4c21029217adf07e4c0d0c5e192b6bf610c94bdc/junit-jupiter-api-5.8.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/org.objenesis/objenesis/3.2/7fadf57620c8b8abdf7519533e5527367cb51f09/objenesis-3.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/org.mybatis/mybatis/3.5.9/991a4095dbb95d929dfe0a18a69692fd4c614e/mybatis-3.5.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.8.2/b737de09f19864bd136805c84df7999a142fec29/junit-platform-engine-1.8.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/mysql/mysql-connector-java/8.0.27/f1da9f10a3de6348725a413304aab6d0aa04f923/mysql-connector-java-8.0.27.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.12.8/a84042b14eb2751c732f2d6ee22d6bf51005114b/byte-buddy-agent-1.12.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-engine/5.8.2/c598b4328d2f397194d11df3b1648d68d7d990e3/junit-jupiter-engine-5.8.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.8.2/32c8b8617c1342376fd5af2053da6410d8866861/junit-platform-commons-1.8.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/org.mockito/mockito-core/4.4.0/1ab8a2f7fc27702ebc136068476a6cdef5dbd5b9/mockito-core-4.4.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.12.8/aa42edb39e624cbf8a5b33cb5c5e920027cee42b/byte-buddy-1.12.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.11.4/7ec0925cc3aef0335bbc7d57edfd42b0f86f8267/protobuf-java-3.11.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.2.0/28c11eb91f9b6d8e200631d46e20a7f407f2a046/opentest4j-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/org.mockito/mockito-junit-jupiter/4.4.0/261b55f7c0ec70fb731b8685baee3540d2a26369/mockito-junit-jupiter-4.4.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files (x86)/Amazon Corretto/caches/modules-2/files-2.1/com.google.code.gson/gson/2.9.0/8a1167e089096758b49f9b34066ef98b2f4b37aa/gson-2.9.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

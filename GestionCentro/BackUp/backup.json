@@ -1,0 +1,285 @@
+{
+  "createAt": "2022-04-08T17:46:24.633522700",
+  "alumnos": [
+    {
+      "registrationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 8
+        },
+        "time": {
+          "hour": 14,
+          "minute": 54,
+          "second": 58,
+          "nano": 769199100
+        }
+      },
+      "id": 1,
+      "dni": "11111111a",
+      "name": "dani",
+      "surNames": "carmona rodriguez",
+      "email": "dani@alumno.org",
+      "phone": "611-111111",
+      "hasLoseEvaluation": true,
+      "enabled": true
+    },
+    {
+      "registrationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 8
+        },
+        "time": {
+          "hour": 14,
+          "minute": 54,
+          "second": 58,
+          "nano": 771198200
+        }
+      },
+      "id": 2,
+      "dni": "22222222b",
+      "name": "jeremy",
+      "surNames": "ramos segura",
+      "email": "jeremy@alumno.org",
+      "phone": "622-222222",
+      "hasLoseEvaluation": true,
+      "enabled": true
+    },
+    {
+      "registrationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 8
+        },
+        "time": {
+          "hour": 14,
+          "minute": 54,
+          "second": 58,
+          "nano": 771198200
+        }
+      },
+      "id": 3,
+      "dni": "33333333c",
+      "name": "nuria",
+      "surNames": "gonzalez margallo",
+      "email": "nuria@alumno.org",
+      "phone": "633-333333",
+      "hasLoseEvaluation": true,
+      "enabled": true
+    },
+    {
+      "registrationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 8
+        },
+        "time": {
+          "hour": 14,
+          "minute": 54,
+          "second": 58,
+          "nano": 771198200
+        }
+      },
+      "id": 4,
+      "dni": "44444444d",
+      "name": "marta",
+      "surNames": "sanchez perez",
+      "email": "marta@alumno.org",
+      "phone": "644-444444",
+      "hasLoseEvaluation": true,
+      "enabled": true
+    },
+    {
+      "registrationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 8
+        },
+        "time": {
+          "hour": 14,
+          "minute": 54,
+          "second": 58,
+          "nano": 771198200
+        }
+      },
+      "id": 5,
+      "dni": "55555555e",
+      "name": "luis",
+      "surNames": "lopez lopez",
+      "email": "luis@alumno.org",
+      "phone": "655-555555S",
+      "hasLoseEvaluation": true,
+      "enabled": true
+    },
+    {
+      "registrationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 8
+        },
+        "time": {
+          "hour": 14,
+          "minute": 54,
+          "second": 58,
+          "nano": 771198200
+        }
+      },
+      "id": 6,
+      "dni": "50583159h",
+      "name": "lol",
+      "surNames": "si to",
+      "email": "lol@lol.lol",
+      "phone": "622-222222",
+      "hasLoseEvaluation": true,
+      "enabled": true
+    }
+  ],
+  "categories": [
+    {
+      "name": "ejercicio",
+      "id": 0
+    },
+    {
+      "name": "examen",
+      "id": 0
+    },
+    {
+      "name": "exposicion",
+      "id": 0
+    },
+    {
+      "name": "practica",
+      "id": 0
+    }
+  ],
+  "pruebas": [
+    {
+      "evaluationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 8
+        },
+        "time": {
+          "hour": 14,
+          "minute": 54,
+          "second": 58,
+          "nano": 789203900
+        }
+      },
+      "description": "Examen de lengua",
+      "category": {
+        "name": "examen",
+        "id": 0
+      },
+      "qualifications": {
+        "calificaciones": [
+          {
+            "deliveryDate": "08/04/2022 02:54:58",
+            "student": {
+              "registrationDate": {
+                "date": {
+                  "year": 2022,
+                  "month": 4,
+                  "day": 8
+                },
+                "time": {
+                  "hour": 14,
+                  "minute": 54,
+                  "second": 58,
+                  "nano": 778201400
+                }
+              },
+              "id": 0,
+              "name": "manuel",
+              "surNames": "lopez lopez",
+              "hasLoseEvaluation": false,
+              "enabled": true
+            },
+            "qualification": 8.0,
+            "id": 0
+          }
+        ]
+      },
+      "id": 0
+    },
+    {
+      "evaluationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 8
+        },
+        "time": {
+          "hour": 14,
+          "minute": 54,
+          "second": 58,
+          "nano": 789203900
+        }
+      },
+      "description": "Test Entornos",
+      "category": {
+        "name": "test",
+        "id": 0
+      },
+      "qualifications": {
+        "calificaciones": []
+      },
+      "id": 0
+    },
+    {
+      "evaluationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 8
+        },
+        "time": {
+          "hour": 14,
+          "minute": 54,
+          "second": 58,
+          "nano": 789203900
+        }
+      },
+      "description": "Examen de mates",
+      "category": {
+        "name": "examen",
+        "id": 0
+      },
+      "qualifications": {
+        "calificaciones": []
+      },
+      "id": 0
+    },
+    {
+      "evaluationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 8
+        },
+        "time": {
+          "hour": 14,
+          "minute": 54,
+          "second": 58,
+          "nano": 789203900
+        }
+      },
+      "description": "Prueba Programacion",
+      "category": {
+        "name": "ejercicio",
+        "id": 0
+      },
+      "qualifications": {
+        "calificaciones": []
+      },
+      "id": 0
+    }
+  ]
+}
