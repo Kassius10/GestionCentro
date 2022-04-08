@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.InjectMocks;
 import repositories.CategoryRepository;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +43,7 @@ public class CategoriesControllerTestMockito {
     }
 
     @Test
-    void save() throws CategoriesException{
+    void save() throws CategoriesException, SQLException {
         when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.empty());
         when(categoryRepository.save(cat1)).thenReturn(Optional.of(cat1));
 
@@ -61,7 +62,7 @@ public class CategoriesControllerTestMockito {
 
 
     @Test
-    void saveExceptionTest(){
+    void saveExceptionTest() throws SQLException {
 
         when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.of(cat1));
 
@@ -77,7 +78,7 @@ public class CategoriesControllerTestMockito {
 
 
     @Test
-    void getCategoryByName() throws CategoriesException {
+    void getCategoryByName() throws CategoriesException, SQLException {
         when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.of(cat1));
 
         var catAux= categoriesController.getCategoryByName(cat1.getName());
@@ -94,7 +95,7 @@ public class CategoriesControllerTestMockito {
 
 
     @Test
-    void getCategoryByNameExceptionTest(){
+    void getCategoryByNameExceptionTest() throws SQLException {
         when(categoryRepository.findByName(anyString())).thenReturn(Optional.empty());
 
         Exception exceptionToTrow =
@@ -110,7 +111,7 @@ public class CategoriesControllerTestMockito {
 
 
     @Test
-    void getAllCategories(){
+    void getAllCategories() throws SQLException {
         when(categoryRepository.findAll()).thenReturn(List.of(cat1));
 
 
@@ -126,7 +127,7 @@ public class CategoriesControllerTestMockito {
     }
 
     @Test
-    void updateCategory() throws CategoriesException {
+    void updateCategory() throws CategoriesException, SQLException {
         when(categoryRepository.findByName(cat1.getName())).thenReturn(Optional.empty());
         when(categoryRepository.updated("Examen_03_DAM", cat1)).thenReturn(Optional.of(cat1));
 

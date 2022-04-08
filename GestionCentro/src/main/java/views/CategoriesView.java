@@ -1,25 +1,26 @@
 package views;
 
-import comparators.CategoriesComparator;
 import controllers.CategoriesController;
-import exceptions.CategoriesException;
+import controllers.DataBaseManager;
 import models.Categories;
 import repositories.CategoryRepository;
 import utils.Input;
-
+import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
 
 public class CategoriesView {
     private static CategoriesView instance;
-    private final CategoriesController categoriesController = CategoriesController.getInstance(new CategoryRepository());
+
+    private final CategoriesController categoriesController = new CategoriesController(
+            CategoryRepository.getInstance(DataBaseManager.getInstance())
+    );
+
 
 
     /**
      * Constructor creado de forma privada de CategoriesView
      */
-    private CategoriesView() {
-        loadData();
+    private CategoriesView()  {
         init();
     }
 
@@ -36,20 +37,20 @@ public class CategoriesView {
         return instance;
     }
 
-    /**
-     * Inyección de Datos variados
-     */
-    private void loadData() {
-        try {
-            categoriesController.save(new Categories("PRACTICA_03_DAM"));
-            categoriesController.save(new Categories("EXAMEN_01_DAM"));
-            categoriesController.save(new Categories("EXPOSICIÓN_06_DAM"));
-            categoriesController.save(new Categories("EJERCICIO_04_DAM"));
-
-        } catch (CategoriesException e) {
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * Inyección de Datos variados
+//     */
+//    private void loadData() {
+//        try {
+//            categoriesController.save(new Categories("PRACTICA_03_DAM"));
+//            categoriesController.save(new Categories("EXAMEN_01_DAM"));
+//            categoriesController.save(new Categories("EXPOSICIÓN_06_DAM"));
+//            categoriesController.save(new Categories("EJERCICIO_04_DAM"));
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     /**
@@ -96,25 +97,20 @@ public class CategoriesView {
      * Método el cual nos muestra todas las categorías existentes
      */
     private void getAllCategories() {
-        List<Categories> categories = categoriesController.getAllCategories();
-
-        categories.sort(new CategoriesComparator());
-
-        System.out.println("Categorías Existentes \n");
-
-        for (Categories category : categories) {
-            System.out.println(category);
+        try {
+            List<Categories> categories = categoriesController.getAllCategories();
+            System.out.println("Numero de Categorías: " + categories.size() + " categorias");
+            categories.stream().sorted(Comparator.comparing(Categories::getName))
+                    .forEach(System.out::println);
+        } catch (Exception e) {
+            System.out.println("Error al obtener los países: " + e.getMessage());
         }
-        System.out.println();
-        System.out.println("Existen " + categories.size() + " categorías");
-
     }
-
 
     /**
      * Método con el cual modificamos una categoría existente
      */
-    private void modifyCategory() {
+    private void modifyCategory()  {
         System.out.println("Modificar Categoría Existente");
 
         getAllCategories();
@@ -123,6 +119,7 @@ public class CategoriesView {
 
 
         try {
+
             var isThere = categoriesController.getCategoryByName(categoryItsOk(category));
 
             String newName = Input.readStringUppercase("Introduce el nuevo nombre de la categoría" + "(Anterior: " + isThere.getName() + ")");
@@ -136,7 +133,7 @@ public class CategoriesView {
 
             }
 
-        } catch (CategoriesException e) {
+        } catch (Exception e) {
             System.out.println("Error al intentar modificar la categoría. " + e.getMessage());
         }
 
@@ -159,7 +156,7 @@ public class CategoriesView {
             var categoryCreated = categoriesController.save(newCategory);
             System.out.println("\t" + categoryCreated);
             System.out.println();
-        } catch (CategoriesException e) {
+        } catch (Exception e) {
             System.out.println("Error al añadir la categoría. " + e.getMessage());
         }
 

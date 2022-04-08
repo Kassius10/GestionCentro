@@ -2,6 +2,7 @@ package repositories;
 
 import models.Alumno;
 
+import java.sql.SQLException;
 import java.util.Optional;
 
 /**
@@ -14,10 +15,10 @@ public interface IRepository extends CRUDRepository<Alumno,Integer>{
      * @param dni Dni del alumno por el que buscaremos en el repositorio.
      * @return Devuelve el Alumno encontrado en el repositorio.
      */
-    Optional<Alumno> findByDni(String dni);
+    Optional<Alumno> findByDni(String dni) throws SQLException;
 
     /**
      * Procedimiento para eliminar todos los elementos del repositorio.
      */
-    void deleteAll();
+    void deleteAll() throws SQLException;
 }

@@ -11,13 +11,13 @@
       "date": {
         "year": 2022,
         "month": 4,
-        "day": 5
+        "day": 6
       },
       "time": {
-        "hour": 22,
-        "minute": 7,
-        "second": 27,
-        "nano": 513504400
+        "hour": 16,
+        "minute": 42,
+        "second": 38,
+        "nano": 572050200
       }
     }
   },
@@ -33,13 +33,13 @@
       "date": {
         "year": 2022,
         "month": 4,
-        "day": 5
+        "day": 6
       },
       "time": {
-        "hour": 22,
-        "minute": 7,
-        "second": 27,
-        "nano": 514992800
+        "hour": 16,
+        "minute": 42,
+        "second": 38,
+        "nano": 574034100
       }
     }
   },
@@ -55,13 +55,13 @@
       "date": {
         "year": 2022,
         "month": 4,
-        "day": 5
+        "day": 6
       },
       "time": {
-        "hour": 22,
-        "minute": 7,
-        "second": 27,
-        "nano": 514992800
+        "hour": 16,
+        "minute": 42,
+        "second": 38,
+        "nano": 574034100
       }
     }
   },
@@ -77,13 +77,13 @@
       "date": {
         "year": 2022,
         "month": 4,
-        "day": 5
+        "day": 6
       },
       "time": {
-        "hour": 22,
-        "minute": 7,
-        "second": 27,
-        "nano": 514992800
+        "hour": 16,
+        "minute": 42,
+        "second": 38,
+        "nano": 574034100
       }
     }
   },
@@ -99,35 +99,13 @@
       "date": {
         "year": 2022,
         "month": 4,
-        "day": 5
+        "day": 6
       },
       "time": {
-        "hour": 22,
-        "minute": 7,
-        "second": 27,
-        "nano": 514992800
-      }
-    }
-  },
-  {
-    "id": 6,
-    "dni": "55443322h",
-    "name": "jeremy",
-    "surNames": "r s",
-    "email": "papu@gmail.com",
-    "phone": "654-987789",
-    "hasLoseEvaluation": false,
-    "registrationDate": {
-      "date": {
-        "year": 2022,
-        "month": 4,
-        "day": 5
-      },
-      "time": {
-        "hour": 22,
-        "minute": 9,
-        "second": 30,
-        "nano": 655799300
+        "hour": 16,
+        "minute": 42,
+        "second": 38,
+        "nano": 574034100
       }
     }
   }

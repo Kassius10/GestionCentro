@@ -16,6 +16,7 @@ class AlumnoTest {
                 "lopez sanchez",
                 "alumno@gmail.com",
                 "666-666666",
+                true,
                 true);
         alumno.id(1);
     }

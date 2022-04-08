@@ -1,0 +1,192 @@
+{
+  "createAt": "2022-04-07T23:22:35.639923",
+  "alumnos": [
+    {
+      "id": 1,
+      "dni": "11111111h",
+      "name": "dani",
+      "surNames": "carmona rodriguez",
+      "email": "dani@alumno.org",
+      "phone": "611-111111",
+      "hasLoseEvaluation": true,
+      "enabled": true,
+      "registrationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 7
+        },
+        "time": {
+          "hour": 23,
+          "minute": 22,
+          "second": 35,
+          "nano": 606689500
+        }
+      }
+    },
+    {
+      "id": 2,
+      "dni": "22222222h",
+      "name": "jeremy",
+      "surNames": "ramos segura",
+      "email": "jeremy@alumno.org",
+      "phone": "622-222222",
+      "hasLoseEvaluation": true,
+      "enabled": true,
+      "registrationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 7
+        },
+        "time": {
+          "hour": 23,
+          "minute": 22,
+          "second": 35,
+          "nano": 609667500
+        }
+      }
+    },
+    {
+      "id": 3,
+      "dni": "33333333h",
+      "name": "nuria",
+      "surNames": "gonzalez margallo",
+      "email": "nuria@alumno.org",
+      "phone": "633-333333",
+      "hasLoseEvaluation": true,
+      "enabled": true,
+      "registrationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 7
+        },
+        "time": {
+          "hour": 23,
+          "minute": 22,
+          "second": 35,
+          "nano": 609667500
+        }
+      }
+    },
+    {
+      "id": 4,
+      "dni": "44444444h",
+      "name": "marta",
+      "surNames": "sanchez perez",
+      "email": "marta@alumno.org",
+      "phone": "644-444444",
+      "hasLoseEvaluation": true,
+      "enabled": true,
+      "registrationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 7
+        },
+        "time": {
+          "hour": 23,
+          "minute": 22,
+          "second": 35,
+          "nano": 610161700
+        }
+      }
+    },
+    {
+      "id": 5,
+      "dni": "55555555h",
+      "name": "luis",
+      "surNames": "lopez lopez",
+      "email": "luis@alumno.org",
+      "phone": "655-555555",
+      "hasLoseEvaluation": true,
+      "enabled": true,
+      "registrationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 7
+        },
+        "time": {
+          "hour": 23,
+          "minute": 22,
+          "second": 35,
+          "nano": 610161700
+        }
+      }
+    },
+    {
+      "id": 6,
+      "dni": "55443322h",
+      "name": "jeje",
+      "surNames": "ir ma",
+      "email": "ree@gmail.com",
+      "phone": "654-332211",
+      "hasLoseEvaluation": false,
+      "enabled": false,
+      "registrationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 7
+        },
+        "time": {
+          "hour": 23,
+          "minute": 22,
+          "second": 35,
+          "nano": 610161700
+        }
+      }
+    },
+    {
+      "id": 7,
+      "dni": "66778899k",
+      "name": "jjjjjj",
+      "surNames": "yy tt",
+      "email": "yty@gmail.com",
+      "phone": "654-332211",
+      "hasLoseEvaluation": false,
+      "enabled": true,
+      "registrationDate": {
+        "date": {
+          "year": 2022,
+          "month": 4,
+          "day": 7
+        },
+        "time": {
+          "hour": 23,
+          "minute": 22,
+          "second": 35,
+          "nano": 610161700
+        }
+      }
+    }
+  ],
+  "categories": [
+    {
+      "name": "EJERCICIO_04_DAM",
+      "id": 0
+    },
+    {
+      "name": "Examen_01_2021",
+      "id": 0
+    },
+    {
+      "name": "EXAMEN_01_DAM",
+      "id": 0
+    },
+    {
+      "name": "EXPOSICIÓN_06_DAM",
+      "id": 0
+    },
+    {
+      "name": "JEREMY_00_DAM",
+      "id": 0
+    },
+    {
+      "name": "PRACTICA_03_DAM",
+      "id": 0
+    }
+  ]
+}

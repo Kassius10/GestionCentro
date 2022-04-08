@@ -4,6 +4,7 @@ package models;
  */
 public class Categories {
     private String name;
+    private int id;
 
     public Categories(String nombre) {
         this.name = nombre;
@@ -38,4 +39,7 @@ public class Categories {
     }
 
 
+    public void setId(int id) {
+        this.id = id;
+    }
 }

@@ -1,29 +1,37 @@
 package repositoriesTests;
 
+import controllers.DataBaseManager;
 import models.Categories;
 
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repositories.CategoryRepository;
+import utilities.DataBase;
+import utilities.DataDB;
 
+import java.sql.SQLException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryRepositoryTest {
 
-        CategoryRepository categoryRepository = new CategoryRepository();
+        CategoryRepository categoryRepository = CategoryRepository.getInstance(DataBaseManager.getInstance());
 
         Categories category = new Categories("Examen_01_2021");
 
-    /**
-     * Configuracion para que cada vez que haga el test pcomo minimo guarde 1 dato presentado
-     */
+    @BeforeAll
+    static void setUpAll(){
+        DataBase.init();
+    }
+
     @BeforeEach
-        void setUp(){
-            categoryRepository.save(category);
-        }
+    void setUp() throws SQLException {
+        DataBase.deleteAll();
+        DataDB.insertCategory(category);
+    }
 
 
 
@@ -32,7 +40,7 @@ class CategoryRepositoryTest {
      * @Test para mostrar todas las categorías del repositorio
      */
         @Test
-        void findAll(){
+        void findAll() throws SQLException {
             var res = categoryRepository.findAll();
 
             assertAll(
@@ -48,7 +56,7 @@ class CategoryRepositoryTest {
      * @Test para crear una nueva categoría
      */
         @Test
-        void save(){
+        void save() throws SQLException {
 
                 Categories secondCategory = new Categories("Práctica_02_Dam");
 
@@ -67,7 +75,7 @@ class CategoryRepositoryTest {
      * @Test para actualizar el nombre de una categoría
      */
     @Test
-        void update(){
+        void update() throws SQLException {
 
         category.setName("Examen_05_DAM");
                 var result = categoryRepository.updated( "Examen05_DAM", category);
@@ -84,7 +92,7 @@ class CategoryRepositoryTest {
      * @Test encontrar una categoria por el nombre
      */
     @Test
-    void findByName(){
+    void findByName() throws SQLException {
 
         var result = categoryRepository.findByName(category.getName());
 

@@ -3,13 +3,19 @@ package views;
 import comparators.AlumnoNameComparator;
 import comparators.AlumnoNumListComparator;
 import controllers.AlumnoController;
+import controllers.BackUpController;
+import controllers.DataBaseManager;
 import exceptions.AlumnoException;
 import models.Alumno;
+import models.Categories;
 import repositories.AlumnoRepository;
-import services.StorageAlumnosJsonFile;
+import repositories.CategoryRepository;
+import services.BackUpStoragesJsonFile;
 import utils.AlumnoPatterns;
 import utils.Input;
 
+import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -17,54 +23,58 @@ import java.util.List;
  */
 public class AlumnoView {
     private static AlumnoView instance;
-    private final AlumnoController alumnoController= AlumnoController.getInstance(new AlumnoRepository(), new StorageAlumnosJsonFile());
+
+    private final AlumnoController alumnoController = new AlumnoController(
+            AlumnoRepository.getInstance(DataBaseManager.getInstance())
+    );
+
+
 
     /**
      * Constructor privado de AlumnoView
      */
-    private AlumnoView(){
-        loadData();
+    private AlumnoView()  {
         init();
     }
 
     /**
      * Método de creación de instancia con el patron Singleton.
      * @return devuelve la instancia.
-     */
-    public static AlumnoView getInstance(){
+//     */
+    public static AlumnoView getInstance()  {
         if(instance==null){
             instance = new AlumnoView();
         }
         return instance;
     }
 
+//    /**
+//     * Datos cargados.
+//     */
+//    private void loadData(){
+//        try {
+//            alumnoController.insertAlumno(new Alumno("50583789h","Dani","Ca Ro","d@d.com","654-987789",true));
+//            alumnoController.insertAlumno(new Alumno("50583469h","Wani","Ca Ro","d@d.com","654-987789",true));
+//            alumnoController.insertAlumno(new Alumno("50583459h","Fani","Ca Ro","d@d.com","654-987789",true));
+//            alumnoController.insertAlumno(new Alumno("50583179h","Gani","Ca Ro","d@d.com","654-987789",true));
+//            alumnoController.insertAlumno(new Alumno("50583159h","TYani","Ca Ro","d@d.com","654-987789",true));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     /**
      * Método para iniciar.
      */
-    public void init(){
+    public void init() {
         menu();
 
     }
 
     /**
-     * Datos cargados.
-     */
-    private void loadData(){
-        try {
-            alumnoController.insertAlumno(new Alumno("50583789h","Dani","Ca Ro","d@d.com","654-987789",true));
-            alumnoController.insertAlumno(new Alumno("50583469h","Wani","Ca Ro","d@d.com","654-987789",true));
-            alumnoController.insertAlumno(new Alumno("50583459h","Fani","Ca Ro","d@d.com","654-987789",true));
-            alumnoController.insertAlumno(new Alumno("50583179h","Gani","Ca Ro","d@d.com","654-987789",true));
-            alumnoController.insertAlumno(new Alumno("50583159h","TYani","Ca Ro","d@d.com","654-987789",true));
-        } catch (AlumnoException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Procedimiento de selección de menu.
      */
-    private void menu(){
+    private void menu()  {
         int option;
         do {
             System.out.println("1- Añadir un Alumno\n" +
@@ -87,12 +97,7 @@ public class AlumnoView {
                     break;
                 case 4:
                     showAlumnos();
-                    break;
-                case 5:
-                    alumnoController.exportarDatos();
-                    break;
-                case 6:
-                    alumnoController.importarDatos();
+
                     break;
 
                 default:
@@ -139,7 +144,7 @@ public class AlumnoView {
             System.out.println("País actualizado");
             System.out.println(res);
 
-        } catch (AlumnoException e) {
+        } catch (AlumnoException | SQLException e) {
             System.out.println("Error al modificar el alumno. " + e.getMessage());
         }
 
@@ -155,7 +160,7 @@ public class AlumnoView {
             var res= alumnoController.deletAlumno(alumno);
             System.out.println("Alumno eliminado satisfactoriamente.");
             System.out.println(res);
-        } catch (AlumnoException e) {
+        } catch (AlumnoException | SQLException e) {
             System.out.println("Error al eliminar el alumno: " + e.getMessage());
         }
     }
@@ -183,6 +188,9 @@ public class AlumnoView {
         String evaluation = Input.readString("Indica si ha perdido la evaluacion [si - no]: ");
         evaluation= AlumnoPatterns.patternBoolean(evaluation);
 
+        String enable = Input.readString("Indica si está permitido [si - no]");
+        enable= AlumnoPatterns.patternBoolean(enable);
+
         System.out.println("Matriculando...");
         Alumno alumno = null;
         try {
@@ -192,7 +200,8 @@ public class AlumnoView {
                     .surNames(surNames)
                     .email(email)
                     .phone(phone)
-                    .hasLoseEvaluation(evaluation.equals("si"));
+                    .hasLoseEvaluation(evaluation.equals("si"))
+                    .enabled(enable.equals("si"));
         } catch (AlumnoException e) {
             System.out.println(e.getMessage());
         }
@@ -201,7 +210,7 @@ public class AlumnoView {
             var res= alumnoController.insertAlumno(alumno);
             System.out.println("El alumno ha sido matriculado perfectamente.");
             System.out.println(res);
-        } catch (AlumnoException e) {
+        } catch (AlumnoException | SQLException e) {
             System.out.println("Erros al añadir el alumno: "+ e.getMessage());
         }
 
@@ -210,18 +219,23 @@ public class AlumnoView {
     /**
      * Procedimiento para consultar la lista de alumnos
      */
-    private void showAlumnos(){
-        List<Alumno> alumnos = alumnoController.getAllAlumnos();
-        System.out.println("1- Por orden de lista\n" +
-                "2- Por orden alfabético.");
+    private void showAlumnos() {
+        try {
 
-        metodoOrdenacion(alumnos);
+            List<Alumno> alumnos = alumnoController.getAllAlumnos();
+            System.out.println("1- Por orden de lista\n" +
+                    "2- Por orden alfabético.");
 
-        System.out.println("\nLista de alumnos:");
-        for(Alumno alumno : alumnos){
-            System.out.println(alumno);
+            metodoOrdenacion(alumnos);
+
+            System.out.println("\nLista de alumnos:");
+            for (Alumno alumno : alumnos) {
+                System.out.println(alumno);
+            }
+            System.out.println("Hay " + alumnos.size() + " alumnos.");
+        }catch (Exception e){
+            System.err.println("Error al obtener los alumnos");
         }
-        System.out.println("Hay "+ alumnos.size() + " alumnos.");
     }
 
     /**
@@ -263,4 +277,5 @@ public class AlumnoView {
 
         return Integer.parseInt(option);
     }
+
 }

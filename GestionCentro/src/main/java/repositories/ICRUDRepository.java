@@ -1,5 +1,6 @@
 package repositories;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,13 +11,13 @@ import java.util.Optional;
  */
 
 public interface ICRUDRepository<T, ID> {
-    List<T> findAll();
+    List<T> findAll() throws SQLException;
 
-    Optional<T> save(T entity);
+    Optional<T> save(T entity) throws SQLException;
 
-    Optional<T> updated(ID id, T entity);
+    Optional<T> updated(ID id, T entity) throws SQLException;
 
-    Optional<T> findByName(ID id);
+    Optional<T> findByName(ID id) throws SQLException;
 
 
 

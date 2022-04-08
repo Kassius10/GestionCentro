@@ -2,29 +2,39 @@ package services;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import models.Alumno;
+import models.BackUp;
 
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
-public class StorageAlumnosJsonFile implements IStorageAlumnos{
+public class BackUpStoragesJsonFile implements IBackUpStorage {
+
+        private static BackUpStoragesJsonFile instance;
+
         private final Path currentRelativePath = Paths.get("");
         private final String rutaRelativa = currentRelativePath.toAbsolutePath().toString();
-        private final String directory= rutaRelativa + File.separator + "Alumnos";
-        private final String studentsFile = directory + File.separator + "backup.json";
+        private final String directory= rutaRelativa + File.separator + "BackUp";
+        private final String backupFile = directory + File.separator + "backup.json";
 
 
         /**
          * Método el cual inicia el directorio con los archivos respectivos en JSON
          */
 
-        public StorageAlumnosJsonFile(){
+        public BackUpStoragesJsonFile(){
                 init();
+        }
+
+
+
+        public static BackUpStoragesJsonFile getInstance(){
+                if (instance == null){
+                        instance = new BackUpStoragesJsonFile();
+                }
+                return instance;
         }
 
 
@@ -45,19 +55,19 @@ public class StorageAlumnosJsonFile implements IStorageAlumnos{
 
 
         /**
-         * Función que guarda dentro del fichero la lista de los alumnos dentro del archivo JSON
+         * Función que guarda dentro del fichero el conjunto de datos dentro del archivo JSON
          * Escribimos dentro del fichero JSON
-         * @param alumnos Lista de alumnos a introducir
+         * @param backup Conjunto de datos a introducir
          * @return Sí se ha guardado la lista.
          */
         @Override
-        public boolean save(List<Alumno> alumnos) {
+        public boolean save(BackUp backup) {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 boolean res = false;
                 PrintWriter g = null;
                 try {
-                        g = new PrintWriter(new FileWriter(studentsFile));
-                        g.println(gson.toJson(alumnos));
+                        g = new PrintWriter(new FileWriter(backupFile));
+                        g.println(gson.toJson(backup));
                         res= true;
                 }catch (Exception e){
                         System.err.println("Error: " + e.getMessage());
@@ -71,19 +81,21 @@ public class StorageAlumnosJsonFile implements IStorageAlumnos{
                 return res;
         }
 
+
+
         /**
          * Función que nos lee el fichero alumnos.json y lo cargará en nuestro programa
          * @return la lista de los alumnos sacados desde el fichero en formato json
          */
         @Override
-        public List<Alumno> load() {
+        public BackUp load() {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                List<Alumno> listOfStudents = new ArrayList<>();
+                BackUp backup = null;
                 Reader reader = null;
                 try {
-                      reader = Files.newBufferedReader(Paths.get(studentsFile));
+                      reader = Files.newBufferedReader(Paths.get(backupFile));
                      //En este caso aplicaremos la lectura de datos de forma dinámicamente. Utilizamos el TypeToken
-                      listOfStudents = gson.fromJson(reader, new TypeToken<List<Alumno>>(){}.getType());
+                      backup = gson.fromJson(reader, new TypeToken<BackUp>(){}.getType());
                 }catch (Exception e){
                         System.err.println("Error: " + e.getMessage());
 
@@ -98,7 +110,7 @@ public class StorageAlumnosJsonFile implements IStorageAlumnos{
 
                 }
 
-        return listOfStudents;
+        return backup ;
         }
 
 
@@ -108,7 +120,7 @@ public class StorageAlumnosJsonFile implements IStorageAlumnos{
          */
         @Override
         public String getBackupPath() {
-                return studentsFile;
+                return backupFile;
         }
 
 }
