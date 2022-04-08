@@ -5,7 +5,10 @@ import lombok.NonNull;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import utils.ApplicationProperties;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 import java.io.*;
 import java.sql.*;
 import java.util.Optional;

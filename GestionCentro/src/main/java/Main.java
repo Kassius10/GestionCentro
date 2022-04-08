@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 import controllers.DataBaseManager;
@@ -12,14 +13,18 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
 
+=======
+import views.MainView;
+
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
 /**
  * Proyecto Gestión del centro
+ *
  * @author Daniel Carmona, Jeremy Ramos
  * @version 1.0
- *
  */
-
 public class Main {
+<<<<<<< HEAD
     public static void main(String[] args) throws SQLException {
 
 
@@ -43,6 +48,11 @@ public class Main {
             System.err.println("Error al conectar al servidor de Base de Datos: " + e.getMessage());
             System.exit(1);
         }
+=======
+    public static void main(String[] args) {
+        MainView view = new MainView();
+        MainView.menu();
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
     }
 }
 

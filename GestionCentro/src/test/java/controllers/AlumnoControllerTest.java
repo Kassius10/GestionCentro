@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import repositories.AlumnoRepository;
+import repositories.alumnos.AlumnoRepository;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -18,12 +18,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AlumnoControllerTest {
-    @Mock
-    private AlumnoRepository repository;
-
-    @InjectMocks
-    private AlumnoController controller;
-
     private final Alumno alumno = new Alumno(
             "12345678a",
             "dani",
@@ -33,11 +27,19 @@ class AlumnoControllerTest {
             true,
             true
     );
+    @Mock
+    private AlumnoRepository repository;
+    @InjectMocks
+    private AlumnoController controller;
 
     @Test
+<<<<<<< HEAD
     void getAllAlumnos() throws SQLException {/**/
+=======
+    void getAllAlumnos() {/**/
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         when(repository.findAll()).thenReturn(List.of(alumno));
-        var lista1= controller.getAllAlumnos();
+        var lista1 = controller.getAllAlumnos();
 
         assertAll(
                 () -> assertEquals(lista1.size(), 1),
@@ -53,7 +55,7 @@ class AlumnoControllerTest {
 
         );
 
-        verify(repository,times(1)).findAll();
+        verify(repository, times(1)).findAll();
 
     }
 
@@ -64,24 +66,28 @@ class AlumnoControllerTest {
         var aux = controller.getAlumnByDni(alumno.getDni());
 
         assertAll(
-                ()->assertEquals(aux.getDni(), alumno.getDni()),
-                ()->assertEquals(aux.getName(), alumno.getName()),
-                ()->assertEquals(aux.getSurNames(), alumno.getSurNames()),
-                ()->assertEquals(aux.getEmail(), alumno.getEmail()),
-                ()->assertEquals(aux.getPhone(), alumno.getPhone()),
-                ()->assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
-                ()->assertEquals(aux.isHasLoseEvaluation(), alumno.isHasLoseEvaluation())
+                () -> assertEquals(aux.getDni(), alumno.getDni()),
+                () -> assertEquals(aux.getName(), alumno.getName()),
+                () -> assertEquals(aux.getSurNames(), alumno.getSurNames()),
+                () -> assertEquals(aux.getEmail(), alumno.getEmail()),
+                () -> assertEquals(aux.getPhone(), alumno.getPhone()),
+                () -> assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
+                () -> assertEquals(aux.isHasLoseEvaluation(), alumno.isHasLoseEvaluation())
         );
 
-        verify(repository,times(1)).findByDni(alumno.getDni());
+        verify(repository, times(1)).findByDni(alumno.getDni());
 
     }
 
     @Test
+<<<<<<< HEAD
     void getAlumnByDniExceptionTest() throws SQLException {
+=======
+    void getAlumnByDniExceptionTest() {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         when(repository.findByDni(anyString())).thenReturn(Optional.empty());
 
-        Exception thrown= assertThrows(AlumnoException.class,()-> controller.getAlumnByDni(anyString()));
+        Exception thrown = assertThrows(AlumnoException.class, () -> controller.getAlumnByDni(anyString()));
         assertTrue(thrown.getMessage().contains("No existe un alumno con dni"));
 
         verify(repository, times(1)).findByDni(anyString());
@@ -95,29 +101,34 @@ class AlumnoControllerTest {
         var aux = controller.insertAlumno(alumno);
 
         assertAll(
-                ()->assertEquals(aux.getDni(), alumno.getDni()),
-                ()->assertEquals(aux.getName(), alumno.getName()),
-                ()->assertEquals(aux.getSurNames(), alumno.getSurNames()),
-                ()->assertEquals(aux.getEmail(), alumno.getEmail()),
-                ()->assertEquals(aux.getPhone(), alumno.getPhone()),
-                ()->assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
-                ()->assertEquals(aux.isHasLoseEvaluation(), alumno.isHasLoseEvaluation())
+                () -> assertEquals(aux.getDni(), alumno.getDni()),
+                () -> assertEquals(aux.getName(), alumno.getName()),
+                () -> assertEquals(aux.getSurNames(), alumno.getSurNames()),
+                () -> assertEquals(aux.getEmail(), alumno.getEmail()),
+                () -> assertEquals(aux.getPhone(), alumno.getPhone()),
+                () -> assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
+                () -> assertEquals(aux.isHasLoseEvaluation(), alumno.isHasLoseEvaluation())
         );
 
-        verify(repository,times(1)).findByDni(alumno.getDni());
-        verify(repository,times(1)).save(alumno);
+        verify(repository, times(1)).findByDni(alumno.getDni());
+        verify(repository, times(1)).save(alumno);
     }
 
     @Test
+<<<<<<< HEAD
     void insertAlumnoExceptionTest() throws SQLException {
+=======
+    void insertAlumnoExceptionTest() {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.of(alumno));
 
-        Exception thrown= assertThrows(AlumnoException.class,()-> controller.insertAlumno(alumno));
+        Exception thrown = assertThrows(AlumnoException.class, () -> controller.insertAlumno(alumno));
         assertTrue(thrown.getMessage().contains("Ya existe un alumno con dni"));
 
         verify(repository, times(1)).findByDni(alumno.getDni());
 
     }
+
     @Test
     void deleteAlumnoTest() throws AlumnoException, SQLException {
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.of(alumno));
@@ -126,24 +137,28 @@ class AlumnoControllerTest {
         var aux = controller.deletAlumno(alumno.getDni());
 
         assertAll(
-                ()->assertEquals(aux.getDni(), alumno.getDni()),
-                ()->assertEquals(aux.getName(), alumno.getName()),
-                ()->assertEquals(aux.getSurNames(), alumno.getSurNames()),
-                ()->assertEquals(aux.getEmail(), alumno.getEmail()),
-                ()->assertEquals(aux.getPhone(), alumno.getPhone()),
-                ()->assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
-                ()->assertEquals(aux.isHasLoseEvaluation(), alumno.isHasLoseEvaluation())
+                () -> assertEquals(aux.getDni(), alumno.getDni()),
+                () -> assertEquals(aux.getName(), alumno.getName()),
+                () -> assertEquals(aux.getSurNames(), alumno.getSurNames()),
+                () -> assertEquals(aux.getEmail(), alumno.getEmail()),
+                () -> assertEquals(aux.getPhone(), alumno.getPhone()),
+                () -> assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
+                () -> assertEquals(aux.isHasLoseEvaluation(), alumno.isHasLoseEvaluation())
         );
 
-        verify(repository,times(1)).findByDni(alumno.getDni());
-        verify(repository,times(1)).delete(alumno.getId());
+        verify(repository, times(1)).findByDni(alumno.getDni());
+        verify(repository, times(1)).delete(alumno.getId());
     }
 
     @Test
+<<<<<<< HEAD
     void deleteAlumnoExceptionTest() throws SQLException {
+=======
+    void deleteAlumnoExceptionTest() {
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.empty());
 
-        Exception thrown= assertThrows(AlumnoException.class,()-> controller.deletAlumno(alumno.getDni()));
+        Exception thrown = assertThrows(AlumnoException.class, () -> controller.deletAlumno(alumno.getDni()));
         assertTrue(thrown.getMessage().contains("No existe el alumno con dni"));
 
         verify(repository, times(1)).findByDni(alumno.getDni());
@@ -153,53 +168,54 @@ class AlumnoControllerTest {
     @Test
     void updateAlumnoTest() throws AlumnoException, SQLException {
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.empty());
-        when(repository.update(alumno.getId(),alumno)).thenReturn(Optional.of(alumno));
+        when(repository.update(alumno.getId(), alumno)).thenReturn(Optional.of(alumno));
 
-        var aux = controller.updateAlumno(alumno.getId(),alumno);
+        var aux = controller.updateAlumno(alumno.getId(), alumno);
 
         assertAll(
-                ()->assertEquals(aux.getDni(), alumno.getDni()),
-                ()->assertEquals(aux.getName(), alumno.getName()),
-                ()->assertEquals(aux.getSurNames(), alumno.getSurNames()),
-                ()->assertEquals(aux.getEmail(), alumno.getEmail()),
-                ()->assertEquals(aux.getPhone(), alumno.getPhone()),
-                ()->assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
-                ()->assertEquals(aux.isHasLoseEvaluation(), alumno.isHasLoseEvaluation())
+                () -> assertEquals(aux.getDni(), alumno.getDni()),
+                () -> assertEquals(aux.getName(), alumno.getName()),
+                () -> assertEquals(aux.getSurNames(), alumno.getSurNames()),
+                () -> assertEquals(aux.getEmail(), alumno.getEmail()),
+                () -> assertEquals(aux.getPhone(), alumno.getPhone()),
+                () -> assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
+                () -> assertEquals(aux.isHasLoseEvaluation(), alumno.isHasLoseEvaluation())
         );
 
-        verify(repository,times(1)).findByDni(alumno.getDni());
-        verify(repository,times(1)).update(alumno.getId(),alumno);
+        verify(repository, times(1)).findByDni(alumno.getDni());
+        verify(repository, times(1)).update(alumno.getId(), alumno);
     }
 
     @Test
     void updateAlumnoExistTest() throws AlumnoException, SQLException {
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.of(alumno));
-        when(repository.update(alumno.getId(),alumno)).thenReturn(Optional.of(alumno));
+        when(repository.update(alumno.getId(), alumno)).thenReturn(Optional.of(alumno));
 
-        var aux = controller.updateAlumno(alumno.getId(),alumno);
+        var aux = controller.updateAlumno(alumno.getId(), alumno);
 
         assertAll(
-                ()->assertEquals(aux.getDni(), alumno.getDni()),
-                ()->assertEquals(aux.getName(), alumno.getName()),
-                ()->assertEquals(aux.getSurNames(), alumno.getSurNames()),
-                ()->assertEquals(aux.getEmail(), alumno.getEmail()),
-                ()->assertEquals(aux.getPhone(), alumno.getPhone()),
-                ()->assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
-                ()->assertEquals(aux.isHasLoseEvaluation(), alumno.isHasLoseEvaluation())
+                () -> assertEquals(aux.getDni(), alumno.getDni()),
+                () -> assertEquals(aux.getName(), alumno.getName()),
+                () -> assertEquals(aux.getSurNames(), alumno.getSurNames()),
+                () -> assertEquals(aux.getEmail(), alumno.getEmail()),
+                () -> assertEquals(aux.getPhone(), alumno.getPhone()),
+                () -> assertEquals(aux.getRegistrationDate(), alumno.getRegistrationDate()),
+                () -> assertEquals(aux.isHasLoseEvaluation(), alumno.isHasLoseEvaluation())
         );
 
-        verify(repository,times(1)).findByDni(alumno.getDni());
-        verify(repository,times(1)).update(alumno.getId(),alumno);
+        verify(repository, times(1)).findByDni(alumno.getDni());
+        verify(repository, times(1)).update(alumno.getId(), alumno);
     }
 
     @Test
     void updateAlumnoExistsExceptionTest() throws AlumnoException, SQLException {
         Alumno al = new Alumno();
+        al.id(1);
         al.setDni("12345678a");
         when(repository.findByDni(alumno.getDni())).thenReturn(Optional.of(alumno));
 
 
-        Exception thrown= assertThrows(AlumnoException.class,()-> controller.updateAlumno(al.getId(), al));
+        Exception thrown = assertThrows(AlumnoException.class, () -> controller.updateAlumno(al.getId(), al));
         assertTrue(thrown.getMessage().contains("Ya existe un alumno con dni"));
 
         verify(repository, times(1)).findByDni(al.getDni());

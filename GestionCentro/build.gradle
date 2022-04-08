@@ -12,7 +12,10 @@ repositories {
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
+<<<<<<< HEAD
 
+=======
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'

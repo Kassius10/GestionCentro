@@ -1,4 +1,4 @@
-package repositories;
+package repositories.alumnos;
 
 import controllers.DataBaseManager;
 import exceptions.AlumnoException;
@@ -14,6 +14,7 @@ import java.util.Optional;
 /**
  * Repositorio de los alumnos.
  */
+<<<<<<< HEAD:GestionCentro/src/main/java/repositories/AlumnoRepository.java
 
 public class AlumnoRepository implements IRepository {
     private static AlumnoRepository instance;
@@ -36,6 +37,28 @@ public class AlumnoRepository implements IRepository {
          * Devuelve una lista con todos los paises.
          * @return Devuelve la lista de alumnos.
          */
+=======
+public class AlumnoRepository implements IAlumnoRepository {
+    private static AlumnoRepository instance;
+    private final TreeMap<Integer, Alumno> alumnos = new TreeMap<>();
+
+    public static AlumnoRepository getInstance() {
+        if (instance == null) {
+            instance = new AlumnoRepository();
+        }
+        return instance;
+    }
+
+    public int size() {
+        return alumnos.size();
+    }
+
+    /**
+     * Devuelve una lista con todos los paises.
+     *
+     * @return Devuelve la lista de alumnos.
+     */
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4:GestionCentro/src/main/java/repositories/alumnos/AlumnoRepository.java
     @Override
     public List<Alumno> findAll() throws SQLException {
         String query = "SELECT * FROM Alumno";
@@ -64,10 +87,12 @@ public class AlumnoRepository implements IRepository {
 
     /**
      * Buscar un alumno por su id
+     *
      * @param id Id del elemento
      * @return Devuelve el alumno si se encuentra en el repositorio o null si no.
      */
     @Override
+<<<<<<< HEAD:GestionCentro/src/main/java/repositories/AlumnoRepository.java
     public Optional<Alumno> findById(Integer id) throws SQLException {
         String query = "SELECT * FROM Alumno Where id = ?";
         bd.open();
@@ -86,6 +111,13 @@ public class AlumnoRepository implements IRepository {
 
             bd.close();
             return Optional.of(alumno);
+=======
+    public Optional<Alumno> findById(Integer id) throws AlumnoException {
+        var alumno = alumnos.get(id);
+        if (alumno == null) {
+            Optional.empty();
+            throw new AlumnoException("No existe el alumno con id " + id);
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4:GestionCentro/src/main/java/repositories/alumnos/AlumnoRepository.java
         }
 
         return Optional.empty();
@@ -93,10 +125,12 @@ public class AlumnoRepository implements IRepository {
 
     /**
      * Función para añadir un alumno al repositorio.
+     *
      * @param alumno Alumno que queremos añadir.
      * @return Devuelve el alumno que hemos añadido.
      */
     @Override
+<<<<<<< HEAD:GestionCentro/src/main/java/repositories/AlumnoRepository.java
     public Optional<Alumno> save(Alumno alumno) throws SQLException {
         String query = "INSERT INTO Alumno Values(null,?,?,?,?,?,?,?,?)";
         bd.open();
@@ -109,15 +143,22 @@ public class AlumnoRepository implements IRepository {
             return Optional.of(alumno);
         }
         return Optional.empty();
+=======
+    public Optional<Alumno> save(Alumno alumno) {
+        this.alumnos.put(alumno.getId(), alumno);
+        return Optional.of(alumno);
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4:GestionCentro/src/main/java/repositories/alumnos/AlumnoRepository.java
     }
 
     /**
      * Función para actualizar un alumno.
-     * @param id Id del elemento que vamos a actualizar.
+     *
+     * @param id     Id del elemento que vamos a actualizar.
      * @param alumno Alumno ya modificado que queremos guardar.
      * @return Devuelve el alumno modificado.
      */
     @Override
+<<<<<<< HEAD:GestionCentro/src/main/java/repositories/AlumnoRepository.java
     public Optional<Alumno> update(Integer id, Alumno alumno) throws  SQLException {
         this.findById(id).orElseThrow(() -> new SQLException("Error al actualizar el alumno. No se encuentra el alumno con id "+id + "."));
         String query = "UPDATE alumno SET dni = ?, nombre = ?, apellidos = ?, email = ?, telefono = ?, hasLoseEvaluation = ?, enabled = ?, fechaMatriculacion = ?" +
@@ -126,11 +167,16 @@ public class AlumnoRepository implements IRepository {
         var res = bd.update(query, alumno.getDni(), alumno.getName(), alumno.getSurNames(), alumno.getEmail(),
                 alumno.getPhone(), alumno.isHasLoseEvaluation(), alumno.isEnabled(), alumno.getRegistrationDate(), id);
         bd.close();
+=======
+    public Optional<Alumno> update(Integer id, Alumno alumno) {
+        this.alumnos.put(id, alumno);
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4:GestionCentro/src/main/java/repositories/alumnos/AlumnoRepository.java
         return Optional.of(alumno);
     }
 
     /**
      * Función para eliminar un alumno del repositorio.
+     *
      * @param id Id del elemento que vamos a eliminar.
      * @return Devuelve el alumno que hemos eliminado.
      */
@@ -146,10 +192,12 @@ public class AlumnoRepository implements IRepository {
 
     /**
      * Función para buscar un alumno por su dni en el repositorio.
+     *
      * @param dni Dni del alumno por el que buscaremos en el repositorio.
      * @return Devuelve el alumno si se encuentra o null si no.
      */
     @Override
+<<<<<<< HEAD:GestionCentro/src/main/java/repositories/AlumnoRepository.java
     public Optional<Alumno> findByDni(String dni) throws SQLException {
         String query = "SELECT * FROM Alumno Where dni = ?";
         bd.open();
@@ -168,6 +216,13 @@ public class AlumnoRepository implements IRepository {
 
             bd.close();
             return Optional.of(alumno);
+=======
+    public Optional<Alumno> findByDni(String dni) {
+        for (Alumno alumno : this.alumnos.values()) {
+            if (alumno.getDni().equals(dni)) {
+                return Optional.of(alumno);
+            }
+>>>>>>> 119b189a607e96a40c9768b3b3ff8a74c9f03af4:GestionCentro/src/main/java/repositories/alumnos/AlumnoRepository.java
         }
 
         return Optional.empty();
